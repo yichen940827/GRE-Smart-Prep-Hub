@@ -114,7 +114,7 @@ footer{border-top:2px solid var(--ink);padding:1.2rem clamp(1rem,4vw,3rem);font-
     <button class="gear" id="gear">API key</button>
   </nav>
 </header>
-
+ 
 <div class="container">
   <section id="solver" class="pane active">
     <div class="hero"><h1>Drop in the question you can’t solve.</h1><p>Paste text or a screenshot. Get a walkthrough in Chinese, a full translation and a vocabulary table.</p></div>
@@ -142,7 +142,7 @@ footer{border-top:2px solid var(--ink);padding:1.2rem clamp(1rem,4vw,3rem);font-
       <div id="result" class="out"><p class="empty">Your solution and extras will appear here.</p></div>
     </div>
   </section>
-
+ 
   <section id="notebook" class="pane"><div class="card">
     <div class="card-h"><span>Mistake notebook</span><button class="btn line" id="exp">Export backup</button></div>
     <div class="filters" id="filters">
@@ -150,7 +150,7 @@ footer{border-top:2px solid var(--ink);padding:1.2rem clamp(1rem,4vw,3rem);font-
     </div>
     <div id="mlist"></div>
   </div></section>
-
+ 
   <section id="vocab" class="pane"><div class="card">
     <div class="card-h"><span>Vocabulary deck</span><button class="btn line" id="cover">Flip all cards</button></div>
     <div id="dbwarn"></div>
@@ -158,7 +158,7 @@ footer{border-top:2px solid var(--ink);padding:1.2rem clamp(1rem,4vw,3rem);font-
     <div class="vgrid" id="vgrid"></div>
   </div></section>
 </div>
-
+ 
 <div class="modal" id="modal"><div>
   <h3 id="mTitle" style="font-family:var(--display);font-size:1.4rem;margin-bottom:.6rem">API key</h3>
   <p style="font-size:.9rem;color:var(--mute);margin-bottom:.8rem">Your key stays in this browser and goes straight to Google. Don’t use it on a shared computer. <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Get a free key</a></p>
@@ -166,7 +166,7 @@ footer{border-top:2px solid var(--ink);padding:1.2rem clamp(1rem,4vw,3rem);font-
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:1rem"><button class="btn line" id="keyCancel">Cancel</button><button class="btn gold" id="keySave">Save</button></div>
 </div></div>
 <footer><span>GRE Master Pro</span><span>Analyses are AI-generated. Double-check the answers.</span></footer>
-
+ 
 <script>
 /* ===== Config ===== */
 const CONFIG = {
@@ -221,7 +221,7 @@ const SCHEMA = {
   },
   required: ['scratch_work', 'answer', 'parts', 'translation', 'vocab']
 };
-
+ 
 /* ===== 工具 ===== */
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -229,7 +229,7 @@ const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '
 const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
 const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch { alert('Browser storage is full or disabled'); } };
 let mistakes = load('GRE_MISTAKES_V2', []), myVocab = load('GRE_MYVOCAB', []), mason = [], dbMap = new Map(), lastAi = null, lastMeta = null, imgData = null, filter = 'ALL';
-
+ 
 /* ===== 分頁 / 設定 ===== */
 document.querySelectorAll('.tab').forEach(b => b.onclick = () => {
   document.querySelectorAll('.tab,.pane').forEach(e => e.classList.remove('active'));
@@ -244,7 +244,7 @@ $('gear').onclick = openModal;
 $('keyCancel').onclick = () => $('modal').style.display = 'none';
 $('keySave').onclick = () => { const k = $('keyIn').value.trim(); if (!k) return; localStorage.setItem(keyName(curModel().provider), k); $('modal').style.display = 'none'; };
 if (CONFIG.PROXY_URL) $('gear').style.display = 'none';
-
+ 
 /* ===== 圖片 ===== */
 function loadImg(f) {
   const fr = new FileReader();
@@ -265,13 +265,13 @@ $('drop').onclick = () => $('file').click();
 $('file').onchange = e => e.target.files[0] && loadImg(e.target.files[0]);
 $('rmImg').onclick = () => { imgData = null; $('prevWrap').style.display = 'none'; $('file').value = ''; updateHint(); };
 document.addEventListener('paste', e => { const f = [...(e.clipboardData?.files || [])].find(f => f.type.startsWith('image/')); if (f) loadImg(f); });
-
+ 
 /* ===== 多模型呼叫 ===== */
 const toGemini = s => Array.isArray(s) ? s.map(toGemini) : (s && typeof s === 'object')
   ? Object.fromEntries(Object.entries(s).filter(([k]) => k !== 'description').map(([k, v]) => [k, k === 'type' ? String(v).toUpperCase() : toGemini(v)])) : s;
 const curModel = () => MODELS.find(m => m.id === $('model').value) || MODELS[0];
 const keyName = p => 'GRE_KEY_' + p;
-
+ 
 const ADAPTERS = {
   gemini: {
     url: m => `https://generativelanguage.googleapis.com/v1beta/models/${m.id}:generateContent`,
@@ -289,7 +289,7 @@ const ADAPTERS = {
     }
   }
 };
-
+ 
 function normalize(a) {
   const s = v => Array.isArray(v) ? v.map(s).join(', ') : v == null ? '' : typeof v === 'string' ? v : JSON.stringify(v);
   const arr = v => Array.isArray(v) ? v : [];
@@ -299,7 +299,7 @@ function normalize(a) {
     vocab: arr(a.vocab).filter(v => v?.word).map(v => ({ word: s(v.word), pos: s(v.pos), meaning_zh: s(v.meaning_zh), synonyms: arr(v.synonyms).map(s) }))
   };
 }
-
+ 
 async function callAI(m, qType, text) {
   const A = ADAPTERS[m.provider], body = A.body(m, qType, text);
   let url, headers = { 'content-type': 'application/json' };
@@ -322,7 +322,7 @@ async function callAI(m, qType, text) {
   if (!out.answer) throw new Error('The model gave no answer. Retry or switch to a stronger model.');
   return out;
 }
-
+ 
 /* ===== Model picker / hints ===== */
 function updateHint() {
   const m = curModel(), msgs = [];
@@ -339,7 +339,7 @@ function updateHint() {
   $('qType').onchange = updateHint;
   updateHint();
 })();
-
+ 
 $('go').onclick = async () => {
   const qType = $('qType').value, q = $('q').value.trim(), opts = $('opts').value.trim(), mine = $('mine').value.trim();
   if (!q && !imgData) return alert('Paste a question or upload a screenshot first.');
@@ -356,7 +356,7 @@ $('go').onclick = async () => {
     $('result').innerHTML = `<div class="err">${esc(e.message)}</div>`;
   } finally { $('go').disabled = false; }
 };
-
+ 
 /* ===== Render analysis ===== */
 function vocabRow(v) {
   const m = dbMap.get(String(v.word).toLowerCase());
@@ -405,7 +405,7 @@ function addVocab(p, btn) {
   if (!myVocab.some(x => x.word.toLowerCase() === v.word.toLowerCase())) { myVocab.unshift(v); save('GRE_MYVOCAB', myVocab); renderVocab(); }
   btn.remove();
 }
-
+ 
 /* ===== 錯題本 ===== */
 function renderMistakes() {
   const list = mistakes.filter(m => filter === 'ALL' || m.type === filter);
@@ -428,7 +428,7 @@ $('exp').onclick = () => {
   a.href = URL.createObjectURL(new Blob([JSON.stringify({ mistakes, myVocab }, null, 2)], { type: 'application/json' }));
   a.download = 'GRE_backup.json'; a.click();
 };
-
+ 
 /* ===== Vocabulary deck ===== */
 let covered = false;
 function renderVocab() {
@@ -442,7 +442,7 @@ function renderVocab() {
 }
 $('vs').oninput = renderVocab;
 $('cover').onclick = () => { covered = !covered; renderVocab(); };
-
+ 
 /* ===== Mason deck loading (tries several paths, shows exactly what failed) ===== */
 function normDb(raw) {
   const list = Array.isArray(raw) ? raw : Array.isArray(raw?.words) ? raw.words
@@ -488,7 +488,7 @@ async function importDb(f) {
     $('dbwarn').innerHTML = `<div class="warn">Loaded ${db.length} words from ${esc(f.name)}.</div>`;
   } catch (e) { alert('Could not read that file: ' + e.message); }
 }
-
+ 
 /* ===== Init ===== */
 (async () => {
   const { db, tried } = await loadDb();
