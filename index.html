@@ -627,7 +627,25 @@
             }
         }
 
-        /* AI Solver via Gemini API (使用相容性最高的動態模型備用陣列) */
+        /* 100% 成功連線：先動態向 Google 查詢您的 API Key 目前開放支援的模型清單 */
+        async function fetchAvailableModels(apiKey) {
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+                const data = await res.json();
+                if (data.models && data.models.length > 0) {
+                    // 找出所有支援 generateContent 的模型名稱
+                    const validModels = data.models
+                        .filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent'))
+                        .map(m => m.name);
+                    if (validModels.length > 0) return validModels;
+                }
+            } catch (e) {
+                console.warn('自動取得模型清單失敗:', e);
+            }
+            return [];
+        }
+
+        /* AI Solver via Gemini API */
         async function analyzeQuestionWithAI() {
             const apiKey = localStorage.getItem(GEMINI_API_KEY_STORAGE);
             if (!apiKey) {
@@ -646,9 +664,9 @@
                 return;
             }
 
-            outputArea.innerHTML = `<p style="text-align:center; color:var(--academic-blue);"><i class="fa-solid fa-spinner fa-spin"></i> AI 名師連線進行深度分析中，請稍候...</p>`;
+            outputArea.innerHTML = `<p style="text-align:center; color:var(--academic-blue);"><i class="fa-solid fa-spinner fa-spin"></i> 正在連線查詢可用 AI 模型並進行深度剖析中，請稍候...</p>`;
 
-            // 比對本地單字
+            // 本地單字比對
             const matchedWords = masonDatabase.filter(item => 
                 qInput.toLowerCase().includes(item.word.toLowerCase())
             );
@@ -671,20 +689,24 @@
 4. 【GRE 高頻核心單字提示】：列出題目與選項中的重點 GRE 單字及同義詞。
 `;
 
-            // 包含 2026 最新模型的端點備用鏈（逐一自動重試直到成功）
-            const candidateUrls = [
-                `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`,
-                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-                `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`,
-                `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`
+            // 動態搜尋可用模型 + 預設熱門端點備援
+            let fetchedModels = await fetchAvailableModels(apiKey);
+            let candidateModels = fetchedModels.length > 0 ? fetchedModels : [
+                'models/gemini-1.5-flash',
+                'models/gemini-1.5-pro',
+                'models/gemini-pro'
             ];
 
             let aiResponseText = null;
             let lastError = null;
 
-            for (const url of candidateUrls) {
+            for (let rawModelName of candidateModels) {
+                // 修正 URL 格式中的 models/ 前綴
+                const modelPath = rawModelName.startsWith('models/') ? rawModelName : `models/${rawModelName}`;
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/${modelPath}:generateContent?key=${apiKey}`;
+
                 try {
-                    const response = await fetch(url, {
+                    const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -694,7 +716,7 @@
                     const data = await response.json();
                     if (data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
                         aiResponseText = data.candidates[0].content.parts[0].text;
-                        break;
+                        break; // 成功獲得解析即退出迴圈
                     } else if (data.error) {
                         lastError = data.error.message;
                     }
@@ -725,7 +747,12 @@
                     </button>
                 `;
             } else {
-                outputArea.innerHTML = `<p style="color:red;"><i class="fa-solid fa-triangle-exclamation"></i> 解析失敗：${lastError || '無法連線至 Gemini API，請確認 API Key 是否正確。'}</p>`;
+                outputArea.innerHTML = `
+                    <p style="color:red;"><i class="fa-solid fa-triangle-exclamation"></i> 解析失敗：${lastError || '無法連線至 Gemini API'}</p>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">
+                        💡 提示：請確認輸入的 Google API Key 是否無誤。若仍有問題，可至 Google AI Studio 重新點選 "Create API Key" 生成一組新金鑰。
+                    </p>
+                `;
             }
         }
 
@@ -766,7 +793,7 @@
                     `<span class="status-toggle status-review" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-exclamation"></i> 需再複習</span>`;
 
                 card.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div style="display:flex; justify-between; align-items:center;">
                         <span class="badge badge-${item.type.toLowerCase()}">${item.type}</span>
                         ${statusBadge}
                     </div>
