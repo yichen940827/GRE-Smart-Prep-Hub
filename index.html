@@ -627,7 +627,7 @@
             }
         }
 
-        /* AI Solver via Gemini API (使用 2026 最新官方預設端點 gemini-2.0-flash) */
+        /* AI Solver via Gemini API (使用相容性最高的動態模型備用陣列) */
         async function analyzeQuestionWithAI() {
             const apiKey = localStorage.getItem(GEMINI_API_KEY_STORAGE);
             if (!apiKey) {
@@ -646,7 +646,7 @@
                 return;
             }
 
-            outputArea.innerHTML = `<p style="text-align:center; color:var(--academic-blue);"><i class="fa-solid fa-spinner fa-spin"></i> AI 名師正在連線 Gemini 2.0 進行深度分析，請稍候...</p>`;
+            outputArea.innerHTML = `<p style="text-align:center; color:var(--academic-blue);"><i class="fa-solid fa-spinner fa-spin"></i> AI 名師連線進行深度分析中，請稍候...</p>`;
 
             // 比對本地單字
             const matchedWords = masonDatabase.filter(item => 
@@ -671,11 +671,12 @@
 4. 【GRE 高頻核心單字提示】：列出題目與選項中的重點 GRE 單字及同義詞。
 `;
 
-            // 採用最新的預設模型 fallback 清單
+            // 包含 2026 最新模型的端點備用鏈（逐一自動重試直到成功）
             const candidateUrls = [
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`,
                 `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
-                `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`,
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`
             ];
 
             let aiResponseText = null;
@@ -724,7 +725,7 @@
                     </button>
                 `;
             } else {
-                outputArea.innerHTML = `<p style="color:red;"><i class="fa-solid fa-triangle-exclamation"></i> 解析失敗：${lastError || '無法連線至 Gemini API，請確認 API Key 權限與網路通暢。'}</p>`;
+                outputArea.innerHTML = `<p style="color:red;"><i class="fa-solid fa-triangle-exclamation"></i> 解析失敗：${lastError || '無法連線至 Gemini API，請確認 API Key 是否正確。'}</p>`;
             }
         }
 
