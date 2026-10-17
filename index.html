@@ -1,893 +1,415 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRE 備考神幫手 - GRE Master Pro (AI 驅動版)</title>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-pink-light: #FFEFF2;
-            --pink-accent: #FFB6C1;
-            --pink-dark: #FF8DA1;
-            --academic-blue: #1A365D;
-            --blue-light: #2A4365;
-            --mustard-yellow: #ECC94B;
-            --yellow-hover: #D69E2E;
-            --math-purple: #805AD5;
-            --purple-light: #9F7AEA;
-            --purple-bg: #F3E8FF;
-            --text-main: #2D3748;
-            --text-muted: #718096;
-            --bg-white: #FFFFFF;
-            --card-shadow: 0 8px 20px rgba(26, 54, 93, 0.08);
-            --card-shadow-hover: 0 12px 28px rgba(26, 54, 93, 0.15);
-            --border-radius: 16px;
-        }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-        body {
-            background-color: var(--bg-pink-light);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        /* Header / Navbar Style */
-        header {
-            background-color: var(--academic-blue);
-            color: var(--bg-white);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .logo-area i {
-            font-size: 1.8rem;
-            color: var(--mustard-yellow);
-        }
-        .logo-title {
-            font-family: 'Fredoka', cursive, 'Noto Sans TC';
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: #FFFFFF;
-        }
-        .logo-subtitle {
-            font-size: 0.8rem;
-            background-color: var(--mustard-yellow);
-            color: var(--academic-blue);
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: 700;
-            margin-left: 6px;
-        }
-        /* Navigation Tabs */
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .nav-tab {
-            background: rgba(255, 255, 255, 0.1);
-            color: #FFFFFF;
-            border: 2px solid transparent;
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        .nav-tab:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        .nav-tab.active {
-            background-color: var(--mustard-yellow);
-            color: var(--academic-blue);
-            border-color: #FFFFFF;
-            box-shadow: 0 4px 10px rgba(236, 201, 75, 0.4);
-        }
-        .btn-settings {
-            background-color: rgba(255,255,255,0.2);
-            color: #FFF;
-            border: 1px solid var(--mustard-yellow);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 700;
-            margin-left: 10px;
-        }
-        /* Container & Layout */
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-            flex-grow: 1;
-            width: 100%;
-        }
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        /* Section Cards */
-        .card {
-            background-color: var(--bg-white);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 2rem;
-            border: 2px solid rgba(255, 182, 193, 0.3);
-            transition: all 0.3s ease;
-        }
-        .card:hover {
-            box-shadow: var(--card-shadow-hover);
-        }
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 2px solid var(--bg-pink-light);
-        }
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--academic-blue);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .card-title i {
-            color: var(--math-purple);
-        }
-        /* Form Controls */
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-        label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--academic-blue);
-        }
-        select, input[type="text"], input[type="password"], textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 2px solid #E2E8F0;
-            border-radius: 12px;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            background-color: #FAFAFA;
-        }
-        select:focus, input:focus, textarea:focus {
-            border-color: var(--math-purple);
-            background-color: #FFFFFF;
-        }
-        textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-        .btn {
-            background-color: var(--academic-blue);
-            color: #FFFFFF;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px rgba(26, 54, 93, 0.2);
-        }
-        .btn:hover {
-            background-color: var(--blue-light);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(26, 54, 93, 0.25);
-        }
-        .btn-yellow {
-            background-color: var(--mustard-yellow);
-            color: var(--academic-blue);
-        }
-        .btn-yellow:hover {
-            background-color: var(--yellow-hover);
-        }
-        .btn-purple {
-            background-color: var(--math-purple);
-            color: #FFFFFF;
-        }
-        .btn-purple:hover {
-            background-color: var(--purple-light);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--academic-blue);
-            color: var(--academic-blue);
-            box-shadow: none;
-        }
-        .btn-outline:hover {
-            background-color: var(--academic-blue);
-            color: #FFFFFF;
-        }
-        /* Solver Layout */
-        .solver-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-        @media (max-width: 900px) {
-            .solver-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        .output-box {
-            background-color: #F8FAF2;
-            border-radius: 12px;
-            padding: 1.2rem;
-            border: 1px dashed var(--math-purple);
-            margin-top: 1rem;
-            line-height: 1.6;
-        }
-        .badge {
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: inline-block;
-        }
-        .badge-tc { background-color: var(--pink-accent); color: var(--academic-blue); }
-        .badge-rc { background-color: var(--mustard-yellow); color: var(--academic-blue); }
-        .badge-quant { background-color: var(--purple-bg); color: var(--math-purple); }
-
-        /* Mistake Notebook Table & Cards */
-        .filter-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .filter-chip {
-            padding: 0.5rem 1.2rem;
-            border-radius: 20px;
-            background-color: var(--bg-white);
-            border: 2px solid #E2E8F0;
-            cursor: pointer;
-            font-weight: 700;
-            color: var(--text-muted);
-            transition: all 0.2s;
-        }
-        .filter-chip.active {
-            background-color: var(--academic-blue);
-            color: #FFFFFF;
-            border-color: var(--academic-blue);
-        }
-        .mistake-card {
-            background-color: var(--bg-white);
-            border-left: 6px solid var(--academic-blue);
-            border-radius: 12px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .mistake-card.quant { border-left-color: var(--math-purple); }
-        .mistake-card.rc { border-left-color: var(--mustard-yellow); }
-        .status-toggle {
-            cursor: pointer;
-            user-select: none;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .status-review { background-color: #FED7D7; color: #9B2C2C; }
-        .status-mastered { background-color: #C6F6D5; color: #22543D; }
-
-        /* Vocabulary Deck Flip Cards */
-        .vocab-controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .vocab-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1.5rem;
-        }
-        .flip-card {
-            background-color: transparent;
-            height: 220px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-            box-shadow: var(--card-shadow);
-            border-radius: 16px;
-        }
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 16px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid var(--pink-accent);
-        }
-        .flip-card-front {
-            background-color: #FFFFFF;
-            color: var(--academic-blue);
-        }
-        .flip-card-back {
-            background-color: var(--academic-blue);
-            color: #FFFFFF;
-            transform: rotateY(180deg);
-            border-color: var(--academic-blue);
-        }
-        .vocab-word {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--academic-blue);
-        }
-        .vocab-phonetic {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-        .vocab-def {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--mustard-yellow);
-        }
-        .vocab-synonyms {
-            font-size: 0.85rem;
-            opacity: 0.9;
-        }
-
-        /* Modal Style */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal {
-            background: #FFF;
-            padding: 2rem;
-            border-radius: 16px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            background-color: var(--academic-blue);
-            color: #FFFFFF;
-            margin-top: auto;
-            font-size: 0.9rem;
-        }
-        footer span {
-            color: var(--pink-accent);
-            font-weight: 700;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GRE Master Pro</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#FFEFF2;--pink2:#FFB6C1;--navy:#1A365D;--navy2:#2A4365;--gold:#ECC94B;--gold2:#D69E2E;--purple:#805AD5;--pbg:#F3E8FF;--text:#2D3748;--mute:#718096;--r:16px}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Noto Sans TC',sans-serif}
+body{background:var(--pink);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+header{background:var(--navy);color:#fff;padding:.9rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+.logo{font-family:'Fredoka',sans-serif;font-size:1.4rem;font-weight:700;display:flex;align-items:center;gap:10px}
+.logo i{color:var(--gold)}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+.tab,.gear{background:rgba(255,255,255,.12);color:#fff;border:2px solid transparent;padding:.5rem 1rem;border-radius:20px;cursor:pointer;font-weight:700;font-size:.95rem}
+.tab.active{background:var(--gold);color:var(--navy)}
+:focus-visible{outline:3px solid var(--purple);outline-offset:2px}
+.container{max-width:1200px;margin:1.5rem auto;padding:0 1.2rem;width:100%;flex-grow:1}
+.pane{display:none}.pane.active{display:block}
+.card{background:#fff;border-radius:var(--r);padding:1.6rem;box-shadow:0 8px 20px rgba(26,54,93,.08);border:2px solid rgba(255,182,193,.3)}
+.card-h{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:1.2rem;padding-bottom:.7rem;border-bottom:2px solid var(--pink);font-size:1.2rem;font-weight:700;color:var(--navy)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+label{display:block;font-weight:700;margin:.9rem 0 .4rem;color:var(--navy)}
+select,input[type=text],input[type=password],textarea{width:100%;padding:.7rem .9rem;border:2px solid #E2E8F0;border-radius:12px;font-size:1rem;background:#FAFAFA}
+textarea{min-height:130px;resize:vertical}
+.btn{background:var(--navy);color:#fff;border:none;padding:.7rem 1.3rem;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--navy2)}.btn:disabled{opacity:.5;cursor:wait}
+.btn.gold{background:var(--gold);color:var(--navy)}.btn.gold:hover{background:var(--gold2)}
+.btn.purple{background:var(--purple)}.btn.line{background:none;color:var(--navy);border:2px solid var(--navy)}
+.btn.sm{padding:.3rem .7rem;font-size:.85rem}
+.drop{border:2px dashed var(--purple);border-radius:12px;padding:.8rem;text-align:center;color:var(--mute);cursor:pointer;font-size:.95rem}
+#prevWrap{display:none;margin-top:.6rem;position:relative}
+#prev{max-width:100%;max-height:200px;border-radius:10px;border:1px solid #E2E8F0}
+.out{background:#FBFAFF;border:1px dashed var(--purple);border-radius:12px;padding:1.1rem;min-height:300px;line-height:1.7}
+.sec{margin-bottom:1rem}
+.sec h4{color:var(--navy);font-size:1rem;margin-bottom:.3rem}
+.ans{background:var(--navy);color:#fff;border-radius:12px;padding:.8rem 1rem;font-weight:700;font-size:1.1rem}
+.ans small{color:var(--gold);display:block;font-size:.8rem}
+.opt{border-left:5px solid #CBD5E0;padding:.4rem .7rem;margin:.4rem 0;background:#fff;border-radius:0 8px 8px 0}
+.opt.ok{border-color:#38A169}.opt.no{border-color:#E53E3E}
+.chip{display:inline-block;background:var(--pbg);color:var(--purple);border-radius:12px;padding:.35rem .7rem;margin:3px 3px 3px 0;font-size:.9rem}
+.chip.in{background:#C6F6D5;color:#22543D}
+.hint{font-size:.85rem;color:#744210;margin-top:.3rem}
+.warn{background:#FEFCBF;border-radius:10px;padding:.6rem .9rem;margin-bottom:1rem;color:#744210}
+.err{background:#FED7D7;color:#9B2C2C;border-radius:10px;padding:.8rem 1rem}
+.filters{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
+.chipbtn{padding:.4rem 1rem;border-radius:20px;border:2px solid #E2E8F0;background:#fff;cursor:pointer;font-weight:700;color:var(--mute)}
+.chipbtn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.mc{border-left:6px solid var(--navy);background:#fff;border-radius:12px;padding:1rem;margin-bottom:1rem;box-shadow:0 4px 10px rgba(0,0,0,.05)}
+.mc.Quant{border-color:var(--purple)}.mc.RC{border-color:var(--gold)}
+.mc .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.st{cursor:pointer;border:none;padding:4px 12px;border-radius:12px;font-weight:700}
+.st.REVIEW{background:#FED7D7;color:#9B2C2C}.st.MASTERED{background:#C6F6D5;color:#22543D}
+details{margin-top:.6rem}summary{cursor:pointer;font-weight:700;color:var(--purple)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.2rem;margin-top:1rem}
+.flip{height:190px;perspective:900px;cursor:pointer}
+.fi{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .fi{transform:rotateY(180deg)}
+.fr,.bk{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;padding:1rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:2px solid var(--pink2)}
+.fr{background:#fff}.bk{background:var(--navy);color:#fff;transform:rotateY(180deg);border-color:var(--navy);font-size:.9rem;gap:6px}
+.w{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:800;color:var(--navy)}
+.d{color:var(--gold);font-weight:700;font-size:1.1rem}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;justify-content:center;align-items:center;z-index:1000}
+.modal>div{background:#fff;padding:1.8rem;border-radius:16px;max-width:480px;width:90%}
+footer{text-align:center;padding:1rem;background:var(--navy);color:#fff;font-size:.85rem}
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo-area">
-            <i class="fa-solid fa-graduation-cap"></i>
-            <div class="logo-title">GRE Master Pro <span class="logo-subtitle">AI 驅動版</span></div>
-        </div>
-        <nav>
-            <button class="nav-tab active" onclick="switchTab('solverTab', event)">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> 即時解題與翻譯
-            </button>
-            <button class="nav-tab" onclick="switchTab('notebookTab', event)">
-                <i class="fa-solid fa-book-bookmark"></i> 錯題本專區
-            </button>
-            <button class="nav-tab" onclick="switchTab('vocabTab', event)">
-                <i class="fa-solid fa-layer-group"></i> 個人單字書
-            </button>
-            <button class="btn-settings" onclick="openApiModal()">
-                <i class="fa-solid fa-key"></i> 設定 API Key
-            </button>
-        </nav>
-    </header>
+<header>
+  <div class="logo"><i class="fa-solid fa-graduation-cap"></i>GRE Master Pro</div>
+  <nav>
+    <button class="tab active" data-tab="solver"><i class="fa-solid fa-wand-magic-sparkles"></i> 解題</button>
+    <button class="tab" data-tab="notebook"><i class="fa-solid fa-book-bookmark"></i> 錯題本</button>
+    <button class="tab" data-tab="vocab"><i class="fa-solid fa-layer-group"></i> 單字書</button>
+    <button class="gear" id="gear" title="設定 API Key"><i class="fa-solid fa-key"></i></button>
+  </nav>
+</header>
 
-    <!-- Main Container -->
-    <div class="container">
-        <!-- TAB 1: Real-time Solver -->
-        <div id="solverTab" class="tab-content active">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <i class="fa-solid fa-brain"></i> GRE 題目即時深度解析與自動比對
-                    </div>
-                    <span class="badge badge-tc">Gemini AI 助教連線中</span>
-                </div>
-                <div class="solver-grid">
-                    <!-- Left Column: Input -->
-                    <div>
-                        <div class="form-group">
-                            <label for="questionType"><i class="fa-solid fa-list-check"></i> 選擇考題類型</label>
-                            <select id="questionType">
-                                <option value="TC">填空題 (Text Completion / Sentence Equivalence)</option>
-                                <option value="RC">閱讀理解 (Reading Comprehension)</option>
-                                <option value="Quant">數量推理 (Quantitative Reasoning)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="questionInput"><i class="fa-solid fa-pen-to-square"></i> 貼上題目內容 (英文)</label>
-                            <textarea id="questionInput" placeholder="例如：The precursor of the modern violin, the viol, was an instrument of remarkable clarity and warmth..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="optionsInput"><i class="fa-solid fa-bars-staggered"></i> 選項 (選填)</label>
-                            <input type="text" id="optionsInput" placeholder="A) ubiquitous B) ephemeral C) equivocal D) taciturn">
-                        </div>
-                        <button class="btn btn-yellow" onclick="analyzeQuestionWithAI()">
-                            <i class="fa-solid fa-bolt"></i> 開始 AI 深度解析
-                        </button>
-                    </div>
-                    <!-- Right Column: Output -->
-                    <div>
-                        <label><i class="fa-solid fa-square-poll-vertical"></i> 分析結果與考點自動匹配</label>
-                        <div id="analysisResult" class="output-box" style="min-height: 260px;">
-                            <p style="color: var(--text-muted); text-align: center; margin-top: 80px;">
-                                請先點擊右上角「設定 API Key」，輸入題目後點擊「開始 AI 深度解析」。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 2: Mistake Notebook -->
-        <div id="notebookTab" class="tab-content">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <i class="fa-solid fa-book-open-reader"></i> 我的個人錯題本 (Mistake Notebook)
-                    </div>
-                    <button class="btn btn-purple" onclick="exportNotebook()">
-                        <i class="fa-solid fa-download"></i> 備份錯題
-                    </button>
-                </div>
-                <!-- Filter Tabs -->
-                <div class="filter-bar">
-                    <div class="filter-chip active" onclick="filterMistakes('ALL', this)">全部題目</div>
-                    <div class="filter-chip" onclick="filterMistakes('TC', this)">填空 (TC/SE)</div>
-                    <div class="filter-chip" onclick="filterMistakes('RC', this)">閱讀 (RC)</div>
-                    <div class="filter-chip" onclick="filterMistakes('Quant', this)">數學 (Quant)</div>
-                </div>
-                <!-- Mistakes List Area -->
-                <div id="mistakesContainer"></div>
-            </div>
-        </div>
-
-        <!-- TAB 3: Vocabulary Deck -->
-        <div id="vocabTab" class="tab-content">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <i class="fa-solid fa-cards-blank"></i> Mason 2000+ 核心單字與同義詞 Deck
-                    </div>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-outline" onclick="toggleFlashcardMode()">
-                            <i class="fa-solid fa-eye-slash"></i> 遮蓋測驗模式
-                        </button>
-                    </div>
-                </div>
-                <div class="vocab-controls">
-                    <input type="text" id="vocabSearch" placeholder="搜尋單字、中文意義或字根..." oninput="searchVocab()">
-                </div>
-                <div id="vocabGrid" class="vocab-grid"></div>
-            </div>
-        </div>
+<div class="container">
+  <section id="solver" class="pane active"><div class="card">
+    <div class="card-h"><span><i class="fa-solid fa-brain"></i> 貼上題目，取得完整解析</span></div>
+    <div class="grid">
+      <div>
+        <label for="model">AI 模型</label>
+        <select id="model"></select><div class="hint" id="hint"></div>
+        <label for="qType">題型</label>
+        <select id="qType">
+          <option value="TC">填空 (Text Completion / Sentence Equivalence)</option>
+          <option value="RC">閱讀 (Reading Comprehension)</option>
+          <option value="Quant">數學 (Quantitative Reasoning)</option>
+        </select>
+        <label for="q">題目（文字或截圖擇一即可）</label>
+        <textarea id="q" placeholder="貼上題目全文；閱讀題請連文章一起貼"></textarea>
+        <div class="drop" id="drop"><i class="fa-regular fa-image"></i> 點擊上傳截圖，或直接 Ctrl/⌘+V 貼上</div>
+        <input type="file" id="file" accept="image/*" hidden>
+        <div id="prevWrap"><img id="prev" alt="題目截圖"> <button class="btn line sm" id="rmImg">移除</button></div>
+        <label for="opts">選項（選填）</label>
+        <input type="text" id="opts" placeholder="A) ubiquitous  B) ephemeral  C) equivocal ...">
+        <label for="mine">我的答案（選填，AI 會診斷你為什麼錯）</label>
+        <input type="text" id="mine" placeholder="例如：B，因為我覺得空格是負面語氣">
+        <div style="margin-top:1.1rem"><button class="btn gold" id="go"><i class="fa-solid fa-bolt"></i> 開始解析</button></div>
+      </div>
+      <div id="result" class="out"><p style="color:var(--mute);text-align:center;margin-top:100px">解析結果會顯示在這裡</p></div>
     </div>
+  </div></section>
 
-    <!-- API Key Modal -->
-    <div id="apiModal" class="modal-overlay">
-        <div class="modal">
-            <h3 style="color: var(--academic-blue); margin-bottom: 1rem;"><i class="fa-solid fa-key"></i> 設定 Google Gemini API Key</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
-                請輸入您的 Gemini API Key（金鑰將安全地儲存於您的瀏覽器中，不會上傳至任何伺服器）。若無金鑰，可至 Google AI Studio 免費申請。
-            </p>
-            <div class="form-group">
-                <input type="password" id="apiKeyInput" placeholder="貼上 AIzaSy... 開頭的 API Key">
-            </div>
-            <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                <button class="btn btn-outline" onclick="closeApiModal()">取消</button>
-                <button class="btn btn-yellow" onclick="saveApiKey()">儲存設定</button>
-            </div>
-        </div>
+  <section id="notebook" class="pane"><div class="card">
+    <div class="card-h"><span><i class="fa-solid fa-book-open-reader"></i> 我的錯題本</span><button class="btn purple" id="exp"><i class="fa-solid fa-download"></i> 備份</button></div>
+    <div class="filters" id="filters">
+      <button class="chipbtn active" data-f="ALL">全部</button><button class="chipbtn" data-f="TC">填空</button><button class="chipbtn" data-f="RC">閱讀</button><button class="chipbtn" data-f="Quant">數學</button>
     </div>
+    <div id="mlist"></div>
+  </div></section>
 
-    <!-- Footer -->
-    <footer>
-        <p>GRE Master Pro &copy; 2026 | 專為 GRE 學員打造的 AI 智慧備考工具 <span>Bright Academic Edition</span></p>
-    </footer>
+  <section id="vocab" class="pane"><div class="card">
+    <div class="card-h"><span><i class="fa-solid fa-layer-group"></i> 單字書（Mason 字庫 + 我加入的字）</span><button class="btn line" id="cover"><i class="fa-solid fa-eye-slash"></i> 翻面測驗</button></div>
+    <div id="dbwarn"></div>
+    <input type="text" id="vs" placeholder="搜尋單字、中文或字根">
+    <div class="vgrid" id="vgrid"></div>
+  </div></section>
+</div>
 
-    <!-- JavaScript Application Logic -->
-    <script>
-        const MISTAKES_KEY = 'GRE_MASTER_MISTAKES';
-        const GEMINI_API_KEY_STORAGE = 'GRE_MASTER_GEMINI_KEY';
-        
-        let masonDatabase = [];
-        let mistakesData = JSON.parse(localStorage.getItem(MISTAKES_KEY)) || [];
-        let lastAiAnalysisResult = null;
+<div class="modal" id="modal"><div>
+  <h3 style="color:var(--navy);margin-bottom:.7rem"><i class="fa-solid fa-key"></i> <span id="mTitle">API Key</span></h3>
+  <p style="font-size:.9rem;color:var(--mute);margin-bottom:.8rem">Key 只存在你的瀏覽器，並直接送往 Google。請勿在公用電腦使用。</p>
+  <input type="password" id="keyIn" placeholder="貼上 API Key">
+  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:1rem"><button class="btn line" id="keyCancel">取消</button><button class="btn gold" id="keySave">儲存</button></div>
+</div></div>
+<footer>GRE Master Pro · 解析由 AI 產生，答案請自行核對</footer>
 
-        const defaultMasonData = [
-            { word: "equivocal", phonetic: "/ɪˈkwɪv.ə.kəl/", def: "模稜兩可的、明確度低的", root: "equi (相同) + voc (聲音)", synonyms: ["ambiguous", "ambivalent"] },
-            { word: "ephemeral", phonetic: "/ɪˈfem.ər.əl/", def: "轉瞬即逝的、短暫的", root: "epi (在...上) + hemer (日)", synonyms: ["transitory", "transient", "fleeting"] },
-            { word: "taciturn", phonetic: "/ˈtæs.ə.tɜːn/", def: "沉默寡言的", root: "tac (沉默)", synonyms: ["reserved", "laconic", "reticent"] },
-            { word: "ubiquitous", phonetic: "/juːˈbɪk.wə.təs/", def: "無所不在的", root: "ubi (地方)", synonyms: ["omnipresent", "pervasive"] },
-            { word: "mitigate", phonetic: "/ˈmɪt.ɪ.ɡeɪt/", def: "緩和、減輕", root: "mitis (柔和)", synonyms: ["allay", "assuage", "mollify"] }
-        ];
+<script>
+/* ===== 設定 ===== */
+const CONFIG = {
+  PROXY_URL: '', // 部署 worker.js 後填入；留空則使用者自備各家 Key
+  PROXY_PROVIDERS: ['gemini', 'claude'], // 有 PROXY_URL 時，只顯示 Worker 已設定 Secret 的供應商
+  DB_URL: './assets/GRE_Mason_Full_Database_2.json'
+};
+const PROVIDERS = {
+  gemini: { name: 'Google Gemini', help: '到 aistudio.google.com 申請' },
+  claude: { name: 'Anthropic Claude', help: '到 console.anthropic.com 申請' }
+};
+// 模型 ID 會更新，請以各家官方清單為準；tier: top=推理強、low=數學較容易算錯
+const MODELS = [
+  { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash（快、便宜）', provider: 'gemini', vision: true, tier: 'mid' },
+  { id: 'gemini-2.5-pro', label: 'Gemini 2.5 Pro（較準）', provider: 'gemini', vision: true, tier: 'top' },
+  { id: 'claude-sonnet-5-5', label: 'Claude Sonnet 5.5', provider: 'claude', vision: true, tier: 'top' },
+  { id: 'claude-opus-5-5', label: 'Claude Opus 5.5（最準、最貴）', provider: 'claude', vision: true, tier: 'top' }
+];
+const SYSTEM = `你是資深 GRE 名師。學生會貼上一道 GRE 題目（可能是文字或截圖），請用繁體中文給出可靠、精確的解析。
+規則：
+- 先在 scratch_work 自行完整推導（Quant 必須列出計算並驗算；填空先找邏輯線索詞與語意方向），再下結論。
+- 若題目資訊不完整（例如閱讀文章被截斷、截圖看不清），在 warnings 說明，不要亂猜答案。
+- Sentence Equivalence 必須給出兩個答案。
+- 若學生提供了「我的答案」，在 diagnosis 指出他錯在哪個思考環節；沒有提供則留空。
+- vocab 列出題目與選項中值得學的 GRE 單字，word 一律用原形，並附 3 個內以同義詞。
+- explanation 要讓考生下次遇到類似題能舉一反三，不要只重述答案。`;
+const SCHEMA = {
+  type: 'object',
+  properties: {
+    scratch_work: { type: 'string', description: '推導與計算草稿' },
+    translation: { type: 'string', description: '題目與選項的繁體中文翻譯' },
+    logic_clue: { type: 'string', description: '邏輯線索詞/考點（Quant 則寫考點與解法）' },
+    answer: { type: 'string' },
+    explanation: { type: 'string' },
+    option_review: { type: 'array', items: { type: 'object', properties: { option: { type: 'string' }, verdict: { type: 'string', enum: ['correct', 'wrong'] }, reason: { type: 'string' } }, required: ['option', 'verdict', 'reason'] } },
+    vocab: { type: 'array', items: { type: 'object', properties: { word: { type: 'string' }, meaning_zh: { type: 'string' }, synonyms: { type: 'array', items: { type: 'string' } } }, required: ['word', 'meaning_zh'] } },
+    diagnosis: { type: 'string' },
+    warnings: { type: 'string' }
+  },
+  required: ['scratch_work', 'translation', 'logic_clue', 'answer', 'explanation', 'vocab']
+};
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadDatabase();
-            renderMistakes('ALL');
-        });
+/* ===== 工具 ===== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch { alert('瀏覽器儲存空間已滿或被停用'); } };
+let mistakes = load('GRE_MISTAKES_V2', []), myVocab = load('GRE_MYVOCAB', []), mason = [], dbMap = new Map(), lastAi = null, lastMeta = null, imgData = null, filter = 'ALL';
 
-        async function loadDatabase() {
-            try {
-                const res = await fetch('./assets/GRE_Mason_Full_Database_2.json');
-                if (!res.ok) throw new Error('Network response error');
-                masonDatabase = await res.json();
-            } catch (err) {
-                console.warn('載入預設預備單字資料庫。');
-                masonDatabase = defaultMasonData;
-            }
-            renderVocabCards(masonDatabase);
-        }
+/* ===== 分頁 / 設定 ===== */
+document.querySelectorAll('.tab').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.tab,.pane').forEach(e => e.classList.remove('active'));
+  b.classList.add('active'); $(b.dataset.tab).classList.add('active');
+});
+const openModal = () => {
+  const p = curModel().provider;
+  $('mTitle').textContent = PROVIDERS[p].name + ' API Key（' + PROVIDERS[p].help + '）';
+  $('keyIn').value = localStorage.getItem(keyName(p)) || ''; $('modal').style.display = 'flex';
+};
+$('gear').onclick = openModal;
+$('keyCancel').onclick = () => $('modal').style.display = 'none';
+$('keySave').onclick = () => { const k = $('keyIn').value.trim(); if (!k) return; localStorage.setItem(keyName(curModel().provider), k); $('modal').style.display = 'none'; };
+if (CONFIG.PROXY_URL) $('gear').style.display = 'none';
 
-        function switchTab(tabId, event) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            if (event && event.currentTarget) event.currentTarget.classList.add('active');
-        }
+/* ===== 圖片 ===== */
+function loadImg(f) {
+  const fr = new FileReader();
+  fr.onload = () => {
+    const im = new Image();
+    im.onload = () => {
+      const s = Math.min(1, 1600 / Math.max(im.width, im.height)), c = document.createElement('canvas');
+      c.width = im.width * s; c.height = im.height * s;
+      c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+      const url = c.toDataURL('image/jpeg', .85);
+      imgData = url.split(',')[1]; $('prev').src = url; $('prevWrap').style.display = 'block'; updateHint();
+    };
+    im.src = fr.result;
+  };
+  fr.readAsDataURL(f);
+}
+$('drop').onclick = () => $('file').click();
+$('file').onchange = e => e.target.files[0] && loadImg(e.target.files[0]);
+$('rmImg').onclick = () => { imgData = null; $('prevWrap').style.display = 'none'; $('file').value = ''; updateHint(); };
+document.addEventListener('paste', e => { const f = [...(e.clipboardData?.files || [])].find(f => f.type.startsWith('image/')); if (f) loadImg(f); });
 
-        /* Modal Functions */
-        function openApiModal() {
-            document.getElementById('apiModal').style.display = 'flex';
-            document.getElementById('apiKeyInput').value = localStorage.getItem(GEMINI_API_KEY_STORAGE) || '';
-        }
-        function closeApiModal() {
-            document.getElementById('apiModal').style.display = 'none';
-        }
-        function saveApiKey() {
-            const key = document.getElementById('apiKeyInput').value.trim();
-            if (key) {
-                localStorage.setItem(GEMINI_API_KEY_STORAGE, key);
-                alert('API Key 已成功儲存！');
-                closeApiModal();
-            } else {
-                alert('請輸入有效的 API Key');
-            }
-        }
+/* ===== 多模型呼叫 ===== */
+const toGemini = s => Array.isArray(s) ? s.map(toGemini) : (s && typeof s === 'object')
+  ? Object.fromEntries(Object.entries(s).filter(([k]) => k !== 'description').map(([k, v]) => [k, k === 'type' ? String(v).toUpperCase() : toGemini(v)])) : s;
+const curModel = () => MODELS.find(m => m.id === $('model').value) || MODELS[0];
+const keyName = p => 'GRE_KEY_' + p;
 
-        /* 100% 成功連線：先動態向 Google 查詢您的 API Key 目前開放支援的模型清單 */
-        async function fetchAvailableModels(apiKey) {
-            try {
-                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
-                const data = await res.json();
-                if (data.models && data.models.length > 0) {
-                    // 找出所有支援 generateContent 的模型名稱
-                    const validModels = data.models
-                        .filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent'))
-                        .map(m => m.name);
-                    if (validModels.length > 0) return validModels;
-                }
-            } catch (e) {
-                console.warn('自動取得模型清單失敗:', e);
-            }
-            return [];
-        }
+const ADAPTERS = {
+  gemini: {
+    url: m => `https://generativelanguage.googleapis.com/v1beta/models/${m.id}:generateContent`,
+    headers: k => ({ 'x-goog-api-key': k }),
+    body: (m, qType, text) => ({
+      systemInstruction: { parts: [{ text: SYSTEM }] },
+      contents: [{ role: 'user', parts: [...(imgData ? [{ inlineData: { mimeType: 'image/jpeg', data: imgData } }] : []), { text }] }],
+      generationConfig: { temperature: 0.2, maxOutputTokens: qType === 'Quant' ? 16000 : 8192, responseMimeType: 'application/json', responseSchema: toGemini(SCHEMA) }
+    }),
+    parse: data => {
+      if (data.promptFeedback?.blockReason) throw new Error('題目被安全過濾擋下：' + data.promptFeedback.blockReason);
+      const c = data.candidates?.[0];
+      if (c?.finishReason === 'MAX_TOKENS') throw new Error('回答被截斷（題目太長或太複雜），請縮短後重試');
+      return (c?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');
+    }
+  },
+  claude: {
+    url: () => 'https://api.anthropic.com/v1/messages',
+    headers: k => ({ 'x-api-key': k, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' }),
+    body: (m, qType, text) => ({
+      model: m.id, max_tokens: qType === 'Quant' ? 6000 : 4096, temperature: 0.2, system: SYSTEM,
+      tools: [{ name: 'submit_analysis', description: '提交 GRE 題目解析', input_schema: SCHEMA }],
+      tool_choice: { type: 'tool', name: 'submit_analysis' },
+      messages: [{ role: 'user', content: [...(imgData ? [{ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imgData } }] : []), { type: 'text', text }] }]
+    }),
+    parse: data => {
+      if (data.stop_reason === 'max_tokens') throw new Error('回答被截斷（題目太長或太複雜），請縮短後重試');
+      return (data.content || []).find(b => b.type === 'tool_use')?.input;
+    }
+  }
+};
 
-        /* AI Solver via Gemini API */
-        async function analyzeQuestionWithAI() {
-            const apiKey = localStorage.getItem(GEMINI_API_KEY_STORAGE);
-            if (!apiKey) {
-                alert('請先點擊右上角「設定 API Key」輸入您的 Gemini API Key！');
-                openApiModal();
-                return;
-            }
+function normalize(a) {
+  const s = v => Array.isArray(v) ? v.map(s).join(', ') : v == null ? '' : typeof v === 'string' ? v : JSON.stringify(v);
+  const arr = v => Array.isArray(v) ? v : [];
+  return {
+    scratch_work: s(a.scratch_work), translation: s(a.translation), logic_clue: s(a.logic_clue), answer: s(a.answer),
+    explanation: s(a.explanation), diagnosis: s(a.diagnosis), warnings: s(a.warnings),
+    option_review: arr(a.option_review).map(o => ({ option: s(o?.option), verdict: o?.verdict === 'correct' ? 'correct' : 'wrong', reason: s(o?.reason) })),
+    vocab: arr(a.vocab).filter(v => v?.word).map(v => ({ word: s(v.word), meaning_zh: s(v.meaning_zh), synonyms: arr(v.synonyms).map(s) }))
+  };
+}
 
-            const qType = document.getElementById('questionType').value;
-            const qInput = document.getElementById('questionInput').value.trim();
-            const qOptions = document.getElementById('optionsInput').value.trim();
-            const outputArea = document.getElementById('analysisResult');
+async function callAI(m, qType, text) {
+  const A = ADAPTERS[m.provider], body = A.body(m, qType, text);
+  let url, headers = { 'content-type': 'application/json' };
+  if (CONFIG.PROXY_URL) { url = CONFIG.PROXY_URL; body.provider = m.provider; body.model = m.id; }
+  else {
+    const key = localStorage.getItem(keyName(m.provider));
+    if (!key) { openModal(); throw new Error(`請先設定 ${PROVIDERS[m.provider].name} 的 API Key`); }
+    url = A.url(m); Object.assign(headers, A.headers(key));
+  }
+  const r = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(data.error?.message || (typeof data.error === 'string' ? data.error : `API 錯誤 (${r.status})`));
+  let out = A.parse(data);
+  if (typeof out === 'string') {
+    out = out.replace(/^```(?:json)?\s*|\s*```$/g, '').trim();
+    try { out = JSON.parse(out); } catch { throw new Error('模型回傳格式錯誤，請重試或換一個模型'); }
+  }
+  if (!out || typeof out !== 'object') throw new Error('模型沒有回傳內容，請重試');
+  out = normalize(out);
+  if (!out.answer) throw new Error('模型沒有給出答案，請重試或換一個更強的模型');
+  return out;
+}
 
-            if (!qInput) {
-                alert('請輸入題目內容！');
-                return;
-            }
+/* ===== 模型選單 / 提示 ===== */
+function updateHint() {
+  const m = curModel(), msgs = [];
+  if ($('qType').value === 'Quant' && m.tier === 'low') msgs.push('數學題建議改選 Pro / Opus 等級模型。');
+  if (imgData && !m.vision) msgs.push('這個模型無法讀圖，請改選可看圖的模型。');
+  $('hint').textContent = msgs.join(' ');
+}
+(function initModels() {
+  const list = MODELS.filter(m => !CONFIG.PROXY_URL || CONFIG.PROXY_PROVIDERS.includes(m.provider));
+  $('model').innerHTML = PROVIDERS ? Object.keys(PROVIDERS).map(p => {
+    const ms = list.filter(m => m.provider === p);
+    return ms.length ? `<optgroup label="${esc(PROVIDERS[p].name)}">${ms.map(m => `<option value="${esc(m.id)}">${esc(m.label)}</option>`).join('')}</optgroup>` : '';
+  }).join('') : '';
+  const saved = localStorage.getItem('GRE_MODEL');
+  if (saved && list.some(m => m.id === saved)) $('model').value = saved;
+  $('model').onchange = () => { localStorage.setItem('GRE_MODEL', $('model').value); updateHint(); };
+  $('qType').onchange = updateHint;
+  updateHint();
+})();
 
-            outputArea.innerHTML = `<p style="text-align:center; color:var(--academic-blue);"><i class="fa-solid fa-spinner fa-spin"></i> 正在連線查詢可用 AI 模型並進行深度剖析中，請稍候...</p>`;
+$('go').onclick = async () => {
+  const qType = $('qType').value, q = $('q').value.trim(), opts = $('opts').value.trim(), mine = $('mine').value.trim();
+  if (!q && !imgData) return alert('請輸入題目或上傳截圖');
+  const text = `題型：${qType}\n題目：${q || '(見截圖)'}\n選項：${opts || '無／見截圖'}\n我的答案：${mine || '未提供'}`;
+  $('go').disabled = true;
+  $('result').innerHTML = `<p style="text-align:center;margin-top:100px;color:var(--navy)"><i class="fa-solid fa-spinner fa-spin"></i> ${qType === 'Quant' ? '正在推導並驗算，約需 30–60 秒…' : '解析中…'}</p>`;
+  try {
+    const m = curModel();
+    if (imgData && !m.vision) throw new Error('這個模型無法讀取圖片，請改選可看圖的模型，或改貼文字題目');
+    lastAi = await callAI(m, qType, text);
+    lastMeta = { type: qType, question: q || '(截圖題目)', mine };
+    $('result').innerHTML = renderAnalysis(lastAi, true);
+  } catch (e) {
+    $('result').innerHTML = `<div class="err"><i class="fa-solid fa-triangle-exclamation"></i> ${esc(e.message)}</div>`;
+  } finally { $('go').disabled = false; }
+};
 
-            // 本地單字比對
-            const matchedWords = masonDatabase.filter(item => 
-                qInput.toLowerCase().includes(item.word.toLowerCase())
-            );
-            let matchedHTML = matchedWords.length > 0 ? 
-                matchedWords.map(w => `<span class="badge badge-tc" style="margin:2px;">${w.word}: ${w.def}</span>`).join(' ')
-                : '<span style="color:var(--text-muted);">無直接匹配之核心高頻單字</span>';
+/* ===== 渲染解析 ===== */
+function vocabChip(v) {
+  const m = dbMap.get(String(v.word).toLowerCase());
+  const payload = encodeURIComponent(JSON.stringify({ word: v.word, def: v.meaning_zh, synonyms: v.synonyms || [] })).replace(/'/g, '%27');
+  const mine = myVocab.some(x => x.word.toLowerCase() === String(v.word).toLowerCase());
+  const syn = (m?.synonyms || v.synonyms || []).join(', ');
+  return `<div class="chip ${m ? 'in' : ''}"><b>${esc(v.word)}</b> ${esc(v.meaning_zh)}${syn ? ` · ${esc(syn)}` : ''}${m?.root ? ` · 字根 ${esc(m.root)}` : ''}
+    <small>${m ? '（Mason 字庫）' : '（庫外新字）'}</small>
+    ${m || mine ? '' : `<button class="btn sm line" onclick="addVocab('${payload}',this)">加入單字書</button>`}</div>`;
+}
+function renderAnalysis(a, withSave) {
+  const sec = (t, h) => h ? `<div class="sec"><h4>${t}</h4>${h}</div>` : '';
+  return `${a.warnings ? `<div class="warn"><i class="fa-solid fa-circle-info"></i> ${rich(a.warnings)}</div>` : ''}
+  <div class="ans"><small>答案</small>${esc(a.answer)}</div><br>
+  ${sec('邏輯考點', rich(a.logic_clue))}
+  ${sec('詳解', rich(a.explanation))}
+  ${a.diagnosis ? sec('你的錯誤診斷', rich(a.diagnosis)) : ''}
+  ${a.option_review?.length ? sec('逐選項分析', a.option_review.map(o => `<div class="opt ${o.verdict === 'correct' ? 'ok' : 'no'}"><b>${esc(o.option)}</b> ${o.verdict === 'correct' ? '✔' : '✘'} ${rich(o.reason)}</div>`).join('')) : ''}
+  ${sec('中文翻譯', rich(a.translation))}
+  ${a.vocab?.length ? sec('單字整理', a.vocab.map(vocabChip).join('')) : ''}
+  <details><summary>AI 推導過程</summary>${rich(a.scratch_work)}</details>
+  ${withSave ? `<div style="margin-top:1rem"><button class="btn purple" onclick="addMistake(this)"><i class="fa-solid fa-folder-plus"></i> 加入錯題本</button></div>` : ''}`;
+}
+function addMistake(btn) {
+  mistakes.unshift({ id: Date.now(), ...lastMeta, ai: lastAi, notes: '', status: 'REVIEW' });
+  save('GRE_MISTAKES_V2', mistakes); renderMistakes();
+  btn.disabled = true; btn.textContent = '已加入';
+}
+function addVocab(p, btn) {
+  const v = JSON.parse(decodeURIComponent(p));
+  if (!myVocab.some(x => x.word.toLowerCase() === v.word.toLowerCase())) { myVocab.unshift(v); save('GRE_MYVOCAB', myVocab); renderVocab(); }
+  btn.remove();
+}
 
-            const promptText = `
-你是一位頂尖的 GRE 考試輔導名師（專精於 Mason GRE 邏輯分析）。
-請針對以下題目進行深度解題：
+/* ===== 錯題本 ===== */
+function renderMistakes() {
+  const list = mistakes.filter(m => filter === 'ALL' || m.type === filter);
+  $('mlist').innerHTML = list.length ? list.map(m => `
+    <div class="mc ${esc(m.type)}">
+      <div class="top"><b>${esc(m.type)}</b><button class="st ${m.status}" onclick="toggleSt(${m.id})">${m.status === 'MASTERED' ? '已掌握' : '需再複習'}</button></div>
+      <div style="font-weight:700;color:var(--navy);white-space:pre-wrap">${esc(m.question.slice(0, 300))}${m.question.length > 300 ? '…' : ''}</div>
+      <div style="margin:.4rem 0"><b>答案：</b>${esc(m.ai.answer)}${m.mine ? `　<span style="color:var(--mute)">我的答案：${esc(m.mine)}</span>` : ''}</div>
+      <details><summary>查看完整解析</summary>${renderAnalysis(m.ai, false)}</details>
+      <label>個人筆記</label><input type="text" value="${esc(m.notes)}" onchange="setNote(${m.id},this.value)" placeholder="自己的備註">
+      <div style="text-align:right;margin-top:.5rem"><button class="btn line sm" onclick="delMistake(${m.id})">刪除</button></div>
+    </div>`).join('') : '<p style="text-align:center;color:var(--mute);padding:2rem">還沒有錯題。解題後按「加入錯題本」。</p>';
+}
+const toggleSt = id => { const m = mistakes.find(x => x.id === id); m.status = m.status === 'MASTERED' ? 'REVIEW' : 'MASTERED'; save('GRE_MISTAKES_V2', mistakes); renderMistakes(); };
+const setNote = (id, v) => { mistakes.find(x => x.id === id).notes = v; save('GRE_MISTAKES_V2', mistakes); };
+const delMistake = id => { if (confirm('確定刪除這題？')) { mistakes = mistakes.filter(x => x.id !== id); save('GRE_MISTAKES_V2', mistakes); renderMistakes(); } };
+$('filters').onclick = e => { const b = e.target.closest('.chipbtn'); if (!b) return; document.querySelectorAll('.chipbtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); filter = b.dataset.f; renderMistakes(); };
+$('exp').onclick = () => {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify({ mistakes, myVocab }, null, 2)], { type: 'application/json' }));
+  a.download = 'GRE_backup.json'; a.click();
+};
 
-考題類型: ${qType}
-題目內容: ${qInput}
-選項內容: ${qOptions || '無提供選項'}
+/* ===== 單字書 ===== */
+let covered = false;
+function renderVocab() {
+  const qs = $('vs').value.toLowerCase().trim();
+  const all = [...myVocab.map(v => ({ ...v, mine: true })), ...mason];
+  const list = all.filter(v => !qs || v.word.toLowerCase().includes(qs) || (v.def || '').includes(qs) || (v.root || '').toLowerCase().includes(qs)).slice(0, 300);
+  $('vgrid').innerHTML = list.map(v => `<div class="flip ${covered ? 'on' : ''}" onclick="this.classList.toggle('on')"><div class="fi">
+    <div class="fr"><div class="w">${esc(v.word)}</div><div style="color:var(--mute);font-size:.9rem">${esc(v.phonetic || (v.mine ? '我加入的' : ''))}</div></div>
+    <div class="bk"><div class="d">${esc(v.def)}</div>${v.root ? `<div>字根：${esc(v.root)}</div>` : ''}<div>同義詞：${esc((v.synonyms || []).join(', ') || '—')}</div></div></div></div>`).join('')
+    || '<p style="color:var(--mute)">找不到符合的單字</p>';
+}
+$('vs').oninput = renderVocab;
+$('cover').onclick = () => { covered = !covered; renderVocab(); };
 
-請用繁體中文輸出以下結構的內容（請保持排版簡潔專業）：
-1. 【精準中文翻譯】：將題目與選項流暢地翻譯成繁體中文。
-2. 【邏輯考點剖析】：說明本題的邏輯轉折點（如對比、因果、內隱否定、正負語意等）或數學考點。
-3. 【正確答案與消去法解析】：給出正確答案，並逐一說明各選項對/錯的原因。
-4. 【GRE 高頻核心單字提示】：列出題目與選項中的重點 GRE 單字及同義詞。
-`;
-
-            // 動態搜尋可用模型 + 預設熱門端點備援
-            let fetchedModels = await fetchAvailableModels(apiKey);
-            let candidateModels = fetchedModels.length > 0 ? fetchedModels : [
-                'models/gemini-1.5-flash',
-                'models/gemini-1.5-pro',
-                'models/gemini-pro'
-            ];
-
-            let aiResponseText = null;
-            let lastError = null;
-
-            for (let rawModelName of candidateModels) {
-                // 修正 URL 格式中的 models/ 前綴
-                const modelPath = rawModelName.startsWith('models/') ? rawModelName : `models/${rawModelName}`;
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/${modelPath}:generateContent?key=${apiKey}`;
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: promptText }] }]
-                        })
-                    });
-                    const data = await response.json();
-                    if (data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
-                        aiResponseText = data.candidates[0].content.parts[0].text;
-                        break; // 成功獲得解析即退出迴圈
-                    } else if (data.error) {
-                        lastError = data.error.message;
-                    }
-                } catch (e) {
-                    lastError = e.message;
-                }
-            }
-
-            if (aiResponseText) {
-                const formattedAiText = aiResponseText
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\n/g, '<br>');
-
-                lastAiAnalysisResult = {
-                    qType,
-                    qInput,
-                    formattedAiText
-                };
-
-                outputArea.innerHTML = `
-                    <div style="margin-bottom: 1rem;">${formattedAiText}</div>
-                    <div style="margin-bottom: 1rem; border-top: 1px solid #E2E8F0; padding-top: 0.8rem;">
-                        <strong><i class="fa-solid fa-spell-check"></i> 本地 Mason 單字庫精準比對：</strong>
-                        <div style="margin-top: 6px;">${matchedHTML}</div>
-                    </div>
-                    <button class="btn btn-purple" onclick="addAiResultToMistakes()">
-                        <i class="fa-solid fa-folder-plus"></i> 將本題與 AI 解析加入錯題本
-                    </button>
-                `;
-            } else {
-                outputArea.innerHTML = `
-                    <p style="color:red;"><i class="fa-solid fa-triangle-exclamation"></i> 解析失敗：${lastError || '無法連線至 Gemini API'}</p>
-                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">
-                        💡 提示：請確認輸入的 Google API Key 是否無誤。若仍有問題，可至 Google AI Studio 重新點選 "Create API Key" 生成一組新金鑰。
-                    </p>
-                `;
-            }
-        }
-
-        function addAiResultToMistakes() {
-            if (!lastAiAnalysisResult) return;
-            const newItem = {
-                id: Date.now(),
-                type: lastAiAnalysisResult.qType,
-                question: lastAiAnalysisResult.qInput,
-                translation: '詳見 AI 解析',
-                analysis: lastAiAnalysisResult.formattedAiText,
-                notes: '',
-                status: 'REVIEW'
-            };
-            mistakesData.unshift(newItem);
-            saveMistakes();
-            alert('已成功將 AI 解析結果加入錯題本！');
-            renderMistakes();
-        }
-
-        /* Mistake Notebook Functions */
-        function renderMistakes(filterType = 'ALL') {
-            const container = document.getElementById('mistakesContainer');
-            container.innerHTML = '';
-            const filtered = mistakesData.filter(item => filterType === 'ALL' || item.type === filterType);
-
-            if (filtered.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding: 2rem;">目前沒有錯題紀錄。</p>`;
-                return;
-            }
-
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = `mistake-card ${item.type.toLowerCase()}`;
-                const isMastered = item.status === 'MASTERED';
-                const statusBadge = isMastered ? 
-                    `<span class="status-toggle status-mastered" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-check"></i> 已掌握</span>` :
-                    `<span class="status-toggle status-review" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-exclamation"></i> 需再複習</span>`;
-
-                card.innerHTML = `
-                    <div style="display:flex; justify-between; align-items:center;">
-                        <span class="badge badge-${item.type.toLowerCase()}">${item.type}</span>
-                        ${statusBadge}
-                    </div>
-                    <div style="font-weight: 700; font-size: 1.05rem; color: var(--academic-blue);">${item.question}</div>
-                    <div style="font-size: 0.95rem; background: var(--bg-pink-light); padding: 8px 12px; border-radius: 8px; max-height: 200px; overflow-y: auto;">
-                        <strong>AI 解析：</strong><br>${item.analysis || '無解析'}
-                    </div>
-                    <div class="form-group" style="margin-top: 6px;">
-                        <label style="font-size: 0.85rem;"><i class="fa-solid fa-note-sticky"></i> 個人筆記 (Personal Notes)</label>
-                        <input type="text" value="${item.notes || ''}" onchange="updateMistakeNote(${item.id}, this.value)" placeholder="輸入自訂筆記...">
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function filterMistakes(type, element) {
-            document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-            renderMistakes(type);
-        }
-
-        function toggleMistakeStatus(id) {
-            mistakesData = mistakesData.map(item => {
-                if (item.id === id) item.status = item.status === 'MASTERED' ? 'REVIEW' : 'MASTERED';
-                return item;
-            });
-            saveMistakes();
-            renderMistakes();
-        }
-
-        function updateMistakeNote(id, noteText) {
-            mistakesData = mistakesData.map(item => {
-                if (item.id === id) item.notes = noteText;
-                return item;
-            });
-            saveMistakes();
-        }
-
-        function saveMistakes() {
-            localStorage.setItem(MISTAKES_KEY, JSON.stringify(mistakesData));
-        }
-
-        function exportNotebook() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(mistakesData, null, 2));
-            const dlAnchorElem = document.createElement('a');
-            dlAnchorElem.setAttribute("href", dataStr);
-            dlAnchorElem.setAttribute("download", "GRE_Mistakes_Backup.json");
-            dlAnchorElem.click();
-        }
-
-        /* Vocabulary Deck Functions */
-        function renderVocabCards(data) {
-            const grid = document.getElementById('vocabGrid');
-            grid.innerHTML = '';
-            data.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'flip-card';
-                card.onclick = () => card.classList.toggle('flipped');
-                card.innerHTML = `
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="vocab-word">${item.word}</div>
-                            <div class="vocab-phonetic">${item.phonetic || ''}</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <div class="vocab-def">${item.def}</div>
-                            <div style="font-size:0.8rem; margin-bottom: 6px;">${item.root ? '字根: ' + item.root : ''}</div>
-                            <div class="vocab-synonyms">同義詞: ${item.synonyms ? item.synonyms.join(', ') : '無'}</div>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function searchVocab() {
-            const query = document.getElementById('vocabSearch').value.toLowerCase();
-            const filtered = masonDatabase.filter(item => 
-                item.word.toLowerCase().includes(query) ||
-                item.def.includes(query) ||
-                (item.root && item.root.toLowerCase().includes(query))
-            );
-            renderVocabCards(filtered);
-        }
-
-        let isHiddenMode = false;
-        function toggleFlashcardMode() {
-            isHiddenMode = !isHiddenMode;
-            document.querySelectorAll('.flip-card').forEach(card => {
-                if (isHiddenMode) card.classList.add('flipped');
-                else card.classList.remove('flipped');
-            });
-        }
-    </script>
+/* ===== 初始化 ===== */
+(async () => {
+  try {
+    const r = await fetch(CONFIG.DB_URL);
+    if (!r.ok) throw 0;
+    mason = await r.json();
+  } catch {
+    $('dbwarn').innerHTML = '<div class="warn">找不到 Mason 單字庫（assets/GRE_Mason_Full_Database_2.json）。請確認檔案已上傳，且不要用雙擊 file:// 開啟，要透過 GitHub Pages 或 localhost。</div>';
+  }
+  dbMap = new Map(mason.map(w => [String(w.word).toLowerCase(), w]));
+  renderVocab(); renderMistakes();
+})();
+</script>
 </body>
 </html>
+   
