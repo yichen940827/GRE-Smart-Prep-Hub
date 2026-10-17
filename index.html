@@ -1,731 +1,505 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRE Master Pro - Teaching & Prep Companion</title>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-pink-light: #FFEFF2;
-            --pink-accent: #FFB6C1;
-            --pink-dark: #FF8DA1;
-            --academic-blue: #1A365D;
-            --blue-light: #2A4365;
-            --mustard-yellow: #ECC94B;
-            --yellow-hover: #D69E2E;
-            --math-purple: #805AD5;
-            --purple-light: #9F7AEA;
-            --purple-bg: #F3E8FF;
-            --text-main: #2D3748;
-            --text-muted: #718096;
-            --bg-white: #FFFFFF;
-            --card-shadow: 0 8px 20px rgba(26, 54, 93, 0.08);
-            --card-shadow-hover: 0 12px 28px rgba(26, 54, 93, 0.15);
-            --border-radius: 16px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-pink-light);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Header Style */
-        header {
-            background-color: var(--academic-blue);
-            color: var(--bg-white);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-area i {
-            font-size: 1.8rem;
-            color: var(--mustard-yellow);
-        }
-
-        .logo-title {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            letter-spacing: 0.5px;
-        }
-
-        .logo-subtitle {
-            font-size: 0.75rem;
-            background-color: var(--mustard-yellow);
-            color: var(--academic-blue);
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-weight: 700;
-            margin-left: 6px;
-            text-transform: uppercase;
-        }
-
-        /* Navigation Tabs */
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-tab {
-            background: rgba(255, 255, 255, 0.1);
-            color: #FFFFFF;
-            border: 2px solid transparent;
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-tab:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .nav-tab.active {
-            background-color: var(--mustard-yellow);
-            color: var(--academic-blue);
-            border-color: #FFFFFF;
-            box-shadow: 0 4px 10px rgba(236, 201, 75, 0.4);
-        }
-
-        /* Container & Cards */
-        .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-            flex-grow: 1;
-            width: 100%;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card {
-            background-color: var(--bg-white);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 2rem;
-            border: 2px solid rgba(255, 182, 193, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 2px solid var(--bg-pink-light);
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--academic-blue);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Form Controls */
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--academic-blue);
-        }
-
-        select, input[type="text"], textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 2px solid #E2E8F0;
-            border-radius: 12px;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            background-color: #FAFAFA;
-        }
-
-        select:focus, input:focus, textarea:focus {
-            border-color: var(--math-purple);
-            background-color: #FFFFFF;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 110px;
-        }
-
-        .btn {
-            background-color: var(--academic-blue);
-            color: #FFFFFF;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px rgba(26, 54, 93, 0.2);
-        }
-
-        .btn:hover {
-            background-color: var(--blue-light);
-            transform: translateY(-2px);
-        }
-
-        .btn-yellow {
-            background-color: var(--mustard-yellow);
-            color: var(--academic-blue);
-        }
-
-        .btn-yellow:hover {
-            background-color: var(--yellow-hover);
-        }
-
-        .btn-purple {
-            background-color: var(--math-purple);
-            color: #FFFFFF;
-        }
-
-        .btn-purple:hover {
-            background-color: var(--purple-light);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--academic-blue);
-            color: var(--academic-blue);
-            box-shadow: none;
-        }
-
-        .btn-outline:hover {
-            background-color: var(--academic-blue);
-            color: #FFFFFF;
-        }
-
-        /* Badges & Chips */
-        .badge {
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: inline-block;
-        }
-
-        .badge-tc { background-color: var(--pink-accent); color: var(--academic-blue); }
-        .badge-rc { background-color: var(--mustard-yellow); color: var(--academic-blue); }
-        .badge-quant { background-color: var(--purple-bg); color: var(--math-purple); }
-
-        /* Filter Chips */
-        .filter-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-chip {
-            padding: 0.5rem 1.2rem;
-            border-radius: 20px;
-            background-color: var(--bg-white);
-            border: 2px solid #E2E8F0;
-            cursor: pointer;
-            font-weight: 700;
-            color: var(--text-muted);
-            transition: all 0.2s;
-        }
-
-        .filter-chip.active {
-            background-color: var(--academic-blue);
-            color: #FFFFFF;
-            border-color: var(--academic-blue);
-        }
-
-        /* Mistake Cards */
-        .mistake-card {
-            background-color: var(--bg-white);
-            border-left: 6px solid var(--academic-blue);
-            border-radius: 12px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .mistake-card.quant { border-left-color: var(--math-purple); }
-        .mistake-card.rc { border-left-color: var(--mustard-yellow); }
-
-        .status-toggle {
-            cursor: pointer;
-            user-select: none;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .status-review { background-color: #FED7D7; color: #9B2C2C; }
-        .status-mastered { background-color: #C6F6D5; color: #22543D; }
-
-        /* Vocabulary Deck Cards */
-        .vocab-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .flip-card {
-            background-color: transparent;
-            height: 200px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-            box-shadow: var(--card-shadow);
-            border-radius: 16px;
-        }
-
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 16px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid var(--pink-accent);
-        }
-
-        .flip-card-front {
-            background-color: #FFFFFF;
-            color: var(--academic-blue);
-        }
-
-        .flip-card-back {
-            background-color: var(--academic-blue);
-            color: #FFFFFF;
-            transform: rotateY(180deg);
-            border-color: var(--academic-blue);
-        }
-
-        .vocab-word {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--academic-blue);
-        }
-
-        .vocab-phonetic {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        .vocab-def {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--mustard-yellow);
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            background-color: var(--academic-blue);
-            color: #FFFFFF;
-            margin-top: auto;
-            font-size: 0.9rem;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GRE Master Pro</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1E1B3A;--pink:#FF4F9A;--pink-soft:#FFE3EF;--yellow:#FFD21F;--yellow-soft:#FFF4B8;--line:#E7E5F0;--mute:#6B6880;--display:'Bricolage Grotesque','Noto Sans TC',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Noto Sans TC',sans-serif}
+body{background:#fff;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;line-height:1.7}
+:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:.9rem clamp(1rem,4vw,3rem);border-bottom:2px solid var(--ink);background:#fff;position:sticky;top:0;z-index:100}
+.logo{font-family:var(--display);font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:10px}
+.logo b{font-family:var(--display);background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:0 .55rem;transform:rotate(-4deg);display:inline-block}
+nav{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.tab{background:none;border:2px solid transparent;border-radius:999px;padding:.35rem 1rem;font-size:.95rem;font-weight:700;cursor:pointer}
+.tab:hover{background:var(--yellow-soft)}.tab.active{background:var(--pink);border-color:var(--ink)}
+.gear{margin-left:.6rem;background:none;border:2px solid var(--ink);border-radius:999px;padding:.35rem 1rem;font-size:.9rem;font-weight:700;cursor:pointer}
+.gear:hover{background:var(--yellow)}
+.container{max-width:1240px;margin:0 auto;padding:0 clamp(1rem,4vw,3rem) 4rem;width:100%;flex-grow:1}
+.pane{display:none}.pane.active{display:block}
+.hero{background:var(--yellow);border:2px solid var(--ink);border-radius:28px;padding:clamp(1.6rem,4vw,2.8rem);margin:clamp(1.2rem,3vw,2rem) 0 clamp(1.4rem,3vw,2.2rem)}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,4.6vw,3.4rem);line-height:1.12;max-width:20ch}
+.hero p{margin-top:.8rem;max-width:40rem;font-size:1.05rem}
+.card{padding-top:clamp(1.4rem,4vw,2.4rem)}
+.card-h{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:1.4rem}
+.card-h span{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,3.6vw,2.4rem);line-height:1.2}
+.grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+label{display:block;font-weight:700;margin:1.1rem 0 .4rem;font-size:.95rem}
+.sub{font-weight:400;color:var(--mute);font-size:.85rem;margin-left:.4rem}
+select,input[type=text],input[type=password],textarea{width:100%;padding:.7rem .9rem;border:2px solid var(--ink);border-radius:12px;font-size:1rem;background:#fff;color:var(--ink)}
+select:focus,input:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px var(--pink-soft)}
+textarea{min-height:150px;resize:vertical}
+.drop{border:2px dashed var(--ink);border-radius:12px;padding:.8rem;text-align:center;color:var(--mute);cursor:pointer;font-size:.95rem;margin-top:.6rem}
+.drop:hover{background:var(--yellow-soft)}
+#prevWrap{display:none;margin-top:.6rem}#prev{max-width:100%;max-height:200px;border-radius:10px;border:2px solid var(--ink)}
+.btn{background:var(--ink);color:#fff;border:2px solid var(--ink);padding:.65rem 1.4rem;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--pink)}
+.btn:disabled{opacity:.5;cursor:wait;transform:none;box-shadow:none}
+.btn.gold{background:var(--pink);color:var(--ink);box-shadow:3px 3px 0 var(--ink)}.btn.gold:hover{box-shadow:5px 5px 0 var(--ink)}
+.btn.line{background:#fff;color:var(--ink)}.btn.line:hover{background:var(--yellow);box-shadow:3px 3px 0 var(--ink)}
+.btn.sm{padding:.2rem .8rem;font-size:.85rem}
+.hint{font-size:.85rem;color:#B42318;margin-top:.3rem}
+.warn{background:var(--yellow-soft);border:2px solid var(--ink);border-radius:14px;padding:.8rem 1rem;margin-bottom:1rem}
+.warn code{background:#fff;padding:0 .3rem;border-radius:4px;font-family:monospace}
+.err{background:var(--pink-soft);border:2px solid var(--ink);border-radius:12px;padding:.8rem 1rem}
+.out{border:2px solid var(--ink);border-radius:24px;padding:1.4rem 1.6rem;min-height:420px;box-shadow:8px 8px 0 var(--pink)}
+.empty{color:var(--mute);text-align:center;padding:5rem 1rem}
+.ztabs{display:flex;align-items:center;gap:.5rem;margin-bottom:1.3rem;flex-wrap:wrap}
+.zt{background:none;border:2px solid var(--ink);border-radius:999px;padding:.3rem 1rem;font-size:.95rem;font-weight:700;cursor:pointer}
+.zt.active{background:var(--yellow)}
+.cnt{background:var(--pink);border:2px solid var(--ink);border-radius:999px;font-size:.72rem;padding:0 .45rem;margin-left:.4rem}
+.ztabs .btn{margin-left:auto}
+.zone{display:none}.zone.active{display:block}
+.ans{background:var(--yellow);border:2px solid var(--ink);border-radius:18px;padding:1rem 1.3rem;box-shadow:4px 4px 0 var(--pink)}
+.ans span{font-size:.85rem;font-weight:700}
+.av{font-family:var(--display);font-weight:800;font-size:1.8rem;line-height:1.3}
+.part{padding:1.3rem 0;border-bottom:2px dashed var(--line)}
+.ph{display:flex;align-items:center;gap:.8rem;margin-bottom:.7rem;flex-wrap:wrap}
+.ph b{font-family:var(--display);font-size:1.15rem;font-weight:800}
+.pa{background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:0 .8rem;font-weight:700}
+.part dl{display:grid;grid-template-columns:8.5rem 1fr;gap:.55rem 1rem}
+.part dt{font-weight:700;color:var(--mute);font-size:.88rem;padding-top:.15rem}
+@media(max-width:600px){.part dl{grid-template-columns:1fr;gap:.1rem}.part dd{margin-bottom:.6rem}}
+dd b,.tr b{background:linear-gradient(transparent 55%,var(--yellow) 55%);font-weight:700}
+.diag{margin-top:1.2rem;background:var(--pink-soft);border-radius:14px;padding:.9rem 1.1rem}
+.fold{margin-top:1.2rem}.fold summary{cursor:pointer;font-weight:700}.foldb{margin-top:.6rem;color:var(--mute);font-size:.95rem}
+.xs{margin-bottom:2.2rem}.xs h3{font-family:var(--display);font-weight:800;font-size:1.25rem;margin-bottom:.8rem}
+.tr{line-height:2;white-space:pre-wrap}
+.tw{overflow-x:auto}
+.vt{width:100%;border-collapse:collapse;font-size:.95rem;min-width:600px}
+.vt th{background:var(--yellow-soft);text-align:left;font-size:.85rem;font-weight:700;padding:.55rem .7rem;border-bottom:2px solid var(--ink)}
+.vt td{padding:.7rem;border-bottom:1px solid var(--line);vertical-align:top}
+.vw{font-family:var(--display);font-size:1.1rem;font-weight:800}
+.vsub{font-size:.85rem;color:var(--mute)}
+.tag{font-size:.72rem;background:var(--yellow-soft);border:1px solid var(--ink);border-radius:10px;padding:0 7px;margin-left:5px}
+.tag.in{background:var(--pink-soft)}
+.filters{display:flex;gap:8px;margin-bottom:1.4rem;flex-wrap:wrap}
+.chipbtn{padding:.3rem 1.1rem;border-radius:999px;border:2px solid var(--ink);background:#fff;cursor:pointer;font-weight:700}
+.chipbtn.active{background:var(--yellow)}
+.mc{border:2px solid var(--ink);border-radius:18px;padding:1.2rem 1.3rem;margin-bottom:1.1rem}
+.mc .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.mc .top b{border:2px solid var(--ink);border-radius:999px;padding:0 .8rem;background:#fff}
+.mc.TC .top b{background:var(--pink)}.mc.RC .top b{background:var(--yellow)}
+.st{cursor:pointer;border:2px solid var(--ink);padding:.15rem .9rem;border-radius:999px;font-weight:700;background:#fff}
+.st.REVIEW{background:var(--pink-soft)}.st.MASTERED{background:var(--yellow)}
+.zh{font-family:var(--display);font-weight:800;font-size:1.2rem;margin:1.4rem 0 .6rem}
+details summary{cursor:pointer;font-weight:700}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.2rem;margin-top:1.2rem}
+.flip{height:190px;perspective:900px;cursor:pointer}
+.fi{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .fi{transform:rotateY(180deg)}
+.fr,.bk{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;padding:1rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:2px solid var(--ink)}
+.fr{background:#fff}.bk{background:var(--pink);transform:rotateY(180deg);font-size:.9rem;gap:6px}
+.w{font-family:var(--display);font-size:1.7rem;font-weight:800}
+.d{font-weight:800;font-size:1.15rem}
+.modal{position:fixed;inset:0;background:rgba(30,27,58,.55);display:none;justify-content:center;align-items:center;z-index:1000}
+.modal>div{background:#fff;padding:1.8rem;border:2px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--yellow);max-width:480px;width:90%}
+.modal a{color:var(--ink);font-weight:700}
+footer{border-top:2px solid var(--ink);padding:1.2rem clamp(1rem,4vw,3rem);font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
+<header>
+  <div class="logo"><b>GRE</b> Master Pro</div>
+  <nav>
+    <button class="tab active" data-tab="solver">Solve</button>
+    <button class="tab" data-tab="notebook">Notebook</button>
+    <button class="tab" data-tab="vocab">Vocabulary</button>
+    <button class="gear" id="gear">API key</button>
+  </nav>
+</header>
 
-    <!-- Header -->
-    <header>
-        <div class="logo-area">
-            <i class="fa-solid fa-graduation-cap"></i>
-            <div class="logo-title">GRE Master Pro <span class="logo-subtitle">Prep Companion</span></div>
-        </div>
-        <nav>
-            <button class="nav-tab active" onclick="switchTab('inputTab', event)">
-                <i class="fa-solid fa-pen-to-square"></i> Entry & Notes
-            </button>
-            <button class="nav-tab" onclick="switchTab('notebookTab', event)">
-                <i class="fa-solid fa-book-bookmark"></i> Mistake Notebook
-            </button>
-            <button class="nav-tab" onclick="switchTab('vocabTab', event)">
-                <i class="fa-solid fa-layer-group"></i> Mason Vocabulary Deck
-            </button>
-        </nav>
-    </header>
-
-    <!-- Main Content Container -->
-    <div class="container">
-
-        <!-- TAB 1: Question Entry & Notes -->
-        <div id="inputTab" class="tab-content active">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <i class="fa-solid fa-folder-plus" style="color:var(--math-purple);"></i> Add New Question & Personal Notes
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="questionType"><i class="fa-solid fa-list-check"></i> Select Question Type</label>
-                    <select id="questionType">
-                        <option value="TC">Text Completion / Sentence Equivalence (TC/SE)</option>
-                        <option value="RC">Reading Comprehension (RC)</option>
-                        <option value="Quant">Quantitative Reasoning (Quant)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="questionInput"><i class="fa-solid fa-file-lines"></i> Question Prompt (English)</label>
-                    <textarea id="questionInput" placeholder="e.g. The precursor of the modern violin, the viol, was an instrument of remarkable clarity..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="optionsInput"><i class="fa-solid fa-bars-staggered"></i> Answer Options (Optional)</label>
-                    <input type="text" id="optionsInput" placeholder="e.g. A) ubiquitous  B) ephemeral  C) equivocal  D) taciturn">
-                </div>
-
-                <div class="form-group">
-                    <label for="userNotesInput"><i class="fa-solid fa-note-sticky"></i> My Analysis & Notes (我的解析與筆記)</label>
-                    <textarea id="userNotesInput" placeholder="寫下這題的邏輯轉折點、解題關鍵字、正負語意，或是當初做錯的原因..."></textarea>
-                </div>
-
-                <button class="btn btn-yellow" onclick="saveQuestionToMistakes()">
-                    <i class="fa-solid fa-bookmark"></i> Save to Mistake Notebook
-                </button>
-            </div>
-        </div>
-
-        <!-- TAB 2: Mistake Notebook -->
-        <div id="notebookTab" class="tab-content">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <i class="fa-solid fa-book-open-reader" style="color:var(--math-purple);"></i> My Mistake Notebook
-                    </div>
-                    <button class="btn btn-purple" onclick="exportNotebook()">
-                        <i class="fa-solid fa-download"></i> Export Data (.json)
-                    </button>
-                </div>
-
-                <!-- Filter Chips -->
-                <div class="filter-bar">
-                    <div class="filter-chip active" onclick="filterMistakes('ALL', this)">All Questions</div>
-                    <div class="filter-chip" onclick="filterMistakes('TC', this)">TC / SE</div>
-                    <div class="filter-chip" onclick="filterMistakes('RC', this)">RC</div>
-                    <div class="filter-chip" onclick="filterMistakes('Quant', this)">Quant</div>
-                </div>
-
-                <!-- Mistakes Container -->
-                <div id="mistakesContainer"></div>
-            </div>
-        </div>
-
-        <!-- TAB 3: Mason Vocabulary Deck -->
-        <div id="vocabTab" class="tab-content">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <i class="fa-solid fa-cards-blank" style="color:var(--math-purple);"></i> Mason High-Frequency Vocabulary
-                    </div>
-                    <button class="btn btn-outline" onclick="toggleFlashcardMode()">
-                        <i class="fa-solid fa-eye-slash"></i> Quiz / Cover Mode
-                    </button>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <input type="text" id="vocabSearch" placeholder="Search word, meaning, or root..." oninput="searchVocab()">
-                </div>
-
-                <!-- Vocab Cards Grid -->
-                <div id="vocabGrid" class="vocab-grid"></div>
-            </div>
-        </div>
-
+<div class="container">
+  <section id="solver" class="pane active">
+    <div class="hero"><h1>Drop in the question you can’t solve.</h1><p>Paste text or a screenshot. Get a walkthrough in Chinese, a full translation and a vocabulary table.</p></div>
+    <div class="grid">
+      <div>
+        <label for="model">AI model</label>
+        <select id="model"></select><div class="hint" id="hint"></div>
+        <label for="qType">Question type</label>
+        <select id="qType">
+          <option value="TC">Text Completion / Sentence Equivalence</option>
+          <option value="RC">Reading Comprehension</option>
+          <option value="Quant">Quantitative Reasoning</option>
+        </select>
+        <label for="q">Question <span class="sub">text or screenshot</span></label>
+        <textarea id="q" placeholder="Paste the full question. For reading passages, include the passage."></textarea>
+        <div class="drop" id="drop">Click to upload a screenshot, or paste one with Ctrl/⌘+V</div>
+        <input type="file" id="file" accept="image/*" hidden>
+        <div id="prevWrap"><img id="prev" alt="Question screenshot"> <button class="btn line sm" id="rmImg">Remove</button></div>
+        <label for="opts">Answer choices <span class="sub">optional</span></label>
+        <input type="text" id="opts" placeholder="A) ubiquitous  B) ephemeral  C) equivocal ...">
+        <label for="mine">My answer <span class="sub">optional, the AI will point out where you went wrong</span></label>
+        <input type="text" id="mine" placeholder="e.g. B, because I thought the blank was negative">
+        <div style="margin-top:1.3rem"><button class="btn gold" id="go">Analyze</button></div>
+      </div>
+      <div id="result" class="out"><p class="empty">Your solution and extras will appear here.</p></div>
     </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>GRE Master Pro &copy; 2026 | Modern Interactive Learning & Teaching Platform</p>
-    </footer>
+  <section id="notebook" class="pane"><div class="card">
+    <div class="card-h"><span>Mistake notebook</span><button class="btn line" id="exp">Export backup</button></div>
+    <div class="filters" id="filters">
+      <button class="chipbtn active" data-f="ALL">All</button><button class="chipbtn" data-f="TC">TC</button><button class="chipbtn" data-f="RC">RC</button><button class="chipbtn" data-f="Quant">Quant</button>
+    </div>
+    <div id="mlist"></div>
+  </div></section>
 
-    <!-- JavaScript Logic -->
-    <script>
-        const MISTAKES_KEY = 'GRE_MASTER_SIMPLE_MISTAKES';
+  <section id="vocab" class="pane"><div class="card">
+    <div class="card-h"><span>Vocabulary deck</span><button class="btn line" id="cover">Flip all cards</button></div>
+    <div id="dbwarn"></div>
+    <input type="text" id="vs" placeholder="Search a word, a Chinese meaning or a root">
+    <div class="vgrid" id="vgrid"></div>
+  </div></section>
+</div>
 
-        // 直接內嵌 Mason 核心高頻單字資料庫（完全解決外部 JSON 讀取失敗問題）
-        const embeddedMasonData = [
-            { word: "equivocal", phonetic: "/ɪˈkwɪv.ə.kəl/", def: "模稜兩可的、明確度低的", root: "equi (相同) + voc (聲音)", synonyms: ["ambiguous", "ambivalent"] },
-            { word: "ephemeral", phonetic: "/ɪˈfem.ər.əl/", def: "轉瞬即逝的、短暫的", root: "epi (在...上) + hemer (日)", synonyms: ["transitory", "transient"] },
-            { word: "taciturn", phonetic: "/ˈtæs.ə.tɜːn/", def: "沉默寡言的", root: "tac (沉默)", synonyms: ["reserved", "laconic", "reticent"] },
-            { word: "ubiquitous", phonetic: "/juːˈbɪk.wə.təs/", def: "無所不在的", root: "ubi (地方)", synonyms: ["omnipresent", "pervasive"] },
-            { word: "mitigate", phonetic: "/ˈmɪt.ɪ.ɡeɪt/", def: "緩和、減輕", root: "mitis (柔和)", synonyms: ["allay", "assuage", "mollify"] },
-            { word: "audacious", phonetic: "/ɔːˈdeɪ.ʃəs/", def: "大膽的、無畏的", root: "aud (敢於)", synonyms: ["bold", "daring"] },
-            { word: "laconic", phonetic: "/ləˈkɒn.ɪk/", def: "簡短的、言簡意賅的", root: "Laconia (拉科尼亞古國)", synonyms: ["terse", "succinct"] },
-            { word: "anomaly", phonetic: "/əˈnɒm.ə.li/", def: "異常、反常事物", root: "an (無) + homalos (平坦)", synonyms: ["aberration", "irregularity"] },
-            { word: "capricious", phonetic: "/kəˈprɪʃ.əs/", def: "變化無常的、任性的", root: "capra (山羊)", synonyms: ["fickle", "unpredictable", "whimsical"] },
-            { word: "pragmatic", phonetic: "/præɡˈmæt.ɪk/", def: "務實的、重實效的", root: "pragma (行動/事實)", synonyms: ["practical", "utilitarian"] }
-        ];
+<div class="modal" id="modal"><div>
+  <h3 id="mTitle" style="font-family:var(--display);font-size:1.4rem;margin-bottom:.6rem">API key</h3>
+  <p style="font-size:.9rem;color:var(--mute);margin-bottom:.8rem">Your key stays in this browser and goes straight to Google. Don’t use it on a shared computer. <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Get a free key</a></p>
+  <input type="password" id="keyIn" placeholder="Paste your API key">
+  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:1rem"><button class="btn line" id="keyCancel">Cancel</button><button class="btn gold" id="keySave">Save</button></div>
+</div></div>
+<footer><span>GRE Master Pro</span><span>Analyses are AI-generated. Double-check the answers.</span></footer>
 
-        let mistakesData = JSON.parse(localStorage.getItem(MISTAKES_KEY)) || [];
+<script>
+/* ===== Config ===== */
+const CONFIG = {
+  PROXY_URL: '', // set after deploying worker.js; leave empty so each user brings their own key
+  PROXY_PROVIDERS: ['gemini'],
+  DB_URL: './assets/GRE_Mason_Full_Database_2.json'
+};
+const DB_CANDIDATES = [...new Set([CONFIG.DB_URL, './GRE_Mason_Full_Database_2.json', './assets/GRE_Mason_Full_Database.json', './GRE_Mason_Full_Database.json'])];
+const FALLBACK_WORDS = [
+  { word: 'equivocal', phonetic: '/ɪˈkwɪv.ə.kəl/', def: '模稜兩可的', root: 'equi + voc', synonyms: ['ambiguous', 'ambivalent'] },
+  { word: 'ephemeral', phonetic: '/ɪˈfem.ər.əl/', def: '轉瞬即逝的', root: 'epi + hemer', synonyms: ['transitory', 'transient'] },
+  { word: 'taciturn', phonetic: '/ˈtæs.ə.tɜːn/', def: '沉默寡言的', root: 'tac', synonyms: ['reserved', 'laconic', 'reticent'] },
+  { word: 'ubiquitous', phonetic: '/juːˈbɪk.wə.təs/', def: '無所不在的', root: 'ubi', synonyms: ['omnipresent', 'pervasive'] },
+  { word: 'mitigate', phonetic: '/ˈmɪt.ɪ.ɡeɪt/', def: '緩和、減輕', root: 'mitis', synonyms: ['allay', 'assuage', 'mollify'] },
+  { word: 'audacious', phonetic: '/ɔːˈdeɪ.ʃəs/', def: '大膽的', root: 'aud', synonyms: ['bold', 'daring'] },
+  { word: 'laconic', phonetic: '/ləˈkɒn.ɪk/', def: '言簡意賅的', root: 'Laconia', synonyms: ['terse', 'succinct'] }
+];
+const PROVIDERS = { gemini: { name: 'Google Gemini' } };
+// Model IDs change often; check Google AI Studio for the current list. tier: top = strongest reasoning
+const MODELS = [
+  { id: 'gemini-3.8-flash', label: 'Gemini 3.8 Flash (fast, cheap)', provider: 'gemini', vision: true, tier: 'mid' },
+  { id: 'gemini-3.1-pro-preview', label: 'Gemini 3.1 Pro (more accurate)', provider: 'gemini', vision: true, tier: 'top' }
+];
+const SYSTEM = `你是資深 GRE 名師，學生是台灣考生。學生會貼上一道 GRE 題目（可能是文字或截圖）。請全程使用繁體中文（台灣慣用語）撰寫解析，英文原文、單字與片語保留英文。
+推導規則：
+- 先在 scratch_work 完整推導（可以很長，不會直接顯示）：Quant 要列出計算並驗算；填空先找線索詞與語意方向，再逐一檢查選項。
+- 若題目資訊不完整（閱讀文章被截斷、截圖看不清），在 warnings 說明，不要亂猜。
+- Sentence Equivalence 必須給兩個答案，並說明兩者為何同義。
+輸出規則：
+- answer：最終答案。多空格請寫成「空格 1：X；空格 2：Y」。
+- parts：每個空格（或每個小題、每個解題步驟）一筆，包含：
+  - label：「空格 1」「第 2 題」「步驟 1」之類。
+  - answer：該項答案。
+  - clue：線索詞與轉折詞（例如 although、however、not only…but also），保留英文原文，並說明語意方向（正向、反向、因果、對比、遞進）。Quant 則寫考點。
+  - structure：句構分析（主要子句、從屬子句、修飾關係、空格的位置與所需詞性），2 到 3 句。Quant 則寫解法或公式。
+  - reasoning：為什麼選這個答案，並簡短說明主要干擾選項為何不對，100 字內。Quant 則寫計算與驗算。
+  - 引用原文關鍵片語時用 **粗體** 標示。
+- translation：整題（題目加選項）完整的繁體中文翻譯，通順自然。
+- vocab：題目與選項中值得學的單字與片語（最多 10 筆）。word 用原形；pos 寫詞性（adj.、n.、v.、adv.，片語寫「片語」）；meaning_zh 簡潔；synonyms 提供 2 到 4 個 GRE 常見同義字。
+- diagnosis：若學生提供了「我的答案」，用 2 到 3 句指出他錯在哪個思考環節；沒有則留空字串。
+- 不要使用 markdown 標題、表格或條列符號。`;
+const SCHEMA = {
+  type: 'object',
+  properties: {
+    scratch_work: { type: 'string', description: '完整推導與計算草稿' },
+    answer: { type: 'string' },
+    parts: { type: 'array', items: { type: 'object', properties: { label: { type: 'string' }, answer: { type: 'string' }, clue: { type: 'string' }, structure: { type: 'string' }, reasoning: { type: 'string' } }, required: ['label', 'answer', 'clue', 'structure', 'reasoning'] } },
+    translation: { type: 'string', description: '整題完整繁體中文翻譯' },
+    vocab: { type: 'array', items: { type: 'object', properties: { word: { type: 'string' }, pos: { type: 'string' }, meaning_zh: { type: 'string' }, synonyms: { type: 'array', items: { type: 'string' } } }, required: ['word', 'pos', 'meaning_zh'] } },
+    diagnosis: { type: 'string' },
+    warnings: { type: 'string' }
+  },
+  required: ['scratch_work', 'answer', 'parts', 'translation', 'vocab']
+};
 
-        document.addEventListener('DOMContentLoaded', () => {
-            renderMistakes('ALL');
-            renderVocabCards(embeddedMasonData);
-        });
+/* ===== 工具 ===== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch { alert('Browser storage is full or disabled'); } };
+let mistakes = load('GRE_MISTAKES_V2', []), myVocab = load('GRE_MYVOCAB', []), mason = [], dbMap = new Map(), lastAi = null, lastMeta = null, imgData = null, filter = 'ALL';
 
-        /* Tab Switching */
-        function switchTab(tabId, event) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            if (event && event.currentTarget) event.currentTarget.classList.add('active');
-        }
+/* ===== 分頁 / 設定 ===== */
+document.querySelectorAll('.tab').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.tab,.pane').forEach(e => e.classList.remove('active'));
+  b.classList.add('active'); $(b.dataset.tab).classList.add('active');
+});
+const openModal = () => {
+  const p = curModel().provider;
+  $('mTitle').textContent = PROVIDERS[p].name + ' API key';
+  $('keyIn').value = localStorage.getItem(keyName(p)) || ''; $('modal').style.display = 'flex';
+};
+$('gear').onclick = openModal;
+$('keyCancel').onclick = () => $('modal').style.display = 'none';
+$('keySave').onclick = () => { const k = $('keyIn').value.trim(); if (!k) return; localStorage.setItem(keyName(curModel().provider), k); $('modal').style.display = 'none'; };
+if (CONFIG.PROXY_URL) $('gear').style.display = 'none';
 
-        /* Save Question to Mistakes */
-        function saveQuestionToMistakes() {
-            const type = document.getElementById('questionType').value;
-            const question = document.getElementById('questionInput').value.trim();
-            const options = document.getElementById('optionsInput').value.trim();
-            const notes = document.getElementById('userNotesInput').value.trim();
+/* ===== 圖片 ===== */
+function loadImg(f) {
+  const fr = new FileReader();
+  fr.onload = () => {
+    const im = new Image();
+    im.onload = () => {
+      const s = Math.min(1, 1600 / Math.max(im.width, im.height)), c = document.createElement('canvas');
+      c.width = im.width * s; c.height = im.height * s;
+      c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+      const url = c.toDataURL('image/jpeg', .85);
+      imgData = url.split(',')[1]; $('prev').src = url; $('prevWrap').style.display = 'block'; updateHint();
+    };
+    im.src = fr.result;
+  };
+  fr.readAsDataURL(f);
+}
+$('drop').onclick = () => $('file').click();
+$('file').onchange = e => e.target.files[0] && loadImg(e.target.files[0]);
+$('rmImg').onclick = () => { imgData = null; $('prevWrap').style.display = 'none'; $('file').value = ''; updateHint(); };
+document.addEventListener('paste', e => { const f = [...(e.clipboardData?.files || [])].find(f => f.type.startsWith('image/')); if (f) loadImg(f); });
 
-            if (!question) {
-                alert('Please enter the question prompt first!');
-                return;
-            }
+/* ===== 多模型呼叫 ===== */
+const toGemini = s => Array.isArray(s) ? s.map(toGemini) : (s && typeof s === 'object')
+  ? Object.fromEntries(Object.entries(s).filter(([k]) => k !== 'description').map(([k, v]) => [k, k === 'type' ? String(v).toUpperCase() : toGemini(v)])) : s;
+const curModel = () => MODELS.find(m => m.id === $('model').value) || MODELS[0];
+const keyName = p => 'GRE_KEY_' + p;
 
-            const newItem = {
-                id: Date.now(),
-                type,
-                question,
-                options,
-                notes: notes || 'No personal notes provided.',
-                status: 'REVIEW' // REVIEW or MASTERED
-            };
+const ADAPTERS = {
+  gemini: {
+    url: m => `https://generativelanguage.googleapis.com/v1beta/models/${m.id}:generateContent`,
+    headers: k => ({ 'x-goog-api-key': k }),
+    body: (m, qType, text) => ({
+      systemInstruction: { parts: [{ text: SYSTEM }] },
+      contents: [{ role: 'user', parts: [...(imgData ? [{ inlineData: { mimeType: 'image/jpeg', data: imgData } }] : []), { text }] }],
+      generationConfig: { maxOutputTokens: qType === 'Quant' ? 32000 : 16000, responseMimeType: 'application/json', responseSchema: toGemini(SCHEMA) }
+    }),
+    parse: data => {
+      if (data.promptFeedback?.blockReason) throw new Error('Blocked by the safety filter: ' + data.promptFeedback.blockReason);
+      const c = data.candidates?.[0];
+      if (c?.finishReason === 'MAX_TOKENS') throw new Error('The response was cut off (question too long or complex). Shorten it and retry.');
+      return (c?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');
+    }
+  }
+};
 
-            mistakesData.unshift(newItem);
-            saveMistakesToLocalStorage();
+function normalize(a) {
+  const s = v => Array.isArray(v) ? v.map(s).join(', ') : v == null ? '' : typeof v === 'string' ? v : JSON.stringify(v);
+  const arr = v => Array.isArray(v) ? v : [];
+  return {
+    scratch_work: s(a.scratch_work), translation: s(a.translation), answer: s(a.answer), diagnosis: s(a.diagnosis), warnings: s(a.warnings),
+    parts: arr(a.parts).map(p => ({ label: s(p?.label), answer: s(p?.answer), clue: s(p?.clue), structure: s(p?.structure), reasoning: s(p?.reasoning) })),
+    vocab: arr(a.vocab).filter(v => v?.word).map(v => ({ word: s(v.word), pos: s(v.pos), meaning_zh: s(v.meaning_zh), synonyms: arr(v.synonyms).map(s) }))
+  };
+}
 
-            // Clear input fields
-            document.getElementById('questionInput').value = '';
-            document.getElementById('optionsInput').value = '';
-            document.getElementById('userNotesInput').value = '';
+async function callAI(m, qType, text) {
+  const A = ADAPTERS[m.provider], body = A.body(m, qType, text);
+  let url, headers = { 'content-type': 'application/json' };
+  if (CONFIG.PROXY_URL) { url = CONFIG.PROXY_URL; body.provider = m.provider; body.model = m.id; }
+  else {
+    const key = localStorage.getItem(keyName(m.provider));
+    if (!key) { openModal(); throw new Error(`Set your ${PROVIDERS[m.provider].name} API key first`); }
+    url = A.url(m); Object.assign(headers, A.headers(key));
+  }
+  const r = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(data.error?.message || (typeof data.error === 'string' ? data.error : `API error (${r.status})`));
+  let out = A.parse(data);
+  if (typeof out === 'string') {
+    out = out.replace(/^```(?:json)?\s*|\s*```$/g, '').trim();
+    try { out = JSON.parse(out); } catch { throw new Error('The model returned malformed output. Retry or switch model.'); }
+  }
+  if (!out || typeof out !== 'object') throw new Error('The model returned nothing. Retry.');
+  out = normalize(out); out.qType = qType;
+  if (!out.answer) throw new Error('The model gave no answer. Retry or switch to a stronger model.');
+  return out;
+}
 
-            alert('Successfully saved to your Mistake Notebook!');
-            renderMistakes();
-            
-            // Auto switch to Mistake Notebook Tab
-            switchTab('notebookTab');
-            document.querySelectorAll('.nav-tab')[1].classList.add('active');
-            document.querySelectorAll('.nav-tab')[0].classList.remove('active');
-        }
+/* ===== Model picker / hints ===== */
+function updateHint() {
+  const m = curModel(), msgs = [];
+  if ($('qType').value === 'Quant' && m.tier !== 'top') msgs.push('For Quant questions, the Pro model is more reliable.');
+  if (imgData && !m.vision) msgs.push('This model can’t read images.');
+  $('hint').textContent = msgs.join(' ');
+}
+(function initModels() {
+  const list = MODELS.filter(m => !CONFIG.PROXY_URL || CONFIG.PROXY_PROVIDERS.includes(m.provider));
+  $('model').innerHTML = list.map(m => `<option value="${esc(m.id)}">${esc(m.label)}</option>`).join('');
+  const saved = localStorage.getItem('GRE_MODEL');
+  if (saved && list.some(m => m.id === saved)) $('model').value = saved;
+  $('model').onchange = () => { localStorage.setItem('GRE_MODEL', $('model').value); updateHint(); };
+  $('qType').onchange = updateHint;
+  updateHint();
+})();
 
-        /* Render Mistakes Cards */
-        function renderMistakes(filterType = 'ALL') {
-            const container = document.getElementById('mistakesContainer');
-            container.innerHTML = '';
-            const filtered = mistakesData.filter(item => filterType === 'ALL' || item.type === filterType);
+$('go').onclick = async () => {
+  const qType = $('qType').value, q = $('q').value.trim(), opts = $('opts').value.trim(), mine = $('mine').value.trim();
+  if (!q && !imgData) return alert('Paste a question or upload a screenshot first.');
+  const text = `題型：${qType}\n題目：${q || '(見截圖)'}\n選項：${opts || '無／見截圖'}\n我的答案：${mine || '未提供'}`;
+  $('go').disabled = true;
+  $('result').innerHTML = `<p class="empty">${qType === 'Quant' ? 'Working through the math, this can take 30–60 seconds…' : 'Analyzing…'}</p>`;
+  try {
+    const m = curModel();
+    if (imgData && !m.vision) throw new Error('This model can’t read images. Pick another model or paste the text.');
+    lastAi = await callAI(m, qType, text);
+    lastMeta = { type: qType, question: q || '(screenshot)', mine };
+    showResult(lastAi);
+  } catch (e) {
+    $('result').innerHTML = `<div class="err">${esc(e.message)}</div>`;
+  } finally { $('go').disabled = false; }
+};
 
-            if (filtered.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding: 2rem;">No questions recorded yet. Add your first practice item above!</p>`;
-                return;
-            }
+/* ===== Render analysis ===== */
+function vocabRow(v) {
+  const m = dbMap.get(String(v.word).toLowerCase());
+  const payload = encodeURIComponent(JSON.stringify({ word: v.word, def: v.meaning_zh, synonyms: v.synonyms || [] })).replace(/'/g, '%27');
+  const mine = myVocab.some(x => x.word.toLowerCase() === String(v.word).toLowerCase());
+  const syn = [...new Set([...(m?.synonyms || []), ...(v.synonyms || [])])].join(', ');
+  return `<tr><td><b class="vw">${esc(v.word)}</b><span class="tag ${m ? 'in' : ''}">${m ? 'Mason' : 'New'}</span>${m?.root ? `<div class="vsub">Root: ${esc(m.root)}</div>` : ''}</td>
+    <td>${esc(v.pos || '')}</td><td>${esc(v.meaning_zh || m?.def || '')}</td><td>${esc(syn)}</td>
+    <td>${m || mine ? '' : `<button class="btn sm line" onclick="addVocab('${payload}',this)">Add</button>`}</td></tr>`;
+}
+function renderSolve(a) {
+  const L = a.qType === 'Quant' ? ['Concept', 'Method', 'Calculation & check'] : ['Clue & contrast words', 'Sentence structure', 'Reasoning'];
+  const parts = a.parts || [];
+  const old = !parts.length && (a.steps?.length || a.explanation) ? `<p style="margin-top:1rem">${(a.steps?.length ? a.steps : [a.explanation]).map(rich).join('<br>')}</p>` : '';
+  const row = (t, x) => x ? `<dt>${t}</dt><dd>${rich(x)}</dd>` : '';
+  return `${a.warnings ? `<div class="warn">${rich(a.warnings)}</div>` : ''}
+  <div class="ans"><span>Answer</span><div class="av">${esc(a.answer)}</div></div>
+  ${parts.map(p => `<article class="part"><div class="ph"><b>${esc(p.label)}</b>${p.answer ? `<span class="pa">${esc(p.answer)}</span>` : ''}</div>
+    <dl>${row(L[0], p.clue)}${row(L[1], p.structure)}${row(L[2], p.reasoning)}</dl></article>`).join('')}${old}
+  ${a.diagnosis ? `<div class="diag"><b>Where you went wrong</b><p>${rich(a.diagnosis)}</p></div>` : ''}
+  ${a.scratch_work ? `<details class="fold"><summary>Full AI reasoning</summary><div class="foldb">${rich(a.scratch_work)}</div></details>` : ''}`;
+}
+function renderExtra(a) {
+  const rows = (a.vocab || []).map(vocabRow).join('');
+  return `<section class="xs"><h3>Full translation</h3><p class="tr">${rich(a.translation)}</p></section>
+  <section class="xs"><h3>Vocabulary & phrases</h3>${rows ? `<div class="tw"><table class="vt"><thead><tr><th>Word / phrase</th><th>POS</th><th>Meaning</th><th>Synonyms</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p class="vsub">Nothing to review in this question.</p>'}</section>`;
+}
+const renderAnalysis = a => `<h3 class="zh">Solution</h3>${renderSolve(a)}<h3 class="zh">Extras</h3>${renderExtra(a)}`;
+function showResult(a) {
+  $('result').innerHTML = `<div class="ztabs"><button class="zt active" data-z="zSolve">Solution</button><button class="zt" data-z="zExtra">Extras<span class="cnt">${(a.vocab || []).length}</span></button>
+    <button class="btn line sm" onclick="addMistake(this)">Add to notebook</button></div>
+    <div id="zSolve" class="zone active">${renderSolve(a)}</div><div id="zExtra" class="zone">${renderExtra(a)}</div>`;
+}
+$('result').addEventListener('click', e => {
+  const b = e.target.closest('.zt'); if (!b) return;
+  $('result').querySelectorAll('.zt').forEach(x => x.classList.toggle('active', x === b));
+  $('result').querySelectorAll('.zone').forEach(z => z.classList.toggle('active', z.id === b.dataset.z));
+});
+function addMistake(btn) {
+  mistakes.unshift({ id: Date.now(), ...lastMeta, ai: lastAi, notes: '', status: 'REVIEW' });
+  save('GRE_MISTAKES_V2', mistakes); renderMistakes();
+  btn.disabled = true; btn.textContent = 'Added';
+}
+function addVocab(p, btn) {
+  const v = JSON.parse(decodeURIComponent(p));
+  if (!myVocab.some(x => x.word.toLowerCase() === v.word.toLowerCase())) { myVocab.unshift(v); save('GRE_MYVOCAB', myVocab); renderVocab(); }
+  btn.remove();
+}
 
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = `mistake-card ${item.type.toLowerCase()}`;
-                const isMastered = item.status === 'MASTERED';
-                
-                const statusBadge = isMastered ? 
-                    `<span class="status-toggle status-mastered" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-check"></i> Mastered</span>` :
-                    `<span class="status-toggle status-review" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-exclamation"></i> Needs Review</span>`;
+/* ===== 錯題本 ===== */
+function renderMistakes() {
+  const list = mistakes.filter(m => filter === 'ALL' || m.type === filter);
+  $('mlist').innerHTML = list.length ? list.map(m => `
+    <div class="mc ${esc(m.type)}">
+      <div class="top"><b>${esc(m.type)}</b><button class="st ${m.status}" onclick="toggleSt(${m.id})">${m.status === 'MASTERED' ? 'Mastered' : 'Needs review'}</button></div>
+      <div style="font-weight:700;white-space:pre-wrap">${esc(m.question.slice(0, 300))}${m.question.length > 300 ? '…' : ''}</div>
+      <div style="margin:.4rem 0"><b>Answer:</b> ${esc(m.ai.answer)}${m.mine ? `　<span style="color:var(--mute)">My answer: ${esc(m.mine)}</span>` : ''}</div>
+      <details><summary>View full analysis</summary>${renderAnalysis(m.ai)}</details>
+      <label>My notes</label><input type="text" value="${esc(m.notes)}" onchange="setNote(${m.id},this.value)" placeholder="Your own notes">
+      <div style="text-align:right;margin-top:.6rem"><button class="btn line sm" onclick="delMistake(${m.id})">Delete</button></div>
+    </div>`).join('') : '<p class="empty">No mistakes saved yet. Solve a question, then hit “Add to notebook”.</p>';
+}
+const toggleSt = id => { const m = mistakes.find(x => x.id === id); m.status = m.status === 'MASTERED' ? 'REVIEW' : 'MASTERED'; save('GRE_MISTAKES_V2', mistakes); renderMistakes(); };
+const setNote = (id, v) => { mistakes.find(x => x.id === id).notes = v; save('GRE_MISTAKES_V2', mistakes); };
+const delMistake = id => { if (confirm('Delete this question?')) { mistakes = mistakes.filter(x => x.id !== id); save('GRE_MISTAKES_V2', mistakes); renderMistakes(); } };
+$('filters').onclick = e => { const b = e.target.closest('.chipbtn'); if (!b) return; document.querySelectorAll('.chipbtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); filter = b.dataset.f; renderMistakes(); };
+$('exp').onclick = () => {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify({ mistakes, myVocab }, null, 2)], { type: 'application/json' }));
+  a.download = 'GRE_backup.json'; a.click();
+};
 
-                card.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span class="badge badge-${item.type.toLowerCase()}">${item.type}</span>
-                        <div>
-                            ${statusBadge}
-                            <button onclick="deleteMistake(${item.id})" style="background:none; border:none; color:#E53E3E; cursor:pointer; margin-left:8px;" title="Delete item">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div style="font-weight: 700; font-size: 1.05rem; color: var(--academic-blue); line-height:1.5;">${item.question}</div>
-                    ${item.options ? `<div style="font-size:0.9rem; color:var(--text-muted);">${item.options}</div>` : ''}
-                    <div class="form-group" style="margin-top: 8px;">
-                        <label style="font-size: 0.85rem;"><i class="fa-solid fa-note-sticky"></i> My Notes & Analysis (我的解析)</label>
-                        <input type="text" value="${item.notes}" onchange="updateMistakeNote(${item.id}, this.value)">
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
+/* ===== Vocabulary deck ===== */
+let covered = false;
+function renderVocab() {
+  const qs = $('vs').value.toLowerCase().trim();
+  const all = [...myVocab.map(v => ({ ...v, mine: true })), ...mason];
+  const list = all.filter(v => !qs || v.word.toLowerCase().includes(qs) || (v.def || '').includes(qs) || (v.root || '').toLowerCase().includes(qs)).slice(0, 300);
+  $('vgrid').innerHTML = list.map(v => `<div class="flip ${covered ? 'on' : ''}" onclick="this.classList.toggle('on')"><div class="fi">
+    <div class="fr"><div class="w">${esc(v.word)}</div><div style="color:var(--mute);font-size:.9rem">${esc(v.phonetic || (v.mine ? 'Added by me' : ''))}</div></div>
+    <div class="bk"><div class="d">${esc(v.def)}</div>${v.root ? `<div>Root: ${esc(v.root)}</div>` : ''}<div>Synonyms: ${esc((v.synonyms || []).join(', ') || '—')}</div></div></div></div>`).join('')
+    || '<p class="vsub">No matching words.</p>';
+}
+$('vs').oninput = renderVocab;
+$('cover').onclick = () => { covered = !covered; renderVocab(); };
 
-        function filterMistakes(type, element) {
-            document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-            renderMistakes(type);
-        }
+/* ===== Mason deck loading (tries several paths, shows exactly what failed) ===== */
+function normDb(raw) {
+  const list = Array.isArray(raw) ? raw : Array.isArray(raw?.words) ? raw.words
+    : raw && typeof raw === 'object' ? Object.entries(raw).map(([k, v]) => typeof v === 'object' ? { word: k, ...v } : { word: k, def: String(v) }) : [];
+  return list.map(w => ({
+    word: String(w.word ?? w.Word ?? w.vocab ?? w.term ?? '').trim(),
+    phonetic: String(w.phonetic ?? w.pronunciation ?? ''),
+    def: String(w.def ?? w.meaning ?? w.definition ?? w.zh ?? w.chinese ?? ''),
+    root: String(w.root ?? w.roots ?? w.etymology ?? ''),
+    synonyms: Array.isArray(w.synonyms) ? w.synonyms.map(String) : typeof w.synonyms === 'string' ? w.synonyms.split(/[,;、，]\s*/).filter(Boolean) : []
+  })).filter(w => w.word);
+}
+function setDb(db) { mason = db; dbMap = new Map(mason.map(w => [w.word.toLowerCase(), w])); renderVocab(); }
+async function loadDb() {
+  const tried = [];
+  for (const u of DB_CANDIDATES) {
+    try {
+      const r = await fetch(u, { cache: 'no-cache' });
+      if (!r.ok) { tried.push(`${u}: HTTP ${r.status}`); continue; }
+      const db = normDb(await r.json());
+      if (!db.length) { tried.push(`${u}: loaded, but no entries with a "word" field`); continue; }
+      return { db, tried };
+    } catch (e) { tried.push(`${u}: ${e.message || 'blocked'}`); }
+  }
+  return { db: null, tried };
+}
+function showDbWarn(tried) {
+  $('dbwarn').innerHTML = `<div class="warn"><b>Couldn’t load the Mason deck.</b> Showing ${FALLBACK_WORDS.length} sample words instead.
+    <ul style="margin:.5rem 0 .5rem 1.2rem">
+      <li>The file must be in your repo at <code>assets/GRE_Mason_Full_Database_2.json</code>. GitHub is case-sensitive, so check every letter.</li>
+      ${location.protocol === 'file:' ? '<li>You opened this page straight from disk, which browsers block. Use GitHub Pages, or run <code>python -m http.server</code> and open <code>localhost:8000</code>.</li>' : ''}
+    </ul>
+    <details><summary>What was tried</summary>${tried.map(t => `<div class="vsub">${esc(t)}</div>`).join('')}</details>
+    <div style="margin-top:.7rem"><button class="btn line sm" onclick="$('dbfile').click()">Load the JSON file manually</button><input type="file" id="dbfile" accept=".json,application/json" hidden onchange="importDb(this.files[0])"></div></div>`;
+}
+async function importDb(f) {
+  if (!f) return;
+  try {
+    const raw = JSON.parse(await f.text()), db = normDb(raw);
+    if (!db.length) throw new Error('No entries with a "word" field were found.');
+    setDb(db);
+    try { localStorage.setItem('GRE_MASON_IMPORT', JSON.stringify(raw)); } catch { /* too big to cache; fine */ }
+    $('dbwarn').innerHTML = `<div class="warn">Loaded ${db.length} words from ${esc(f.name)}.</div>`;
+  } catch (e) { alert('Could not read that file: ' + e.message); }
+}
 
-        function toggleMistakeStatus(id) {
-            mistakesData = mistakesData.map(item => {
-                if (item.id === id) item.status = item.status === 'MASTERED' ? 'REVIEW' : 'MASTERED';
-                return item;
-            });
-            saveMistakesToLocalStorage();
-            renderMistakes();
-        }
-
-        function updateMistakeNote(id, noteText) {
-            mistakesData = mistakesData.map(item => {
-                if (item.id === id) item.notes = noteText;
-                return item;
-            });
-            saveMistakesToLocalStorage();
-        }
-
-        function deleteMistake(id) {
-            if (confirm('Are you sure you want to delete this question?')) {
-                mistakesData = mistakesData.filter(item => item.id !== id);
-                saveMistakesToLocalStorage();
-                renderMistakes();
-            }
-        }
-
-        function saveMistakesToLocalStorage() {
-            localStorage.setItem(MISTAKES_KEY, JSON.stringify(mistakesData));
-        }
-
-        function exportNotebook() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(mistakesData, null, 2));
-            const dlAnchorElem = document.createElement('a');
-            dlAnchorElem.setAttribute("href", dataStr);
-            dlAnchorElem.setAttribute("download", "GRE_Mistakes_Backup.json");
-            dlAnchorElem.click();
-        }
-
-        /* Vocab Deck Functions */
-        function renderVocabCards(data) {
-            const grid = document.getElementById('vocabGrid');
-            grid.innerHTML = '';
-            data.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'flip-card';
-                card.onclick = () => card.classList.toggle('flipped');
-                card.innerHTML = `
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="vocab-word">${item.word}</div>
-                            <div class="vocab-phonetic">${item.phonetic || ''}</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <div class="vocab-def">${item.def}</div>
-                            <div style="font-size:0.8rem; margin-bottom: 6px;">${item.root ? '字根: ' + item.root : ''}</div>
-                            <div style="font-size:0.8rem;">同義詞: ${item.synonyms ? item.synonyms.join(', ') : '無'}</div>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function searchVocab() {
-            const query = document.getElementById('vocabSearch').value.toLowerCase();
-            const filtered = embeddedMasonData.filter(item => 
-                item.word.toLowerCase().includes(query) ||
-                item.def.includes(query) ||
-                (item.root && item.root.toLowerCase().includes(query))
-            );
-            renderVocabCards(filtered);
-        }
-
-        let isHiddenMode = false;
-        function toggleFlashcardMode() {
-            isHiddenMode = !isHiddenMode;
-            document.querySelectorAll('.flip-card').forEach(card => {
-                if (isHiddenMode) card.classList.add('flipped');
-                else card.classList.remove('flipped');
-            });
-        }
-    </script>
+/* ===== Init ===== */
+(async () => {
+  const { db, tried } = await loadDb();
+  if (db) setDb(db);
+  else {
+    const saved = load('GRE_MASON_IMPORT', null), sdb = saved ? normDb(saved) : [];
+    if (sdb.length) { setDb(sdb); $('dbwarn').innerHTML = `<div class="warn">Using the ${sdb.length}-word deck you imported earlier. The site’s own file couldn’t be loaded.</div>`; }
+    else { setDb(FALLBACK_WORDS); showDbWarn(tried); }
+  }
+  renderMistakes();
+})();
+</script>
 </body>
 </html>
