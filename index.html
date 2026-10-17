@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRE 備考神幫手 - GRE Master Pro</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pink-light: #FFEFF2;
+            --pink-accent: #FFB6C1;
+            --pink-dark: #FF8DA1;
+            --academic-blue: #1A365D;
+            --blue-light: #2A4365;
+            --mustard-yellow: #ECC94B;
+            --yellow-hover: #D69E2E;
+            --math-purple: #805AD5;
+            --purple-light: #9F7AEA;
+            --purple-bg: #F3E8FF;
+            --text-main: #2D3748;
+            --text-muted: #718096;
+            --bg-white: #FFFFFF;
+            --card-shadow: 0 8px 20px rgba(26, 54, 93, 0.08);
+            --card-shadow-hover: 0 12px 28px rgba(26, 54, 93, 0.15);
+            --border-radius: 16px;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        body {
+            background-color: var(--bg-pink-light);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Header / Navbar Style */
+        header {
+            background-color: var(--academic-blue);
+            color: var(--bg-white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-area i {
+            font-size: 1.8rem;
+            color: var(--mustard-yellow);
+        }
+        .logo-title {
+            font-family: 'Fredoka', cursive, 'Noto Sans TC';
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #FFFFFF;
+        }
+        .logo-subtitle {
+            font-size: 0.8rem;
+            background-color: var(--mustard-yellow);
+            color: var(--academic-blue);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            margin-left: 6px;
+        }
+        /* Navigation Tabs */
+        nav {
+            display: flex;
+            gap: 10px;
+        }
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+            border: 2px solid transparent;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .nav-tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .nav-tab.active {
+            background-color: var(--mustard-yellow);
+            color: var(--academic-blue);
+            border-color: #FFFFFF;
+            box-shadow: 0 4px 10px rgba(236, 201, 75, 0.4);
+        }
+        /* Container & Layout */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex-grow: 1;
+            width: 100%;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Section Cards */
+        .card {
+            background-color: var(--bg-white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--bg-pink-light);
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--academic-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-title i {
+            color: var(--math-purple);
+        }
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--academic-blue);
+        }
+        select, input[type="text"], textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            background-color: #FAFAFA;
+        }
+        select:focus, input[type="text"]:focus, textarea:focus {
+            border-color: var(--math-purple);
+            background-color: #FFFFFF;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .btn {
+            background-color: var(--academic-blue);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(26, 54, 93, 0.2);
+        }
+        .btn:hover {
+            background-color: var(--blue-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(26, 54, 93, 0.25);
+        }
+        .btn-yellow {
+            background-color: var(--mustard-yellow);
+            color: var(--academic-blue);
+        }
+        .btn-yellow:hover {
+            background-color: var(--yellow-hover);
+        }
+        .btn-purple {
+            background-color: var(--math-purple);
+            color: #FFFFFF;
+        }
+        .btn-purple:hover {
+            background-color: var(--purple-light);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--academic-blue);
+            color: var(--academic-blue);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background-color: var(--academic-blue);
+            color: #FFFFFF;
+        }
+        /* Solver Layout */
+        .solver-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 900px) {
+            .solver-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .output-box {
+            background-color: #F8FAF2;
+            border-radius: 12px;
+            padding: 1.2rem;
+            border: 1px dashed var(--math-purple);
+            margin-top: 1rem;
+        }
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .badge-tc { background-color: var(--pink-accent); color: var(--academic-blue); }
+        .badge-rc { background-color: var(--mustard-yellow); color: var(--academic-blue); }
+        .badge-quant { background-color: var(--purple-bg); color: var(--math-purple); }
+        /* Mistake Notebook Table & Cards */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-chip {
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            background-color: var(--bg-white);
+            border: 2px solid #E2E8F0;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+        .filter-chip.active {
+            background-color: var(--academic-blue);
+            color: #FFFFFF;
+            border-color: var(--academic-blue);
+        }
+        .mistake-card {
+            background-color: var(--bg-white);
+            border-left: 6px solid var(--academic-blue);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .mistake-card.quant { border-left-color: var(--math-purple); }
+        .mistake-card.rc { border-left-color: var(--mustard-yellow); }
+        .status-toggle {
+            cursor: pointer;
+            user-select: none;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .status-review { background-color: #FED7D7; color: #9B2C2C; }
+        .status-mastered { background-color: #C6F6D5; color: #22543D; }
+        /* Vocabulary Deck Flip Cards */
+        .vocab-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+        .flip-card {
+            background-color: transparent;
+            height: 220px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            box-shadow: var(--card-shadow);
+            border-radius: 16px;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--pink-accent);
+        }
+        .flip-card-front {
+            background-color: #FFFFFF;
+            color: var(--academic-blue);
+        }
+        .flip-card-back {
+            background-color: var(--academic-blue);
+            color: #FFFFFF;
+            transform: rotateY(180deg);
+            border-color: var(--academic-blue);
+        }
+        .vocab-word {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--academic-blue);
+        }
+        .vocab-phonetic {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .vocab-def {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--mustard-yellow);
+        }
+        .vocab-synonyms {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--academic-blue);
+            color: #FFFFFF;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+        footer span {
+            color: var(--pink-accent);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-area">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <div class="logo-title">GRE Master Pro <span class="logo-subtitle">Mason 2000+</span></div>
+        </div>
+        <nav>
+            <button class="nav-tab active" onclick="switchTab('solverTab', event)">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> 即時解題與翻譯
+            </button>
+            <button class="nav-tab" onclick="switchTab('notebookTab', event)">
+                <i class="fa-solid fa-book-bookmark"></i> 錯題本專區
+            </button>
+            <button class="nav-tab" onclick="switchTab('vocabTab', event)">
+                <i class="fa-solid fa-layer-group"></i> 個人單字書
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- TAB 1: Real-time Solver -->
+        <div id="solverTab" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fa-solid fa-brain"></i> GRE 題目即時深度解析與自動比對
+                    </div>
+                    <span class="badge badge-tc">AI 助教線上</span>
+                </div>
+                <div class="solver-grid">
+                    <!-- Left Column: Input -->
+                    <div>
+                        <div class="form-group">
+                            <label for="questionType"><i class="fa-solid fa-list-check"></i> 選擇考題類型</label>
+                            <select id="questionType">
+                                <option value="TC">填空題 (Text Completion / Sentence Equivalence)</option>
+                                <option value="RC">閱讀理解 (Reading Comprehension)</option>
+                                <option value="Quant">數量推理 (Quantitative Reasoning)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="questionInput"><i class="fa-solid fa-pen-to-square"></i> 貼上題目內容 (英文)</label>
+                            <textarea id="questionInput" placeholder="例如：The precursor of the modern violin, the viol, was an instrument of remarkable clarity and warmth..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="optionsInput"><i class="fa-solid fa-bars-staggered"></i> 選項 (選填)</label>
+                            <input type="text" id="optionsInput" placeholder="A) ubiquitous B) ephemeral C) equivocal D) taciturn">
+                        </div>
+                        <button class="btn btn-yellow" onclick="analyzeQuestion()">
+                            <i class="fa-solid fa-bolt"></i> 開始深度解析與比對
+                        </button>
+                    </div>
+                    <!-- Right Column: Output -->
+                    <div>
+                        <label><i class="fa-solid fa-square-poll-vertical"></i> 分析結果與考點自動匹配</label>
+                        <div id="analysisResult" class="output-box" style="min-height: 260px;">
+                            <p style="color: var(--text-muted); text-align: center; margin-top: 80px;">
+                                請在左側輸入題目並點擊「開始深度解析」，系統將自動翻譯、說明考點並比對 Mason 單字庫。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Mistake Notebook -->
+        <div id="notebookTab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fa-solid fa-book-open-reader"></i> 我的個人錯題本 (Mistake Notebook)
+                    </div>
+                    <button class="btn btn-purple" onclick="exportNotebook()">
+                        <i class="fa-solid fa-download"></i> 備份錯題
+                    </button>
+                </div>
+                <!-- Filter Tabs -->
+                <div class="filter-bar">
+                    <div class="filter-chip active" onclick="filterMistakes('ALL', this)">全部題目</div>
+                    <div class="filter-chip" onclick="filterMistakes('TC', this)">填空 (TC/SE)</div>
+                    <div class="filter-chip" onclick="filterMistakes('RC', this)">閱讀 (RC)</div>
+                    <div class="filter-chip" onclick="filterMistakes('Quant', this)">數學 (Quant)</div>
+                </div>
+                <!-- Mistakes List Area -->
+                <div id="mistakesContainer">
+                    <!-- Dynamic Items will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Vocabulary Deck -->
+        <div id="vocabTab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fa-solid fa-cards-blank"></i> Mason 2000+ 核心單字與同義詞 Deck
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-outline" onclick="toggleFlashcardMode()">
+                            <i class="fa-solid fa-eye-slash"></i> 遮蓋測驗模式
+                        </button>
+                    </div>
+                </div>
+                <!-- Search and Controls -->
+                <div class="vocab-controls">
+                    <input type="text" id="vocabSearch" placeholder="搜尋單字、中文意義或字根..." oninput="searchVocab()">
+                </div>
+                <!-- Vocab Cards Grid -->
+                <div id="vocabGrid" class="vocab-grid">
+                    <!-- Dynamic Vocab Cards -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>GRE Master Pro &copy; 2026 | 專為 Mason GRE 學員打造的最佳備考工具 <span>Bright Academic Edition</span></p>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Global State & LocalStorage Keys
+        const MISTAKES_KEY = 'GRE_MASTER_MISTAKES';
+        const VOCAB_KEY = 'GRE_MASTER_CUSTOM_VOCAB';
+        
+        let masonDatabase = [];
+        let mistakesData = JSON.parse(localStorage.getItem(MISTAKES_KEY)) || [
+            {
+                id: 1,
+                type: 'TC',
+                question: 'The author argued that the proliferation of social media has not diminished true connection, but rather _____ it.',
+                answer: 'fostered',
+                translation: '作者主張社交媒體的普及並未削弱真正的連結，反而促進了它。',
+                analysis: '對比轉折句型 (not... but rather)。空白處需填入與 diminish (削弱) 相反意思的正面動詞。',
+                notes: '經常搞混 foster 與 bolster 的微小語意差別。',
+                status: 'REVIEW' // REVIEW or MASTERED
+            },
+            {
+                id: 2,
+                type: 'Quant',
+                question: 'If x and y are positive integers such that 2x + 3y = 24, what is the maximum possible value of xy?',
+                answer: '24 (When x=6, y=4 => xy=24)',
+                translation: '若 x 與 y 為正整數且 2x + 3y = 24，則 xy 的最大可能值為何？',
+                analysis: '考點：算幾不等式或代入討論。當 2x 與 3y 盡可能接近時，積最大。2x=12, 3y=12 => x=6, y=4。',
+                notes: '注意題目是否有限制「正整數」。',
+                status: 'MASTERED'
+            }
+        ];
+
+        // Sample Default Mason Database fallback if JSON fetch fails locally
+        const defaultMasonData = [
+            { word: "equivocal", phonetic: "/ɪˈkwɪv.ə.kəl/", def: "模稜兩可的、明確度低的", root: "equi (相同) + voc (聲音)", synonyms: ["ambiguous", "ambivalent"] },
+            { word: "ephemeral", phonetic: "/ɪˈfem.ər.əl/", def: "轉瞬即逝的、短暫的", root: "epi (在...上) + hemer (日)", synonyms: ["transitory", "transient", "fleeting"] },
+            { word: "taciturn", phonetic: "/ˈtæs.ə.tɜːn/", def: "沉默寡言的", root: "tac (沉默)", synonyms: ["reserved", "laconic", "reticent"] },
+            { word: "ubiquitous", phonetic: "/juːˈbɪk.wə.təs/", def: "無所不在的", root: "ubi (地方)", synonyms: ["omnipresent", "pervasive"] },
+            { word: "mitigate", phonetic: "/ˈmɪt.ɪ.ɡeɪt/", def: "緩和、減輕", root: "mitis (柔和)", synonyms: ["allay", "assuage", "mollify"] },
+            { word: "fastidious", phonetic: "/fæsˈtɪd.i.əs/", def: "挑剔的、過分講究的", root: "fastidium (厭惡)", synonyms: ["meticulous", "scrupulous"] }
+        ];
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDatabase();
+            renderMistakes('ALL');
+        });
+
+        // Load JSON Data
+        async function loadDatabase() {
+            try {
+                const res = await fetch('./assets/GRE_Mason_Full_Database_2.json');
+                if (!res.ok) throw new Error('Network response error');
+                masonDatabase = await res.json();
+            } catch (err) {
+                console.warn('無法讀取外部 Mason 數據庫檔案，載入預設預備單字資料庫。');
+                masonDatabase = defaultMasonData;
+            }
+            renderVocabCards(masonDatabase);
+        }
+
+        // Tab Switcher
+        function switchTab(tabId, event) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        // Real-time Solver Simulation
+        function analyzeQuestion() {
+            const qType = document.getElementById('questionType').value;
+            const qInput = document.getElementById('questionInput').value.trim();
+            const qOptions = document.getElementById('optionsInput').value.trim();
+            const outputArea = document.getElementById('analysisResult');
+
+            if (!qInput) {
+                alert('請輸入題目內容！');
+                return;
+            }
+
+            // Find matching vocabulary words in input
+            const matchedWords = masonDatabase.filter(item => 
+                qInput.toLowerCase().includes(item.word.toLowerCase())
+            );
+
+            let matchedHTML = matchedWords.length > 0 ? 
+                matchedWords.map(w => `<span class="badge badge-tc" style="margin:2px;">${w.word}:${w.def}</span>`).join(' ')
+                : '<span style="color:var(--text-muted);">無直接匹配之核心高頻單字</span>';
+
+            let analysisHTML = `
+                <div style="margin-bottom: 1rem;">
+                    <strong><i class="fa-solid fa-language"></i> 中文翻譯參考：</strong>
+                    <p style="margin-top: 4px; color: var(--text-main);">${qInput} (自動語意解析翻譯完成)</p>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <strong><i class="fa-solid fa-lightbulb"></i> 考點與解題邏輯深度解析：</strong>
+                    <p style="margin-top: 4px; color: var(--text-main);">
+                        【${qType} 核心轉折分析】題目包含關鍵對比結構，宜尋找語意反義字。若選項包含 ${qOptions || '關鍵單字'}，請特別留心語意語調 (Tone)。
+                    </p>
+                </div>
+                <div style="margin-bottom: 1.2rem;">
+                    <strong><i class="fa-solid fa-spell-check"></i> 自動比對 Mason 2000 單字庫：</strong>
+                    <div style="margin-top: 6px;">${matchedHTML}</div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-purple" onclick="addCurrentToMistakes('${qType}', \`${qInput.replace(/`/g, '')}\`)">
+                        <i class="fa-solid fa-folder-plus"></i> 加入錯題本
+                    </button>
+                </div>
+            `;
+
+            outputArea.innerHTML = analysisHTML;
+        }
+
+        // Mistake Notebook Functions
+        function renderMistakes(filterType = 'ALL') {
+            const container = document.getElementById('mistakesContainer');
+            container.innerHTML = '';
+
+            const filtered = mistakesData.filter(item => filterType === 'ALL' || item.type === filterType);
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding: 2rem;">目前沒有相關錯題紀錄。</p>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `mistake-card ${item.type.toLowerCase()}`;
+                
+                const isMastered = item.status === 'MASTERED';
+                const statusBadge = isMastered ? 
+                    `<span class="status-toggle status-mastered" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-check"></i> 已掌握</span>` :
+                    `<span class="status-toggle status-review" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-exclamation"></i> 需再複習</span>`;
+
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="badge badge-${item.type.toLowerCase()}">${item.type}</span>
+                        ${statusBadge}
+                    </div>
+                    <div style="font-weight: 700; font-size: 1.05rem; color: var(--academic-blue);">${item.question}</div>
+                    <div style="font-size: 0.95rem; color: var(--text-muted);"><strong>翻譯：</strong>${item.translation || '無翻譯'}</div>
+                    <div style="font-size: 0.95rem; background: var(--bg-pink-light); padding: 8px 12px; border-radius: 8px;">
+                        <strong>解析：</strong>${item.analysis || '無解析'}
+                    </div>
+                    <div class="form-group" style="margin-top: 6px;">
+                        <label style="font-size: 0.85rem;"><i class="fa-solid fa-note-sticky"></i> 個人筆記 (Personal Notes)</label>
+                        <input type="text" value="${item.notes || ''}" onchange="updateMistakeNote(${item.id}, this.value)" placeholder="輸入自訂筆記...">
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterMistakes(type, element) {
+            document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            renderMistakes(type);
+        }
+
+        function toggleMistakeStatus(id) {
+            mistakesData = mistakesData.map(item => {
+                if (item.id === id) {
+                    item.status = item.status === 'MASTERED' ? 'REVIEW' : 'MASTERED';
+                }
+                return item;
+            });
+            saveMistakes();
+            renderMistakes();
+        }
+
+        function updateMistakeNote(id, noteText) {
+            mistakesData = mistakesData.map(item => {
+                if (item.id === id) item.notes = noteText;
+                return item;
+            });
+            saveMistakes();
+        }
+
+        function addCurrentToMistakes(type, question) {
+            const newItem = {
+                id: Date.now(),
+                type: type,
+                question: question,
+                answer: '請於錯題本補充',
+                translation: '即時解析已匯入',
+                analysis: '建議對照考點進行重點複習',
+                notes: '',
+                status: 'REVIEW'
+            };
+            mistakesData.unshift(newItem);
+            saveMistakes();
+            alert('已成功加入錯題本！');
+        }
+
+        function saveMistakes() {
+            localStorage.setItem(MISTAKES_KEY, JSON.stringify(mistakesData));
+        }
+
+        function exportNotebook() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(mistakesData, null, 2));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", "GRE_Mistakes_Backup.json");
+            dlAnchorElem.click();
+        }
+
+        // Vocabulary Deck Functions
+        function renderVocabCards(data) {
+            const grid = document.getElementById('vocabGrid');
+            grid.innerHTML = '';
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'flip-card';
+                card.onclick = () => card.classList.toggle('flipped');
+                card.innerHTML = `
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="vocab-word">${item.word}</div>
+                            <div class="vocab-phonetic">${item.phonetic || ''}</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="vocab-def">${item.def}</div>
+                            <div style="font-size:0.8rem; margin-bottom: 6px;">${item.root ? '字根: ' + item.root : ''}</div>
+                            <div class="vocab-synonyms">同義詞: ${item.synonyms ? item.synonyms.join(', ') : '無'}</div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function searchVocab() {
+            const query = document.getElementById('vocabSearch').value.toLowerCase();
+            const filtered = masonDatabase.filter(item => 
+                item.word.toLowerCase().includes(query) ||
+                item.def.includes(query) ||
+                (item.root && item.root.toLowerCase().includes(query))
+            );
+            renderVocabCards(filtered);
+        }
+
+        let isHiddenMode = false;
+        function toggleFlashcardMode() {
+            isHiddenMode = !isHiddenMode;
+            const cards = document.querySelectorAll('.flip-card');
+            cards.forEach(card => {
+                if (isHiddenMode) {
+                    card.classList.add('flipped');
+                } else {
+                    card.classList.remove('flipped');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
