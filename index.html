@@ -3,112 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GRE Master Pro - 智學備考神器</title>
+<title>GRE Master Pro</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#1E1B3A;--pink:#FF4F9A;--pink-soft:#FFE3EF;--yellow:#FFD21F;--yellow-soft:#FFF4B8;--line:#E7E5F0;--mute:#6B6880;--display:'Bricolage Grotesque','Noto Sans TC',sans-serif}
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Noto Sans TC',sans-serif}
-body{background:#FAF8FC;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;line-height:1.7;background-image:radial-gradient(var(--pink-soft) 1px, transparent 0);background-size:24px 24px}
+body{background:#fff;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;line-height:1.7}
 :focus-visible{outline:3px solid var(--pink);outline-offset:2px}
-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:1rem clamp(1rem,4vw,3rem);border-bottom:3px solid var(--ink);background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 4px 0 var(--pink-soft)}
-.logo{font-family:var(--display);font-weight:900;font-size:1.4rem;display:flex;align-items:center;gap:10px;color:var(--ink)}
-.logo b{font-family:var(--display);background:var(--yellow);border:2.5px solid var(--ink);border-radius:12px;padding:.1rem .65rem;transform:rotate(-3deg);display:inline-block;box-shadow:3px 3px 0 var(--ink);transition:transform .2s}
-.logo:hover b{transform:rotate(2deg) scale(1.05)}
-nav{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-.tab{background:#fff;border:2.5px solid var(--ink);border-radius:999px;padding:.4rem 1.2rem;font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all .15s ease}
-.tab:hover{background:var(--yellow-soft);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
-.tab.active{background:var(--pink);color:#fff;border-color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
-.gear{margin-left:.6rem;background:var(--yellow-soft);border:2.5px solid var(--ink);border-radius:999px;padding:.4rem 1.2rem;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all .15s ease}
-.gear:hover{background:var(--yellow);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:.9rem clamp(1rem,4vw,3rem);border-bottom:2px solid var(--ink);background:#fff;position:sticky;top:0;z-index:100}
+.logo{font-family:var(--display);font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:10px}
+.logo b{font-family:var(--display);background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:0 .55rem;transform:rotate(-4deg);display:inline-block}
+nav{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.tab{background:none;border:2px solid transparent;border-radius:999px;padding:.35rem 1rem;font-size:.95rem;font-weight:700;cursor:pointer}
+.tab:hover{background:var(--yellow-soft)}.tab.active{background:var(--pink);border-color:var(--ink)}
+.gear{margin-left:.6rem;background:none;border:2px solid var(--ink);border-radius:999px;padding:.35rem 1rem;font-size:.9rem;font-weight:700;cursor:pointer}
+.gear:hover{background:var(--yellow)}
 .container{max-width:1240px;margin:0 auto;padding:0 clamp(1rem,4vw,3rem) 4rem;width:100%;flex-grow:1}
 .pane{display:none}.pane.active{display:block}
-.hero{background:var(--yellow);border:3px solid var(--ink);border-radius:28px;padding:clamp(1.8rem,4vw,2.8rem);margin:clamp(1.2rem,3vw,2rem) 0 clamp(1.4rem,3vw,2.2rem);box-shadow:8px 8px 0 var(--pink);position:relative;overflow:hidden}
-.hero::after{content:'✦';position:absolute;right:20px;bottom:10px;font-size:5rem;color:var(--pink);opacity:.3;font-family:sans-serif;pointer-events:none}
-.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(1.9rem,4.6vw,3.2rem);line-height:1.2;max-width:22ch;color:var(--ink)}
-.hero p{margin-top:.8rem;max-width:42rem;font-size:1.1rem;font-weight:500}
+.hero{background:var(--yellow);border:2px solid var(--ink);border-radius:28px;padding:clamp(1.6rem,4vw,2.8rem);margin:clamp(1.2rem,3vw,2rem) 0 clamp(1.4rem,3vw,2.2rem)}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,4.6vw,3.4rem);line-height:1.12;max-width:20ch}
+.hero p{margin-top:.8rem;max-width:40rem;font-size:1.05rem}
 .card{padding-top:clamp(1.4rem,4vw,2.4rem)}
 .card-h{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:1.4rem}
-.card-h span{font-family:var(--display);font-weight:900;font-size:clamp(1.6rem,3.6vw,2.4rem);line-height:1.2}
+.card-h span{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,3.6vw,2.4rem);line-height:1.2}
 .grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:start}
 @media(max-width:900px){.grid{grid-template-columns:1fr}}
-label{display:block;font-weight:700;margin:1.1rem 0 .4rem;font-size:.98rem;color:var(--ink)}
-.sub{font-weight:500;color:var(--mute);font-size:.85rem;margin-left:.4rem}
-select,input[type=text],input[type=password],textarea{width:100%;padding:.8rem 1rem;border:2.5px solid var(--ink);border-radius:16px;font-size:1rem;background:#fff;color:var(--ink);box-shadow:4px 4px 0 var(--line);transition:all .15s ease}
-select:focus,input:focus,textarea:focus{outline:none;border-color:var(--ink);box-shadow:4px 4px 0 var(--pink)}
+label{display:block;font-weight:700;margin:1.1rem 0 .4rem;font-size:.95rem}
+.sub{font-weight:400;color:var(--mute);font-size:.85rem;margin-left:.4rem}
+select,input[type=text],input[type=password],textarea{width:100%;padding:.7rem .9rem;border:2px solid var(--ink);border-radius:12px;font-size:1rem;background:#fff;color:var(--ink)}
+select:focus,input:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px var(--pink-soft)}
 textarea{min-height:150px;resize:vertical}
-.drop{border:2.5px dashed var(--ink);border-radius:16px;padding:1.2rem;text-align:center;color:var(--ink);font-weight:700;cursor:pointer;font-size:1rem;margin-top:.8rem;background:#fff;box-shadow:4px 4px 0 var(--yellow-soft);transition:all .15s ease}
-.drop:hover{background:var(--yellow-soft);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
-#prevWrap{display:none;margin-top:.8rem}#prev{max-width:100%;max-height:220px;border-radius:14px;border:2.5px solid var(--ink);box-shadow:4px 4px 0 var(--pink-soft)}
-.btn{background:var(--ink);color:#fff;border:2.5px solid var(--ink);padding:.75rem 1.6rem;border-radius:999px;font-size:1rem;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .15s ease;box-shadow:4px 4px 0 var(--pink)}
-.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--pink)}
+.drop{border:2px dashed var(--ink);border-radius:12px;padding:.8rem;text-align:center;color:var(--mute);cursor:pointer;font-size:.95rem;margin-top:.6rem}
+.drop:hover{background:var(--yellow-soft)}
+#prevWrap{display:none;margin-top:.6rem}#prev{max-width:100%;max-height:200px;border-radius:10px;border:2px solid var(--ink)}
+.btn{background:var(--ink);color:#fff;border:2px solid var(--ink);padding:.65rem 1.4rem;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--pink)}
 .btn:disabled{opacity:.5;cursor:wait;transform:none;box-shadow:none}
-.btn.gold{background:var(--yellow);color:var(--ink);box-shadow:4px 4px 0 var(--ink)}.btn.gold:hover{background:var(--yellow);box-shadow:6px 6px 0 var(--ink)}
-.btn.line{background:#fff;color:var(--ink);box-shadow:4px 4px 0 var(--ink)}.btn.line:hover{background:var(--pink-soft);box-shadow:6px 6px 0 var(--ink)}
-.btn.sm{padding:.3rem 1rem;font-size:.88rem;box-shadow:2px 2px 0 var(--ink)}
-.btn.sm:hover{box-shadow:4px 4px 0 var(--ink)}
-.hint{font-size:.88rem;color:#B42318;margin-top:.4rem;font-weight:700}
-.warn{background:var(--yellow-soft);border:2.5px solid var(--ink);border-radius:16px;padding:1rem 1.2rem;margin-bottom:1.2rem;box-shadow:4px 4px 0 var(--yellow)}
-.warn code{background:#fff;padding:.1rem .4rem;border-radius:6px;border:1.5px solid var(--ink);font-family:monospace;font-weight:700}
-.err{background:var(--pink-soft);border:2.5px solid var(--ink);border-radius:16px;padding:1rem 1.2rem;box-shadow:4px 4px 0 var(--pink);font-weight:700}
-.out{border:3px solid var(--ink);border-radius:28px;padding:1.6rem 1.8rem;min-height:420px;box-shadow:10px 10px 0 var(--pink);background:#fff}
-.empty{color:var(--mute);text-align:center;padding:6rem 1rem;font-size:1.05rem;font-weight:500}
-.ztabs{display:flex;align-items:center;gap:.6rem;margin-bottom:1.5rem;flex-wrap:wrap}
-.zt{background:#fff;border:2.5px solid var(--ink);border-radius:999px;padding:.4rem 1.2rem;font-size:.95rem;font-weight:800;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all .15s ease}
-.zt:hover{background:var(--yellow-soft)}
-.zt.active{background:var(--yellow);box-shadow:4px 4px 0 var(--ink)}
-.cnt{background:var(--pink);color:#fff;border:1.5px solid var(--ink);border-radius:999px;font-size:.75rem;padding:0 .5rem;margin-left:.4rem;font-weight:800}
+.btn.gold{background:var(--pink);color:var(--ink);box-shadow:3px 3px 0 var(--ink)}.btn.gold:hover{box-shadow:5px 5px 0 var(--ink)}
+.btn.line{background:#fff;color:var(--ink)}.btn.line:hover{background:var(--yellow);box-shadow:3px 3px 0 var(--ink)}
+.btn.sm{padding:.2rem .8rem;font-size:.85rem}
+.hint{font-size:.85rem;color:#B42318;margin-top:.3rem}
+.warn{background:var(--yellow-soft);border:2px solid var(--ink);border-radius:14px;padding:.8rem 1rem;margin-bottom:1rem}
+.warn code{background:#fff;padding:0 .3rem;border-radius:4px;font-family:monospace}
+.err{background:var(--pink-soft);border:2px solid var(--ink);border-radius:12px;padding:.8rem 1rem}
+.out{border:2px solid var(--ink);border-radius:24px;padding:1.4rem 1.6rem;min-height:420px;box-shadow:8px 8px 0 var(--pink)}
+.empty{color:var(--mute);text-align:center;padding:5rem 1rem}
+.ztabs{display:flex;align-items:center;gap:.5rem;margin-bottom:1.3rem;flex-wrap:wrap}
+.zt{background:none;border:2px solid var(--ink);border-radius:999px;padding:.3rem 1rem;font-size:.95rem;font-weight:700;cursor:pointer}
+.zt.active{background:var(--yellow)}
+.cnt{background:var(--pink);border:2px solid var(--ink);border-radius:999px;font-size:.72rem;padding:0 .45rem;margin-left:.4rem}
 .ztabs .btn{margin-left:auto}
 .zone{display:none}.zone.active{display:block}
-.ans{background:var(--yellow);border:2.5px solid var(--ink);border-radius:20px;padding:1.2rem 1.5rem;box-shadow:6px 6px 0 var(--pink)}
-.ans span{font-size:.9rem;font-weight:800;text-transform:uppercase;letter-spacing:1px}
-.av{font-family:var(--display);font-weight:900;font-size:2rem;line-height:1.2;margin-top:.2rem}
-.part{padding:1.4rem 0;border-bottom:2px dashed var(--line)}
-.ph{display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem;flex-wrap:wrap}
-.ph b{font-family:var(--display);font-size:1.2rem;font-weight:900}
-.pa{background:var(--pink);color:#fff;border:2px solid var(--ink);border-radius:999px;padding:.1rem .9rem;font-weight:800;box-shadow:2px 2px 0 var(--ink)}
-.part dl{display:grid;grid-template-columns:8.5rem 1fr;gap:.6rem 1rem}
-.part dt{font-weight:800;color:var(--mute);font-size:.9rem;padding-top:.15rem}
-@media(max-width:600px){.part dl{grid-template-columns:1fr;gap:.2rem}.part dd{margin-bottom:.8rem}}
-dd b,.tr b{background:linear-gradient(transparent 50%,var(--yellow) 50%);font-weight:800;padding:0 2px}
-.diag{margin-top:1.4rem;background:var(--pink-soft);border:2.5px solid var(--ink);border-radius:18px;padding:1.1rem 1.3rem;box-shadow:4px 4px 0 var(--pink)}
-.fold{margin-top:1.4rem}.fold summary{cursor:pointer;font-weight:800;font-size:1.05rem}.foldb{margin-top:.8rem;color:var(--ink);background:var(--yellow-soft);padding:1rem;border-radius:14px;border:2px solid var(--ink);font-size:.95rem}
-.xs{margin-bottom:2.2rem}.xs h3{font-family:var(--display);font-weight:900;font-size:1.35rem;margin-bottom:.9rem}
-.tr{line-height:2;white-space:pre-wrap;font-size:1.02rem}
+.ans{background:var(--yellow);border:2px solid var(--ink);border-radius:18px;padding:1rem 1.3rem;box-shadow:4px 4px 0 var(--pink)}
+.ans span{font-size:.85rem;font-weight:700}
+.av{font-family:var(--display);font-weight:800;font-size:1.8rem;line-height:1.3}
+.part{padding:1.3rem 0;border-bottom:2px dashed var(--line)}
+.ph{display:flex;align-items:center;gap:.8rem;margin-bottom:.7rem;flex-wrap:wrap}
+.ph b{font-family:var(--display);font-size:1.15rem;font-weight:800}
+.pa{background:var(--pink);border:2px solid var(--ink);border-radius:999px;padding:0 .8rem;font-weight:700}
+.part dl{display:grid;grid-template-columns:8.5rem 1fr;gap:.55rem 1rem}
+.part dt{font-weight:700;color:var(--mute);font-size:.88rem;padding-top:.15rem}
+@media(max-width:600px){.part dl{grid-template-columns:1fr;gap:.1rem}.part dd{margin-bottom:.6rem}}
+dd b,.tr b{background:linear-gradient(transparent 55%,var(--yellow) 55%);font-weight:700}
+.diag{margin-top:1.2rem;background:var(--pink-soft);border-radius:14px;padding:.9rem 1.1rem}
+.fold{margin-top:1.2rem}.fold summary{cursor:pointer;font-weight:700}.foldb{margin-top:.6rem;color:var(--mute);font-size:.95rem}
+.xs{margin-bottom:2.2rem}.xs h3{font-family:var(--display);font-weight:800;font-size:1.25rem;margin-bottom:.8rem}
+.tr{line-height:2;white-space:pre-wrap}
 .tw{overflow-x:auto}
-.vt{width:100%;border-collapse:separate;border-spacing:0;font-size:.98rem;min-width:600px;border:2.5px solid var(--ink);border-radius:16px;overflow:hidden}
-.vt th{background:var(--yellow);text-align:left;font-size:.9rem;font-weight:800;padding:.8rem 1rem;border-bottom:2.5px solid var(--ink)}
-.vt td{padding:.8rem 1rem;border-bottom:1.5px solid var(--line);vertical-align:middle;background:#fff}
-.vt tr:last-child td{border-bottom:none}
-.vw{font-family:var(--display);font-size:1.15rem;font-weight:900;color:var(--ink)}
-.vsub{font-size:.85rem;color:var(--mute);font-weight:500}
-.tag{font-size:.75rem;background:var(--yellow-soft);border:1.5px solid var(--ink);border-radius:8px;padding:.1rem .5rem;margin-left:6px;font-weight:700}
+.vt{width:100%;border-collapse:collapse;font-size:.95rem;min-width:600px}
+.vt th{background:var(--yellow-soft);text-align:left;font-size:.85rem;font-weight:700;padding:.55rem .7rem;border-bottom:2px solid var(--ink)}
+.vt td{padding:.7rem;border-bottom:1px solid var(--line);vertical-align:top}
+.vw{font-family:var(--display);font-size:1.1rem;font-weight:800}
+.vsub{font-size:.85rem;color:var(--mute)}
+.tag{font-size:.72rem;background:var(--yellow-soft);border:1px solid var(--ink);border-radius:10px;padding:0 7px;margin-left:5px}
 .tag.in{background:var(--pink-soft)}
-.filters{display:flex;gap:10px;margin-bottom:1.6rem;flex-wrap:wrap}
-.chipbtn{padding:.4rem 1.3rem;border-radius:999px;border:2.5px solid var(--ink);background:#fff;cursor:pointer;font-weight:800;box-shadow:3px 3px 0 var(--ink);transition:all .15s ease}
-.chipbtn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
-.chipbtn.active{background:var(--yellow);box-shadow:4px 4px 0 var(--ink)}
-.mc{border:2.5px solid var(--ink);border-radius:20px;padding:1.4rem;margin-bottom:1.3rem;background:#fff;box-shadow:6px 6px 0 var(--line);transition:transform .15s ease}
-.mc:hover{transform:translateY(-2px);box-shadow:8px 8px 0 var(--pink-soft)}
-.mc .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
-.mc .top b{border:2px solid var(--ink);border-radius:999px;padding:.1rem .9rem;background:#fff;font-weight:800;box-shadow:2px 2px 0 var(--ink)}
-.mc.TC .top b{background:var(--pink);color:#fff}.mc.RC .top b{background:var(--yellow)}
-.st{cursor:pointer;border:2px solid var(--ink);padding:.2rem 1rem;border-radius:999px;font-weight:800;background:#fff;box-shadow:2px 2px 0 var(--ink);transition:all .15s ease}
-.st.REVIEW{background:var(--pink-soft);color:#B42318}.st.MASTERED{background:var(--yellow-soft);color:#027A48}
-.zh{font-family:var(--display);font-weight:900;font-size:1.3rem;margin:1.6rem 0 .8rem;color:var(--ink)}
-details summary{cursor:pointer;font-weight:800;color:var(--ink)}
-.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.4rem;margin-top:1.4rem}
-.flip{height:200px;perspective:900px;cursor:pointer}
-.fi{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.filters{display:flex;gap:8px;margin-bottom:1.4rem;flex-wrap:wrap}
+.chipbtn{padding:.3rem 1.1rem;border-radius:999px;border:2px solid var(--ink);background:#fff;cursor:pointer;font-weight:700}
+.chipbtn.active{background:var(--yellow)}
+.mc{border:2px solid var(--ink);border-radius:18px;padding:1.2rem 1.3rem;margin-bottom:1.1rem}
+.mc .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.mc .top b{border:2px solid var(--ink);border-radius:999px;padding:0 .8rem;background:#fff}
+.mc.TC .top b{background:var(--pink)}.mc.RC .top b{background:var(--yellow)}
+.st{cursor:pointer;border:2px solid var(--ink);padding:.15rem .9rem;border-radius:999px;font-weight:700;background:#fff}
+.st.REVIEW{background:var(--pink-soft)}.st.MASTERED{background:var(--yellow)}
+.zh{font-family:var(--display);font-weight:800;font-size:1.2rem;margin:1.4rem 0 .6rem}
+details summary{cursor:pointer;font-weight:700}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.2rem;margin-top:1.2rem}
+.flip{height:190px;perspective:900px;cursor:pointer}
+.fi{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
 .flip.on .fi{transform:rotateY(180deg)}
-.fr,.bk{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;padding:1.2rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink)}
-.fr{background:#fff}.bk{background:var(--pink);color:#fff;transform:rotateY(180deg);font-size:.95rem;gap:6px;box-shadow:-6px 6px 0 var(--ink)}
-.w{font-family:var(--display);font-size:1.8rem;font-weight:900;color:var(--ink)}
-.d{font-weight:900;font-size:1.2rem}
-.modal{position:fixed;inset:0;background:rgba(30,27,58,.6);backdrop-filter:blur(3px);display:none;justify-content:center;align-items:center;z-index:1000}
-.modal>div{background:#fff;padding:2rem;border:3px solid var(--ink);border-radius:28px;box-shadow:10px 10px 0 var(--yellow);max-width:480px;width:90%}
-.modal a{color:var(--pink);font-weight:800}
-footer{border-top:3px solid var(--ink);background:#fff;padding:1.4rem clamp(1rem,4vw,3rem);font-size:.9rem;font-weight:700;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.fr,.bk{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;padding:1rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:2px solid var(--ink)}
+.fr{background:#fff}.bk{background:var(--pink);transform:rotateY(180deg);font-size:.9rem;gap:6px}
+.w{font-family:var(--display);font-size:1.7rem;font-weight:800}
+.d{font-weight:800;font-size:1.15rem}
+.modal{position:fixed;inset:0;background:rgba(30,27,58,.55);display:none;justify-content:center;align-items:center;z-index:1000}
+.modal>div{background:#fff;padding:1.8rem;border:2px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--yellow);max-width:480px;width:90%}
+.modal a{color:var(--ink);font-weight:700}
+footer{border-top:2px solid var(--ink);padding:1.2rem clamp(1rem,4vw,3rem);font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -116,72 +108,69 @@ footer{border-top:3px solid var(--ink);background:#fff;padding:1.4rem clamp(1rem
 <header>
   <div class="logo"><b>GRE</b> Master Pro</div>
   <nav>
-    <button class="tab active" data-tab="solver">題目剖析</button>
-    <button class="tab" data-tab="notebook">錯題本</button>
-    <button class="tab" data-tab="vocab">高頻單字庫</button>
-    <button class="gear" id="gear">API 金鑰</button>
+    <button class="tab active" data-tab="solver">Solve</button>
+    <button class="tab" data-tab="notebook">Notebook</button>
+    <button class="tab" data-tab="vocab">Vocabulary</button>
+    <button class="gear" id="gear">API key</button>
   </nav>
 </header>
 
 <div class="container">
   <section id="solver" class="pane active">
-    <div class="hero">
-      <h1>貼上你解不開的 GRE 難題！</h1>
-      <p>支援文字或直接貼上截圖。立即取得詳細繁體中文解析、全文翻譯與考點單字整理。</p>
-    </div>
+    <div class="hero"><h1>Drop in the question you can’t solve.</h1><p>Paste text or a screenshot. Get a walkthrough in Chinese, a full translation and a vocabulary table.</p></div>
     <div class="grid">
       <div>
-        <label for="model">AI 模型選擇</label>
+        <label for="model">AI model</label>
         <select id="model"></select><div class="hint" id="hint"></div>
-        <label for="qType">題型</label>
+        <label for="qType">Question type</label>
         <select id="qType">
-          <option value="TC">填空題 (Text Completion / Sentence Equivalence)</option>
-          <option value="RC">閱讀理解 (Reading Comprehension)</option>
-          <option value="Quant">數量推理 (Quantitative Reasoning)</option>
+          <option value="TC">Text Completion / Sentence Equivalence</option>
+          <option value="RC">Reading Comprehension</option>
+          <option value="Quant">Quantitative Reasoning</option>
         </select>
-        <label for="q">題目內容 <span class="sub">文字或截圖均可</span></label>
-        <textarea id="q" placeholder="請貼上完整題目。若是閱讀題，請包含文章內容。"></textarea>
-        <div class="drop" id="drop">點擊上傳截圖，或直接按 Ctrl/⌘+V 貼上截圖</div>
+        <label for="q">Question <span class="sub">text or screenshot</span></label>
+        <textarea id="q" placeholder="Paste the full question. For reading passages, include the passage."></textarea>
+        <div class="drop" id="drop">Click to upload a screenshot, or paste one with Ctrl/⌘+V</div>
         <input type="file" id="file" accept="image/*" hidden>
-        <div id="prevWrap"><img id="prev" alt="題目截圖"> <button class="btn line sm" id="rmImg">移除圖片</button></div>
-        <label for="opts">選項內容 <span class="sub">選填</span></label>
-        <input type="text" id="opts" placeholder="例如：A) ubiquitous  B) ephemeral  C) equivocal ...">
-        <label for="mine">我的答案 <span class="sub">選填，AI 會幫你分析思維盲點</span></label>
-        <input type="text" id="mine" placeholder="例如：我選 B，因為我覺得空格語意偏負向">
-        <div style="margin-top:1.5rem"><button class="btn gold" id="go">🚀 開始深度剖析</button></div>
+        <div id="prevWrap"><img id="prev" alt="Question screenshot"> <button class="btn line sm" id="rmImg">Remove</button></div>
+        <label for="opts">Answer choices <span class="sub">optional</span></label>
+        <input type="text" id="opts" placeholder="A) ubiquitous  B) ephemeral  C) equivocal ...">
+        <label for="mine">My answer <span class="sub">optional, the AI will point out where you went wrong</span></label>
+        <input type="text" id="mine" placeholder="e.g. B, because I thought the blank was negative">
+        <div style="margin-top:1.3rem"><button class="btn gold" id="go">Analyze</button></div>
       </div>
-      <div id="result" class="out"><p class="empty">完整解析與整理結果將會顯示於此處。</p></div>
+      <div id="result" class="out"><p class="empty">Your solution and extras will appear here.</p></div>
     </div>
   </section>
 
   <section id="notebook" class="pane"><div class="card">
-    <div class="card-h"><span>錯題本</span><button class="btn line" id="exp">匯出備份資料</button></div>
+    <div class="card-h"><span>Mistake notebook</span><button class="btn line" id="exp">Export backup</button></div>
     <div class="filters" id="filters">
-      <button class="chipbtn active" data-f="ALL">全部</button><button class="chipbtn" data-f="TC">填空 TC</button><button class="chipbtn" data-f="RC">閱讀 RC</button><button class="chipbtn" data-f="Quant">數學 Quant</button>
+      <button class="chipbtn active" data-f="ALL">All</button><button class="chipbtn" data-f="TC">TC</button><button class="chipbtn" data-f="RC">RC</button><button class="chipbtn" data-f="Quant">Quant</button>
     </div>
     <div id="mlist"></div>
   </div></section>
 
   <section id="vocab" class="pane"><div class="card">
-    <div class="card-h"><span>Mason 高頻單字卡</span><button class="btn line" id="cover">翻轉所有單字卡</button></div>
+    <div class="card-h"><span>Vocabulary deck</span><button class="btn line" id="cover">Flip all cards</button></div>
     <div id="dbwarn"></div>
-    <input type="text" id="vs" placeholder="搜尋單字、中文意思或字根...">
+    <input type="text" id="vs" placeholder="Search a word, a Chinese meaning or a root">
     <div class="vgrid" id="vgrid"></div>
   </div></section>
 </div>
 
 <div class="modal" id="modal"><div>
-  <h3 id="mTitle" style="font-family:var(--display);font-size:1.4rem;margin-bottom:.6rem">API 金鑰設定</h3>
-  <p style="font-size:.9rem;color:var(--mute);margin-bottom:.8rem">您的金鑰僅會保存在此瀏覽器中並直接連線至 Google，請勿在公用電腦上輸入。<a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">免費取得 API 金鑰</a></p>
-  <input type="password" id="keyIn" placeholder="請貼上您的 API 金鑰">
-  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:1.2rem"><button class="btn line" id="keyCancel">取消</button><button class="btn gold" id="keySave">儲存設定</button></div>
+  <h3 id="mTitle" style="font-family:var(--display);font-size:1.4rem;margin-bottom:.6rem">API key</h3>
+  <p style="font-size:.9rem;color:var(--mute);margin-bottom:.8rem">Your key stays in this browser and goes straight to Google. Don’t use it on a shared computer. <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Get a free key</a></p>
+  <input type="password" id="keyIn" placeholder="Paste your API key">
+  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:1rem"><button class="btn line" id="keyCancel">Cancel</button><button class="btn gold" id="keySave">Save</button></div>
 </div></div>
-<footer><span>GRE Master Pro 智學備考神器</span><span>解析內容由 AI 自動生成，請核對答案與細節。</span></footer>
+<footer><span>GRE Master Pro</span><span>Analyses are AI-generated. Double-check the answers.</span></footer>
 
 <script>
 /* ===== Config ===== */
 const CONFIG = {
-  PROXY_URL: '', // 部署 worker.js 後設定；留空則使用使用者自備的 API Key
+  PROXY_URL: '', // set after deploying worker.js; leave empty so each user brings their own key
   PROXY_PROVIDERS: ['gemini'],
   DB_URL: './assets/GRE_Mason_Full_Database_2.json'
 };
@@ -196,9 +185,10 @@ const FALLBACK_WORDS = [
   { word: 'laconic', phonetic: '/ləˈkɒn.ɪk/', def: '言簡意賅的', root: 'Laconia', synonyms: ['terse', 'succinct'] }
 ];
 const PROVIDERS = { gemini: { name: 'Google Gemini' } };
+// Model IDs change often; check Google AI Studio for the current list. tier: top = strongest reasoning
 const MODELS = [
-  { id: 'gemini-3.8-flash', label: 'Gemini 3.8 Flash (極速高CP值)', provider: 'gemini', vision: true, tier: 'mid' },
-  { id: 'gemini-3.1-pro-preview', label: 'Gemini 3.1 Pro (高精準推理)', provider: 'gemini', vision: true, tier: 'top' }
+  { id: 'gemini-3.8-flash', label: 'Gemini 3.8 Flash (fast, cheap)', provider: 'gemini', vision: true, tier: 'mid' },
+  { id: 'gemini-3.1-pro-preview', label: 'Gemini 3.1 Pro (more accurate)', provider: 'gemini', vision: true, tier: 'top' }
 ];
 const SYSTEM = `你是資深 GRE 名師，學生是台灣考生。學生會貼上一道 GRE 題目（可能是文字或截圖）。請全程使用繁體中文（台灣慣用語）撰寫解析，英文原文、單字與片語保留英文。
 推導規則：
@@ -237,7 +227,7 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
 const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
-const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch { alert('瀏覽器儲存空間已滿或停用'); } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch { alert('Browser storage is full or disabled'); } };
 let mistakes = load('GRE_MISTAKES_V2', []), myVocab = load('GRE_MYVOCAB', []), mason = [], dbMap = new Map(), lastAi = null, lastMeta = null, imgData = null, filter = 'ALL';
 
 /* ===== 分頁 / 設定 ===== */
@@ -247,14 +237,15 @@ document.querySelectorAll('.tab').forEach(b => b.onclick = () => {
 });
 const openModal = () => {
   const p = curModel().provider;
-  $('mTitle').textContent = PROVIDERS[p].name + ' API 金鑰';
-  $('keyIn').value = localStorage.getItem(keyName(p)) \vert{}\vert{} '';$('modal').style.display = 'flex';
+  $('mTitle').textContent = PROVIDERS[p].name + ' API key';
+  $('keyIn').value = localStorage.getItem(keyName(p)) || ''; $('modal').style.display = 'flex';
 };
 $('gear').onclick = openModal;
-$('keyCancel').onclick = () => $('modal').style.display = 'none';$('keySave').onclick = () => { const k = $('keyIn').value.trim(); if (!k) return; localStorage.setItem(keyName(curModel().provider), k);$('modal').style.display = 'none'; };
+$('keyCancel').onclick = () => $('modal').style.display = 'none';
+$('keySave').onclick = () => { const k = $('keyIn').value.trim(); if (!k) return; localStorage.setItem(keyName(curModel().provider), k); $('modal').style.display = 'none'; };
 if (CONFIG.PROXY_URL) $('gear').style.display = 'none';
 
-/* ===== 圖片處理 ===== */
+/* ===== 圖片 ===== */
 function loadImg(f) {
   const fr = new FileReader();
   fr.onload = () => {
@@ -270,11 +261,12 @@ function loadImg(f) {
   };
   fr.readAsDataURL(f);
 }
-$('drop').onclick = () =>$('file').click();
-$('file').onchange = e => e.target.files[0] && loadImg(e.target.files[0]);$('rmImg').onclick = () => { imgData = null; $('prevWrap').style.display = 'none';$('file').value = ''; updateHint(); };
+$('drop').onclick = () => $('file').click();
+$('file').onchange = e => e.target.files[0] && loadImg(e.target.files[0]);
+$('rmImg').onclick = () => { imgData = null; $('prevWrap').style.display = 'none'; $('file').value = ''; updateHint(); };
 document.addEventListener('paste', e => { const f = [...(e.clipboardData?.files || [])].find(f => f.type.startsWith('image/')); if (f) loadImg(f); });
 
-/* ===== API 呼叫 ===== */
+/* ===== 多模型呼叫 ===== */
 const toGemini = s => Array.isArray(s) ? s.map(toGemini) : (s && typeof s === 'object')
   ? Object.fromEntries(Object.entries(s).filter(([k]) => k !== 'description').map(([k, v]) => [k, k === 'type' ? String(v).toUpperCase() : toGemini(v)])) : s;
 const curModel = () => MODELS.find(m => m.id === $('model').value) || MODELS[0];
@@ -290,9 +282,9 @@ const ADAPTERS = {
       generationConfig: { maxOutputTokens: qType === 'Quant' ? 32000 : 16000, responseMimeType: 'application/json', responseSchema: toGemini(SCHEMA) }
     }),
     parse: data => {
-      if (data.promptFeedback?.blockReason) throw new Error('被安全過濾器攔截：' + data.promptFeedback.blockReason);
+      if (data.promptFeedback?.blockReason) throw new Error('Blocked by the safety filter: ' + data.promptFeedback.blockReason);
       const c = data.candidates?.[0];
-      if (c?.finishReason === 'MAX_TOKENS') throw new Error('回答遭截斷（題目過長或過於複雜），請縮短內容後重試。');
+      if (c?.finishReason === 'MAX_TOKENS') throw new Error('The response was cut off (question too long or complex). Shorten it and retry.');
       return (c?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');
     }
   }
@@ -314,28 +306,28 @@ async function callAI(m, qType, text) {
   if (CONFIG.PROXY_URL) { url = CONFIG.PROXY_URL; body.provider = m.provider; body.model = m.id; }
   else {
     const key = localStorage.getItem(keyName(m.provider));
-    if (!key) { openModal(); throw new Error(`請先設定 ${PROVIDERS[m.provider].name} API 金鑰`); }
+    if (!key) { openModal(); throw new Error(`Set your ${PROVIDERS[m.provider].name} API key first`); }
     url = A.url(m); Object.assign(headers, A.headers(key));
   }
   const r = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
   const data = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(data.error?.message || (typeof data.error === 'string' ? data.error : `API 錯誤 (${r.status})`));
+  if (!r.ok) throw new Error(data.error?.message || (typeof data.error === 'string' ? data.error : `API error (${r.status})`));
   let out = A.parse(data);
   if (typeof out === 'string') {
     out = out.replace(/^```(?:json)?\s*|\s*```$/g, '').trim();
-    try { out = JSON.parse(out); } catch { throw new Error('模型回傳格式有誤，請重試或切換模型。'); }
+    try { out = JSON.parse(out); } catch { throw new Error('The model returned malformed output. Retry or switch model.'); }
   }
-  if (!out || typeof out !== 'object') throw new Error('模型未回傳內容，請重試。');
+  if (!out || typeof out !== 'object') throw new Error('The model returned nothing. Retry.');
   out = normalize(out); out.qType = qType;
-  if (!out.answer) throw new Error('模型未提供答案，請重試或切換至更強大的模型。');
+  if (!out.answer) throw new Error('The model gave no answer. Retry or switch to a stronger model.');
   return out;
 }
 
-/* ===== 模型提示 ===== */
+/* ===== Model picker / hints ===== */
 function updateHint() {
   const m = curModel(), msgs = [];
-  if ($('qType').value === 'Quant' && m.tier !== 'top') msgs.push('💡 建議：數學 Quant 題型使用 Pro 模型推導更精準。');
-  if (imgData && !m.vision) msgs.push('⚠️ 此模型不支援圖片辨識。');
+  if ($('qType').value === 'Quant' && m.tier !== 'top') msgs.push('For Quant questions, the Pro model is more reliable.');
+  if (imgData && !m.vision) msgs.push('This model can’t read images.');
   $('hint').textContent = msgs.join(' ');
 }
 (function initModels() {
@@ -343,68 +335,70 @@ function updateHint() {
   $('model').innerHTML = list.map(m => `<option value="${esc(m.id)}">${esc(m.label)}</option>`).join('');
   const saved = localStorage.getItem('GRE_MODEL');
   if (saved && list.some(m => m.id === saved)) $('model').value = saved;
-  $('model').onchange = () => { localStorage.setItem('GRE_MODEL', $('model').value); updateHint(); };$('qType').onchange = updateHint;
+  $('model').onchange = () => { localStorage.setItem('GRE_MODEL', $('model').value); updateHint(); };
+  $('qType').onchange = updateHint;
   updateHint();
 })();
 
 $('go').onclick = async () => {
-  const qType = $('qType').value, q =$('q').value.trim(), opts = $('opts').value.trim(), mine =$('mine').value.trim();
-  if (!q && !imgData) return alert('請先貼上題目文字或上傳題目截圖！');
+  const qType = $('qType').value, q = $('q').value.trim(), opts = $('opts').value.trim(), mine = $('mine').value.trim();
+  if (!q && !imgData) return alert('Paste a question or upload a screenshot first.');
   const text = `題型：${qType}\n題目：${q || '(見截圖)'}\n選項：${opts || '無／見截圖'}\n我的答案：${mine || '未提供'}`;
   $('go').disabled = true;
-  $('result').innerHTML = `<p class="empty">${qType === 'Quant' ? '正在進行數學推導與驗算，約需 30–60 秒，請稍候…' : '正在進行解構與分析，請稍候…'}</p>`;
+  $('result').innerHTML = `<p class="empty">${qType === 'Quant' ? 'Working through the math, this can take 30–60 seconds…' : 'Analyzing…'}</p>`;
   try {
     const m = curModel();
-    if (imgData && !m.vision) throw new Error('此模型不支援圖片辨識，請切換模型或直接貼上文字。');
+    if (imgData && !m.vision) throw new Error('This model can’t read images. Pick another model or paste the text.');
     lastAi = await callAI(m, qType, text);
-    lastMeta = { type: qType, question: q || '(截圖題目)', mine };
+    lastMeta = { type: qType, question: q || '(screenshot)', mine };
     showResult(lastAi);
   } catch (e) {
     $('result').innerHTML = `<div class="err">${esc(e.message)}</div>`;
   } finally { $('go').disabled = false; }
 };
 
-/* ===== 渲染分析結果 ===== */
+/* ===== Render analysis ===== */
 function vocabRow(v) {
   const m = dbMap.get(String(v.word).toLowerCase());
   const payload = encodeURIComponent(JSON.stringify({ word: v.word, def: v.meaning_zh, synonyms: v.synonyms || [] })).replace(/'/g, '%27');
   const mine = myVocab.some(x => x.word.toLowerCase() === String(v.word).toLowerCase());
   const syn = [...new Set([...(m?.synonyms || []), ...(v.synonyms || [])])].join(', ');
-  return `<tr><td><b class="vw">${esc(v.word)}</b><span class="tag ${m ? 'in' : ''}">${m ? 'Mason收錄' : '新單字'}</span>${m?.root ? `<div class="vsub">字根: ${esc(m.root)}</div>` : ''}</td>
+  return `<tr><td><b class="vw">${esc(v.word)}</b><span class="tag ${m ? 'in' : ''}">${m ? 'Mason' : 'New'}</span>${m?.root ? `<div class="vsub">Root: ${esc(m.root)}</div>` : ''}</td>
     <td>${esc(v.pos || '')}</td><td>${esc(v.meaning_zh || m?.def || '')}</td><td>${esc(syn)}</td>
-    <td>${m || mine ? '' : `<button class="btn sm line" onclick="addVocab('${payload}',this)">+ 收藏</button>`}</td></tr>`;
+    <td>${m || mine ? '' : `<button class="btn sm line" onclick="addVocab('${payload}',this)">Add</button>`}</td></tr>`;
 }
 function renderSolve(a) {
-  const L = a.qType === 'Quant' ? ['考點概念', '解題方法', '計算與驗算'] : ['線索與轉折詞', '句構剖析', '推導邏輯'];
+  const L = a.qType === 'Quant' ? ['Concept', 'Method', 'Calculation & check'] : ['Clue & contrast words', 'Sentence structure', 'Reasoning'];
   const parts = a.parts || [];
   const old = !parts.length && (a.steps?.length || a.explanation) ? `<p style="margin-top:1rem">${(a.steps?.length ? a.steps : [a.explanation]).map(rich).join('<br>')}</p>` : '';
   const row = (t, x) => x ? `<dt>${t}</dt><dd>${rich(x)}</dd>` : '';
   return `${a.warnings ? `<div class="warn">${rich(a.warnings)}</div>` : ''}
-  <div class="ans"><span>正確答案</span><div class="av">${esc(a.answer)}</div></div>
+  <div class="ans"><span>Answer</span><div class="av">${esc(a.answer)}</div></div>
   ${parts.map(p => `<article class="part"><div class="ph"><b>${esc(p.label)}</b>${p.answer ? `<span class="pa">${esc(p.answer)}</span>` : ''}</div>
     <dl>${row(L[0], p.clue)}${row(L[1], p.structure)}${row(L[2], p.reasoning)}</dl></article>`).join('')}${old}
-  ${a.diagnosis ? `<div class="diag"><b>💡 思維盲點檢視</b><p>${rich(a.diagnosis)}</p></div>` : ''}
-  ${a.scratch_work ? `<details class="fold"><summary>檢視 AI 推導草稿</summary><div class="foldb">${rich(a.scratch_work)}</div></details>` : ''}`;
+  ${a.diagnosis ? `<div class="diag"><b>Where you went wrong</b><p>${rich(a.diagnosis)}</p></div>` : ''}
+  ${a.scratch_work ? `<details class="fold"><summary>Full AI reasoning</summary><div class="foldb">${rich(a.scratch_work)}</div></details>` : ''}`;
 }
 function renderExtra(a) {
   const rows = (a.vocab || []).map(vocabRow).join('');
-  return `<section class="xs"><h3>完整中文翻譯</h3><p class="tr">${rich(a.translation)}</p></section>
-  <section class="xs"><h3>考點單字與片語</h3>${rows ? `<div class="tw"><table class="vt"><thead><tr><th>單字／片語</th><th>詞性</th><th>中文釋義</th><th>同義字</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p class="vsub">此題尚無重點複習單字。</p>'}</section>`;
+  return `<section class="xs"><h3>Full translation</h3><p class="tr">${rich(a.translation)}</p></section>
+  <section class="xs"><h3>Vocabulary & phrases</h3>${rows ? `<div class="tw"><table class="vt"><thead><tr><th>Word / phrase</th><th>POS</th><th>Meaning</th><th>Synonyms</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p class="vsub">Nothing to review in this question.</p>'}</section>`;
 }
-const renderAnalysis = a => `<h3 class="zh">詳細解析</h3>${renderSolve(a)}<h3 class="zh">補充資料</h3>${renderExtra(a)}`;
+const renderAnalysis = a => `<h3 class="zh">Solution</h3>${renderSolve(a)}<h3 class="zh">Extras</h3>${renderExtra(a)}`;
 function showResult(a) {
-  $('result').innerHTML = `<div class="ztabs"><button class="zt active" data-z="zSolve">深度解析</button><button class="zt" data-z="zExtra">翻譯與單字<span class="cnt">${(a.vocab || []).length}</span></button>
-    <button class="btn line sm" onclick="addMistake(this)">+ 加入錯題本</button></div>
+  $('result').innerHTML = `<div class="ztabs"><button class="zt active" data-z="zSolve">Solution</button><button class="zt" data-z="zExtra">Extras<span class="cnt">${(a.vocab || []).length}</span></button>
+    <button class="btn line sm" onclick="addMistake(this)">Add to notebook</button></div>
     <div id="zSolve" class="zone active">${renderSolve(a)}</div><div id="zExtra" class="zone">${renderExtra(a)}</div>`;
 }
 $('result').addEventListener('click', e => {
   const b = e.target.closest('.zt'); if (!b) return;
-  $('result').querySelectorAll('.zt').forEach(x => x.classList.toggle('active', x === b));$('result').querySelectorAll('.zone').forEach(z => z.classList.toggle('active', z.id === b.dataset.z));
+  $('result').querySelectorAll('.zt').forEach(x => x.classList.toggle('active', x === b));
+  $('result').querySelectorAll('.zone').forEach(z => z.classList.toggle('active', z.id === b.dataset.z));
 });
 function addMistake(btn) {
   mistakes.unshift({ id: Date.now(), ...lastMeta, ai: lastAi, notes: '', status: 'REVIEW' });
   save('GRE_MISTAKES_V2', mistakes); renderMistakes();
-  btn.disabled = true; btn.textContent = '已加入錯題本';
+  btn.disabled = true; btn.textContent = 'Added';
 }
 function addVocab(p, btn) {
   const v = JSON.parse(decodeURIComponent(p));
@@ -417,38 +411,39 @@ function renderMistakes() {
   const list = mistakes.filter(m => filter === 'ALL' || m.type === filter);
   $('mlist').innerHTML = list.length ? list.map(m => `
     <div class="mc ${esc(m.type)}">
-      <div class="top"><b>${esc(m.type)}</b><button class="st ${m.status}" onclick="toggleSt(${m.id})">${m.status === 'MASTERED' ? '🟢 已掌握' : '🔴 需複習'}</button></div>
+      <div class="top"><b>${esc(m.type)}</b><button class="st ${m.status}" onclick="toggleSt(${m.id})">${m.status === 'MASTERED' ? 'Mastered' : 'Needs review'}</button></div>
       <div style="font-weight:700;white-space:pre-wrap">${esc(m.question.slice(0, 300))}${m.question.length > 300 ? '…' : ''}</div>
-      <div style="margin:.5rem 0"><b>正確答案：</b> ${esc(m.ai.answer)}${m.mine ? ` <span style="color:var(--mute)">我的答案：${esc(m.mine)}</span>` : ''}</div>
-      <details><summary>查看完整解析</summary>${renderAnalysis(m.ai)}</details>
-      <label style="margin-top:.8rem">個人筆記</label><input type="text" value="${esc(m.notes)}" onchange="setNote(${m.id},this.value)" placeholder="記下自己的想法或提醒…">
-      <div style="text-align:right;margin-top:.8rem"><button class="btn line sm" onclick="delMistake(${m.id})">刪除此題</button></div>
-    </div>`).join('') : '<p class="empty">目前沒有錯題紀錄。解題後點擊「+ 加入錯題本」即可儲存於此！</p>';
+      <div style="margin:.4rem 0"><b>Answer:</b> ${esc(m.ai.answer)}${m.mine ? `　<span style="color:var(--mute)">My answer: ${esc(m.mine)}</span>` : ''}</div>
+      <details><summary>View full analysis</summary>${renderAnalysis(m.ai)}</details>
+      <label>My notes</label><input type="text" value="${esc(m.notes)}" onchange="setNote(${m.id},this.value)" placeholder="Your own notes">
+      <div style="text-align:right;margin-top:.6rem"><button class="btn line sm" onclick="delMistake(${m.id})">Delete</button></div>
+    </div>`).join('') : '<p class="empty">No mistakes saved yet. Solve a question, then hit “Add to notebook”.</p>';
 }
 const toggleSt = id => { const m = mistakes.find(x => x.id === id); m.status = m.status === 'MASTERED' ? 'REVIEW' : 'MASTERED'; save('GRE_MISTAKES_V2', mistakes); renderMistakes(); };
 const setNote = (id, v) => { mistakes.find(x => x.id === id).notes = v; save('GRE_MISTAKES_V2', mistakes); };
-const delMistake = id => { if (confirm('確定要刪除這道錯題嗎？')) { mistakes = mistakes.filter(x => x.id !== id); save('GRE_MISTAKES_V2', mistakes); renderMistakes(); } };
-$('filters').onclick = e => { const b = e.target.closest('.chipbtn'); if (!b) return; document.querySelectorAll('.chipbtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); filter = b.dataset.f; renderMistakes(); };$('exp').onclick = () => {
+const delMistake = id => { if (confirm('Delete this question?')) { mistakes = mistakes.filter(x => x.id !== id); save('GRE_MISTAKES_V2', mistakes); renderMistakes(); } };
+$('filters').onclick = e => { const b = e.target.closest('.chipbtn'); if (!b) return; document.querySelectorAll('.chipbtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); filter = b.dataset.f; renderMistakes(); };
+$('exp').onclick = () => {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([JSON.stringify({ mistakes, myVocab }, null, 2)], { type: 'application/json' }));
-  a.download = 'GRE_錯題備份.json'; a.click();
+  a.download = 'GRE_backup.json'; a.click();
 };
 
-/* ===== 高頻單字庫 ===== */
+/* ===== Vocabulary deck ===== */
 let covered = false;
 function renderVocab() {
   const qs = $('vs').value.toLowerCase().trim();
   const all = [...myVocab.map(v => ({ ...v, mine: true })), ...mason];
   const list = all.filter(v => !qs || v.word.toLowerCase().includes(qs) || (v.def || '').includes(qs) || (v.root || '').toLowerCase().includes(qs)).slice(0, 300);
-  $('vgrid').innerHTML = list.length ? list.map(v => `<div class="flip ${covered ? 'on' : ''}" onclick="this.classList.toggle('on')"><div class="fi">
-    <div class="fr"><div class="w">${esc(v.word)}</div><div style="color:var(--mute);font-size:.9rem">${esc(v.phonetic || (v.mine ? '自訂新增' : ''))}</div></div>
-    <div class="bk"><div class="d">${esc(v.def)}</div>${v.root ? `<div>字根: ${esc(v.root)}</div>` : ''}<div>同義字: ${esc((v.synonyms || []).join(', ') || '—')}</div></div></div></div>`).join('')
-    : '<p class="vsub" style="grid-column:1/-1;text-align:center;padding:3rem">沒有找到符合的單字。</p>';
+  $('vgrid').innerHTML = list.map(v => `<div class="flip ${covered ? 'on' : ''}" onclick="this.classList.toggle('on')"><div class="fi">
+    <div class="fr"><div class="w">${esc(v.word)}</div><div style="color:var(--mute);font-size:.9rem">${esc(v.phonetic || (v.mine ? 'Added by me' : ''))}</div></div>
+    <div class="bk"><div class="d">${esc(v.def)}</div>${v.root ? `<div>Root: ${esc(v.root)}</div>` : ''}<div>Synonyms: ${esc((v.synonyms || []).join(', ') || '—')}</div></div></div></div>`).join('')
+    || '<p class="vsub">No matching words.</p>';
 }
 $('vs').oninput = renderVocab;
 $('cover').onclick = () => { covered = !covered; renderVocab(); };
 
-/* ===== 載入單字資料庫 ===== */
+/* ===== Mason deck loading (tries several paths, shows exactly what failed) ===== */
 function normDb(raw) {
   const list = Array.isArray(raw) ? raw : Array.isArray(raw?.words) ? raw.words
     : raw && typeof raw === 'object' ? Object.entries(raw).map(([k, v]) => typeof v === 'object' ? { word: k, ...v } : { word: k, def: String(v) }) : [];
@@ -468,39 +463,39 @@ async function loadDb() {
       const r = await fetch(u, { cache: 'no-cache' });
       if (!r.ok) { tried.push(`${u}: HTTP ${r.status}`); continue; }
       const db = normDb(await r.json());
-      if (!db.length) { tried.push(`${u}: 檔案已載入，但缺少 "word" 欄位`); continue; }
+      if (!db.length) { tried.push(`${u}: loaded, but no entries with a "word" field`); continue; }
       return { db, tried };
-    } catch (e) { tried.push(`${u}: ${e.message || '被存取限制攔截'}`); }
+    } catch (e) { tried.push(`${u}: ${e.message || 'blocked'}`); }
   }
   return { db: null, tried };
 }
 function showDbWarn(tried) {
-  $('dbwarn').innerHTML = `<div class="warn"><b>無法自動載入 Mason 完整單字庫。</b> 目前改為顯示 ${FALLBACK_WORDS.length} 個預設範例單字。
+  $('dbwarn').innerHTML = `<div class="warn"><b>Couldn’t load the Mason deck.</b> Showing ${FALLBACK_WORDS.length} sample words instead.
     <ul style="margin:.5rem 0 .5rem 1.2rem">
-      <li>請確定 JSON 檔案已存放在專案路徑：<code>assets/GRE_Mason_Full_Database_2.json</code>。</li>
-      ${location.protocol === 'file:' ? '<li>您目前直接雙擊開啟 HTML，瀏覽器預設會阻擋載入本地 JSON 檔案。請透過 GitHub Pages 開啟，或建立本地伺服器 (如 python -m http.server)。</li>' : ''}
+      <li>The file must be in your repo at <code>assets/GRE_Mason_Full_Database_2.json</code>. GitHub is case-sensitive, so check every letter.</li>
+      ${location.protocol === 'file:' ? '<li>You opened this page straight from disk, which browsers block. Use GitHub Pages, or run <code>python -m http.server</code> and open <code>localhost:8000</code>.</li>' : ''}
     </ul>
-    <details><summary>檢視嘗試讀取紀錄</summary>${tried.map(t => `<div class="vsub">${esc(t)}</div>`).join('')}</details>
-    <div style="margin-top:.8rem"><button class="btn line sm" onclick="$('dbfile').click()">手動上傳 JSON 單字檔</button><input type="file" id="dbfile" accept=".json,application/json" hidden onchange="importDb(this.files[0])"></div></div>`;
+    <details><summary>What was tried</summary>${tried.map(t => `<div class="vsub">${esc(t)}</div>`).join('')}</details>
+    <div style="margin-top:.7rem"><button class="btn line sm" onclick="$('dbfile').click()">Load the JSON file manually</button><input type="file" id="dbfile" accept=".json,application/json" hidden onchange="importDb(this.files[0])"></div></div>`;
 }
 async function importDb(f) {
   if (!f) return;
   try {
     const raw = JSON.parse(await f.text()), db = normDb(raw);
-    if (!db.length) throw new Error('檔案中未找到帶有 "word" 欄位的單字資料。');
+    if (!db.length) throw new Error('No entries with a "word" field were found.');
     setDb(db);
-    try { localStorage.setItem('GRE_MASON_IMPORT', JSON.stringify(raw)); } catch { /* 檔案過大略過快取 */ }
-    $('dbwarn').innerHTML = `<div class="warn">已成功從 ${esc(f.name)} 匯入 ${db.length} 個單字！</div>`;
-  } catch (e) { alert('讀取檔案失敗：' + e.message); }
+    try { localStorage.setItem('GRE_MASON_IMPORT', JSON.stringify(raw)); } catch { /* too big to cache; fine */ }
+    $('dbwarn').innerHTML = `<div class="warn">Loaded ${db.length} words from ${esc(f.name)}.</div>`;
+  } catch (e) { alert('Could not read that file: ' + e.message); }
 }
 
-/* ===== 初始化 ===== */
+/* ===== Init ===== */
 (async () => {
   const { db, tried } = await loadDb();
   if (db) setDb(db);
   else {
     const saved = load('GRE_MASON_IMPORT', null), sdb = saved ? normDb(saved) : [];
-    if (sdb.length) { setDb(sdb); $('dbwarn').innerHTML = `<div class="warn">正在使用先前手動匯入的 ${sdb.length} 個單字庫。</div>`; }
+    if (sdb.length) { setDb(sdb); $('dbwarn').innerHTML = `<div class="warn">Using the ${sdb.length}-word deck you imported earlier. The site’s own file couldn’t be loaded.</div>`; }
     else { setDb(FALLBACK_WORDS); showDbWarn(tried); }
   }
   renderMistakes();
