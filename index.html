@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRE 備考神幫手 - GRE Master Pro</title>
+    <title>GRE 備考神幫手 - GRE Master Pro (AI 驅動版)</title>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -83,6 +83,7 @@
         /* Navigation Tabs */
         nav {
             display: flex;
+            align-items: center;
             gap: 10px;
         }
         .nav-tab {
@@ -107,6 +108,16 @@
             color: var(--academic-blue);
             border-color: #FFFFFF;
             box-shadow: 0 4px 10px rgba(236, 201, 75, 0.4);
+        }
+        .btn-settings {
+            background-color: rgba(255,255,255,0.2);
+            color: #FFF;
+            border: 1px solid var(--mustard-yellow);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            margin-left: 10px;
         }
         /* Container & Layout */
         .container {
@@ -169,7 +180,7 @@
             margin-bottom: 0.5rem;
             color: var(--academic-blue);
         }
-        select, input[type="text"], textarea {
+        select, input[type="text"], input[type="password"], textarea {
             width: 100%;
             padding: 0.8rem 1rem;
             border: 2px solid #E2E8F0;
@@ -179,7 +190,7 @@
             transition: border-color 0.2s;
             background-color: #FAFAFA;
         }
-        select:focus, input[type="text"]:focus, textarea:focus {
+        select:focus, input:focus, textarea:focus {
             border-color: var(--math-purple);
             background-color: #FFFFFF;
         }
@@ -248,6 +259,7 @@
             padding: 1.2rem;
             border: 1px dashed var(--math-purple);
             margin-top: 1rem;
+            line-height: 1.6;
         }
         .badge {
             padding: 4px 10px;
@@ -259,6 +271,7 @@
         .badge-tc { background-color: var(--pink-accent); color: var(--academic-blue); }
         .badge-rc { background-color: var(--mustard-yellow); color: var(--academic-blue); }
         .badge-quant { background-color: var(--purple-bg); color: var(--math-purple); }
+
         /* Mistake Notebook Table & Cards */
         .filter-bar {
             display: flex;
@@ -307,6 +320,7 @@
         }
         .status-review { background-color: #FED7D7; color: #9B2C2C; }
         .status-mastered { background-color: #C6F6D5; color: #22543D; }
+
         /* Vocabulary Deck Flip Cards */
         .vocab-controls {
             display: flex;
@@ -382,6 +396,26 @@
             font-size: 0.85rem;
             opacity: 0.9;
         }
+
+        /* Modal Style */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal {
+            background: #FFF;
+            padding: 2rem;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -402,7 +436,7 @@
     <header>
         <div class="logo-area">
             <i class="fa-solid fa-graduation-cap"></i>
-            <div class="logo-title">GRE Master Pro <span class="logo-subtitle">Mason 2000+</span></div>
+            <div class="logo-title">GRE Master Pro <span class="logo-subtitle">AI 驅動版</span></div>
         </div>
         <nav>
             <button class="nav-tab active" onclick="switchTab('solverTab', event)">
@@ -413,6 +447,9 @@
             </button>
             <button class="nav-tab" onclick="switchTab('vocabTab', event)">
                 <i class="fa-solid fa-layer-group"></i> 個人單字書
+            </button>
+            <button class="btn-settings" onclick="openApiModal()">
+                <i class="fa-solid fa-key"></i> 設定 API Key
             </button>
         </nav>
     </header>
@@ -426,7 +463,7 @@
                     <div class="card-title">
                         <i class="fa-solid fa-brain"></i> GRE 題目即時深度解析與自動比對
                     </div>
-                    <span class="badge badge-tc">AI 助教線上</span>
+                    <span class="badge badge-tc">Gemini AI 助教連線中</span>
                 </div>
                 <div class="solver-grid">
                     <!-- Left Column: Input -->
@@ -447,8 +484,8 @@
                             <label for="optionsInput"><i class="fa-solid fa-bars-staggered"></i> 選項 (選填)</label>
                             <input type="text" id="optionsInput" placeholder="A) ubiquitous B) ephemeral C) equivocal D) taciturn">
                         </div>
-                        <button class="btn btn-yellow" onclick="analyzeQuestion()">
-                            <i class="fa-solid fa-bolt"></i> 開始深度解析與比對
+                        <button class="btn btn-yellow" onclick="analyzeQuestionWithAI()">
+                            <i class="fa-solid fa-bolt"></i> 開始 AI 深度解析
                         </button>
                     </div>
                     <!-- Right Column: Output -->
@@ -456,7 +493,7 @@
                         <label><i class="fa-solid fa-square-poll-vertical"></i> 分析結果與考點自動匹配</label>
                         <div id="analysisResult" class="output-box" style="min-height: 260px;">
                             <p style="color: var(--text-muted); text-align: center; margin-top: 80px;">
-                                請在左側輸入題目並點擊「開始深度解析」，系統將自動翻譯、說明考點並比對 Mason 單字庫。
+                                請先點擊右上角「設定 API Key」，輸入題目後點擊「開始 AI 深度解析」。
                             </p>
                         </div>
                     </div>
@@ -483,9 +520,7 @@
                     <div class="filter-chip" onclick="filterMistakes('Quant', this)">數學 (Quant)</div>
                 </div>
                 <!-- Mistakes List Area -->
-                <div id="mistakesContainer">
-                    <!-- Dynamic Items will be rendered here -->
-                </div>
+                <div id="mistakesContainer"></div>
             </div>
         </div>
 
@@ -502,95 +537,105 @@
                         </button>
                     </div>
                 </div>
-                <!-- Search and Controls -->
                 <div class="vocab-controls">
                     <input type="text" id="vocabSearch" placeholder="搜尋單字、中文意義或字根..." oninput="searchVocab()">
                 </div>
-                <!-- Vocab Cards Grid -->
-                <div id="vocabGrid" class="vocab-grid">
-                    <!-- Dynamic Vocab Cards -->
-                </div>
+                <div id="vocabGrid" class="vocab-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Key Modal -->
+    <div id="apiModal" class="modal-overlay">
+        <div class="modal">
+            <h3 style="color: var(--academic-blue); margin-bottom: 1rem;"><i class="fa-solid fa-key"></i> 設定 Google Gemini API Key</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                請輸入您的 Gemini API Key（金鑰將安全地儲存於您的瀏覽器中，不會上傳至任何伺服器）。若無金鑰，可至 Google AI Studio 免費申請。
+            </p>
+            <div class="form-group">
+                <input type="password" id="apiKeyInput" placeholder="貼上 AIzaSy... 開頭的 API Key">
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                <button class="btn btn-outline" onclick="closeApiModal()">取消</button>
+                <button class="btn btn-yellow" onclick="saveApiKey()">儲存設定</button>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>GRE Master Pro &copy; 2026 | 專為 Mason GRE 學員打造的最佳備考工具 <span>Bright Academic Edition</span></p>
+        <p>GRE Master Pro &copy; 2026 | 專為 GRE 學員打造的 AI 智慧備考工具 <span>Bright Academic Edition</span></p>
     </footer>
 
     <!-- JavaScript Application Logic -->
     <script>
-        // Global State & LocalStorage Keys
         const MISTAKES_KEY = 'GRE_MASTER_MISTAKES';
-        const VOCAB_KEY = 'GRE_MASTER_CUSTOM_VOCAB';
+        const GEMINI_API_KEY_STORAGE = 'GRE_MASTER_GEMINI_KEY';
         
         let masonDatabase = [];
-        let mistakesData = JSON.parse(localStorage.getItem(MISTAKES_KEY)) || [
-            {
-                id: 1,
-                type: 'TC',
-                question: 'The author argued that the proliferation of social media has not diminished true connection, but rather _____ it.',
-                answer: 'fostered',
-                translation: '作者主張社交媒體的普及並未削弱真正的連結，反而促進了它。',
-                analysis: '對比轉折句型 (not... but rather)。空白處需填入與 diminish (削弱) 相反意思的正面動詞。',
-                notes: '經常搞混 foster 與 bolster 的微小語意差別。',
-                status: 'REVIEW' // REVIEW or MASTERED
-            },
-            {
-                id: 2,
-                type: 'Quant',
-                question: 'If x and y are positive integers such that 2x + 3y = 24, what is the maximum possible value of xy?',
-                answer: '24 (When x=6, y=4 => xy=24)',
-                translation: '若 x 與 y 為正整數且 2x + 3y = 24，則 xy 的最大可能值為何？',
-                analysis: '考點：算幾不等式或代入討論。當 2x 與 3y 盡可能接近時，積最大。2x=12, 3y=12 => x=6, y=4。',
-                notes: '注意題目是否有限制「正整數」。',
-                status: 'MASTERED'
-            }
-        ];
+        let mistakesData = JSON.parse(localStorage.getItem(MISTAKES_KEY)) || [];
+        let lastAiAnalysisResult = null;
 
-        // Sample Default Mason Database fallback if JSON fetch fails locally
         const defaultMasonData = [
             { word: "equivocal", phonetic: "/ɪˈkwɪv.ə.kəl/", def: "模稜兩可的、明確度低的", root: "equi (相同) + voc (聲音)", synonyms: ["ambiguous", "ambivalent"] },
             { word: "ephemeral", phonetic: "/ɪˈfem.ər.əl/", def: "轉瞬即逝的、短暫的", root: "epi (在...上) + hemer (日)", synonyms: ["transitory", "transient", "fleeting"] },
             { word: "taciturn", phonetic: "/ˈtæs.ə.tɜːn/", def: "沉默寡言的", root: "tac (沉默)", synonyms: ["reserved", "laconic", "reticent"] },
             { word: "ubiquitous", phonetic: "/juːˈbɪk.wə.təs/", def: "無所不在的", root: "ubi (地方)", synonyms: ["omnipresent", "pervasive"] },
-            { word: "mitigate", phonetic: "/ˈmɪt.ɪ.ɡeɪt/", def: "緩和、減輕", root: "mitis (柔和)", synonyms: ["allay", "assuage", "mollify"] },
-            { word: "fastidious", phonetic: "/fæsˈtɪd.i.əs/", def: "挑剔的、過分講究的", root: "fastidium (厭惡)", synonyms: ["meticulous", "scrupulous"] }
+            { word: "mitigate", phonetic: "/ˈmɪt.ɪ.ɡeɪt/", def: "緩和、減輕", root: "mitis (柔和)", synonyms: ["allay", "assuage", "mollify"] }
         ];
 
-        // Initialize App
         document.addEventListener('DOMContentLoaded', () => {
             loadDatabase();
             renderMistakes('ALL');
         });
 
-        // Load JSON Data
         async function loadDatabase() {
             try {
                 const res = await fetch('./assets/GRE_Mason_Full_Database_2.json');
                 if (!res.ok) throw new Error('Network response error');
                 masonDatabase = await res.json();
             } catch (err) {
-                console.warn('無法讀取外部 Mason 數據庫檔案，載入預設預備單字資料庫。');
+                console.warn('載入預設預備單字資料庫。');
                 masonDatabase = defaultMasonData;
             }
             renderVocabCards(masonDatabase);
         }
 
-        // Tab Switcher
         function switchTab(tabId, event) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-            
             document.getElementById(tabId).classList.add('active');
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
+            if (event && event.currentTarget) event.currentTarget.classList.add('active');
+        }
+
+        /* Modal Functions */
+        function openApiModal() {
+            document.getElementById('apiModal').style.display = 'flex';
+            document.getElementById('apiKeyInput').value = localStorage.getItem(GEMINI_API_KEY_STORAGE) || '';
+        }
+        function closeApiModal() {
+            document.getElementById('apiModal').style.display = 'none';
+        }
+        function saveApiKey() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if (key) {
+                localStorage.setItem(GEMINI_API_KEY_STORAGE, key);
+                alert('API Key 已成功儲存！');
+                closeApiModal();
+            } else {
+                alert('請輸入有效的 API Key');
             }
         }
 
-        // Real-time Solver Simulation
-        function analyzeQuestion() {
+        /* AI Solver via Gemini API */
+        async function analyzeQuestionWithAI() {
+            const apiKey = localStorage.getItem(GEMINI_API_KEY_STORAGE);
+            if (!apiKey) {
+                alert('請先點擊右上角「設定 API Key」輸入您的 Gemini API Key！');
+                openApiModal();
+                return;
+            }
+
             const qType = document.getElementById('questionType').value;
             const qInput = document.getElementById('questionInput').value.trim();
             const qOptions = document.getElementById('optionsInput').value.trim();
@@ -601,56 +646,102 @@
                 return;
             }
 
-            // Find matching vocabulary words in input
+            outputArea.innerHTML = `<p style="text-align:center; color:var(--academic-blue);"><i class="fa-solid fa-spinner fa-spin"></i> AI 名師正在進行深度句型與邏輯剖析中，請稍候...</p>`;
+
+            // Match words locally first
             const matchedWords = masonDatabase.filter(item => 
                 qInput.toLowerCase().includes(item.word.toLowerCase())
             );
-
             let matchedHTML = matchedWords.length > 0 ? 
-                matchedWords.map(w => `<span class="badge badge-tc" style="margin:2px;">${w.word}:${w.def}</span>`).join(' ')
+                matchedWords.map(w => `<span class="badge badge-tc" style="margin:2px;">${w.word}: ${w.def}</span>`).join(' ')
                 : '<span style="color:var(--text-muted);">無直接匹配之核心高頻單字</span>';
 
-            let analysisHTML = `
-                <div style="margin-bottom: 1rem;">
-                    <strong><i class="fa-solid fa-language"></i> 中文翻譯參考：</strong>
-                    <p style="margin-top: 4px; color: var(--text-main);">${qInput} (自動語意解析翻譯完成)</p>
-                </div>
-                <div style="margin-bottom: 1rem;">
-                    <strong><i class="fa-solid fa-lightbulb"></i> 考點與解題邏輯深度解析：</strong>
-                    <p style="margin-top: 4px; color: var(--text-main);">
-                        【${qType} 核心轉折分析】題目包含關鍵對比結構，宜尋找語意反義字。若選項包含 ${qOptions || '關鍵單字'}，請特別留心語意語調 (Tone)。
-                    </p>
-                </div>
-                <div style="margin-bottom: 1.2rem;">
-                    <strong><i class="fa-solid fa-spell-check"></i> 自動比對 Mason 2000 單字庫：</strong>
-                    <div style="margin-top: 6px;">${matchedHTML}</div>
-                </div>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn btn-purple" onclick="addCurrentToMistakes('${qType}', \`${qInput.replace(/`/g, '')}\`)">
-                        <i class="fa-solid fa-folder-plus"></i> 加入錯題本
-                    </button>
-                </div>
-            `;
+            const promptText = `
+你是一位頂尖的 GRE 考試輔導名師（專精於 Mason GRE 邏輯分析）。
+請針對以下題目進行深度解題：
 
-            outputArea.innerHTML = analysisHTML;
+考題類型: ${qType}
+題目內容: ${qInput}
+選項內容: ${qOptions || '無提供選項'}
+
+請用繁體中文輸出以下結構的內容（請保持排版簡潔專業）：
+1. 【精準中文翻譯】：將題目與選項流暢地翻譯成繁體中文。
+2. 【邏輯考點剖析】：說明本題的邏輯轉折點（如對比、因果、內隱否定、正負語意等）或數學考點。
+3. 【正確答案與消去法解析】：給出正確答案，並逐一說明各選項對/錯的原因。
+4. 【GRE 高頻核心單字提示】：列出題目與選項中的重點 GRE 單字及同義詞。
+`;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: promptText }] }]
+                    })
+                });
+
+                const data = await response.json();
+                if (data.error) throw new Error(data.error.message || 'API 呼叫失敗');
+
+                const aiResponseText = data.candidates[0].content.parts[0].text;
+                // Simple Markdown-to-HTML converter for bold & newlines
+                const formattedAiText = aiResponseText
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\n/g, '<br>');
+
+                lastAiAnalysisResult = {
+                    qType,
+                    qInput,
+                    formattedAiText
+                };
+
+                outputArea.innerHTML = `
+                    <div style="margin-bottom: 1rem;">${formattedAiText}</div>
+                    <div style="margin-bottom: 1rem; border-top: 1px solid #E2E8F0; padding-top: 0.8rem;">
+                        <strong><i class="fa-solid fa-spell-check"></i> 本地 Mason 單字庫精準比對：</strong>
+                        <div style="margin-top: 6px;">${matchedHTML}</div>
+                    </div>
+                    <button class="btn btn-purple" onclick="addAiResultToMistakes()">
+                        <i class="fa-solid fa-folder-plus"></i> 將本題與 AI 解析加入錯題本
+                    </button>
+                `;
+
+            } catch (err) {
+                outputArea.innerHTML = `<p style="color:red;"><i class="fa-solid fa-triangle-exclamation"></i> 解析失敗：${err.message}</p>`;
+            }
         }
 
-        // Mistake Notebook Functions
+        function addAiResultToMistakes() {
+            if (!lastAiAnalysisResult) return;
+            const newItem = {
+                id: Date.now(),
+                type: lastAiAnalysisResult.qType,
+                question: lastAiAnalysisResult.qInput,
+                translation: '詳見 AI 解析',
+                analysis: lastAiAnalysisResult.formattedAiText,
+                notes: '',
+                status: 'REVIEW'
+            };
+            mistakesData.unshift(newItem);
+            saveMistakes();
+            alert('已成功將 AI 解析結果加入錯題本！');
+            renderMistakes();
+        }
+
+        /* Mistake Notebook Functions */
         function renderMistakes(filterType = 'ALL') {
             const container = document.getElementById('mistakesContainer');
             container.innerHTML = '';
-
             const filtered = mistakesData.filter(item => filterType === 'ALL' || item.type === filterType);
 
             if (filtered.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding: 2rem;">目前沒有相關錯題紀錄。</p>`;
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding: 2rem;">目前沒有錯題紀錄。</p>`;
                 return;
             }
 
             filtered.forEach(item => {
                 const card = document.createElement('div');
                 card.className = `mistake-card ${item.type.toLowerCase()}`;
-                
                 const isMastered = item.status === 'MASTERED';
                 const statusBadge = isMastered ? 
                     `<span class="status-toggle status-mastered" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-check"></i> 已掌握</span>` :
@@ -662,9 +753,8 @@
                         ${statusBadge}
                     </div>
                     <div style="font-weight: 700; font-size: 1.05rem; color: var(--academic-blue);">${item.question}</div>
-                    <div style="font-size: 0.95rem; color: var(--text-muted);"><strong>翻譯：</strong>${item.translation || '無翻譯'}</div>
-                    <div style="font-size: 0.95rem; background: var(--bg-pink-light); padding: 8px 12px; border-radius: 8px;">
-                        <strong>解析：</strong>${item.analysis || '無解析'}
+                    <div style="font-size: 0.95rem; background: var(--bg-pink-light); padding: 8px 12px; border-radius: 8px; max-height: 200px; overflow-y: auto;">
+                        <strong>AI 解析：</strong><br>${item.analysis || '無解析'}
                     </div>
                     <div class="form-group" style="margin-top: 6px;">
                         <label style="font-size: 0.85rem;"><i class="fa-solid fa-note-sticky"></i> 個人筆記 (Personal Notes)</label>
@@ -683,9 +773,7 @@
 
         function toggleMistakeStatus(id) {
             mistakesData = mistakesData.map(item => {
-                if (item.id === id) {
-                    item.status = item.status === 'MASTERED' ? 'REVIEW' : 'MASTERED';
-                }
+                if (item.id === id) item.status = item.status === 'MASTERED' ? 'REVIEW' : 'MASTERED';
                 return item;
             });
             saveMistakes();
@@ -700,22 +788,6 @@
             saveMistakes();
         }
 
-        function addCurrentToMistakes(type, question) {
-            const newItem = {
-                id: Date.now(),
-                type: type,
-                question: question,
-                answer: '請於錯題本補充',
-                translation: '即時解析已匯入',
-                analysis: '建議對照考點進行重點複習',
-                notes: '',
-                status: 'REVIEW'
-            };
-            mistakesData.unshift(newItem);
-            saveMistakes();
-            alert('已成功加入錯題本！');
-        }
-
         function saveMistakes() {
             localStorage.setItem(MISTAKES_KEY, JSON.stringify(mistakesData));
         }
@@ -728,7 +800,7 @@
             dlAnchorElem.click();
         }
 
-        // Vocabulary Deck Functions
+        /* Vocabulary Deck Functions */
         function renderVocabCards(data) {
             const grid = document.getElementById('vocabGrid');
             grid.innerHTML = '';
@@ -766,13 +838,9 @@
         let isHiddenMode = false;
         function toggleFlashcardMode() {
             isHiddenMode = !isHiddenMode;
-            const cards = document.querySelectorAll('.flip-card');
-            cards.forEach(card => {
-                if (isHiddenMode) {
-                    card.classList.add('flipped');
-                } else {
-                    card.classList.remove('flipped');
-                }
+            document.querySelectorAll('.flip-card').forEach(card => {
+                if (isHiddenMode) card.classList.add('flipped');
+                else card.classList.remove('flipped');
             });
         }
     </script>
