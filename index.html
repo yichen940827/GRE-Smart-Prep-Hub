@@ -5,83 +5,114 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GRE Master Pro</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--pink:#FFEFF2;--pink2:#FFB6C1;--navy:#1A365D;--navy2:#2A4365;--gold:#ECC94B;--gold2:#D69E2E;--purple:#805AD5;--pbg:#F3E8FF;--text:#2D3748;--mute:#718096;--r:16px}
+:root{--ink:#000;--pink:#FF48A4;--tint:#FFF0F7;--line:#E4E4E4;--mute:#666;--serif:'Noto Serif TC',Georgia,serif}
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Noto Sans TC',sans-serif}
-body{background:var(--pink);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
-header{background:var(--navy);color:#fff;padding:.9rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
-.logo{font-family:'Fredoka',sans-serif;font-size:1.4rem;font-weight:700;display:flex;align-items:center;gap:10px}
-.logo i{color:var(--gold)}
-nav{display:flex;gap:8px;flex-wrap:wrap}
-.tab,.gear{background:rgba(255,255,255,.12);color:#fff;border:2px solid transparent;padding:.5rem 1rem;border-radius:20px;cursor:pointer;font-weight:700;font-size:.95rem}
-.tab.active{background:var(--gold);color:var(--navy)}
-:focus-visible{outline:3px solid var(--purple);outline-offset:2px}
-.container{max-width:1200px;margin:1.5rem auto;padding:0 1.2rem;width:100%;flex-grow:1}
+body{background:#fff;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;line-height:1.7}
+:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:1rem clamp(1rem,4vw,3rem);border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:100}
+.logo{font-family:var(--serif);font-weight:900;font-size:1.3rem;display:flex;align-items:center;gap:10px}
+.logo::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--pink)}
+nav{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.tab{background:none;border:none;border-bottom:2px solid transparent;padding:.3rem 0;font-size:1rem;font-weight:500;cursor:pointer}
+.tab:hover{border-color:var(--line)}.tab.active{border-color:var(--pink);font-weight:700}
+.gear{background:none;border:1px solid var(--ink);border-radius:999px;padding:.35rem 1rem;font-size:.9rem;font-weight:500;cursor:pointer}
+.gear:hover{background:var(--ink);color:#fff}
+.container{max-width:1240px;margin:0 auto;padding:0 clamp(1rem,4vw,3rem) 4rem;width:100%;flex-grow:1}
 .pane{display:none}.pane.active{display:block}
-.card{background:#fff;border-radius:var(--r);padding:1.6rem;box-shadow:0 8px 20px rgba(26,54,93,.08);border:2px solid rgba(255,182,193,.3)}
-.card-h{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:1.2rem;padding-bottom:.7rem;border-bottom:2px solid var(--pink);font-size:1.2rem;font-weight:700;color:var(--navy)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
+.hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(1.8rem,4vw,3rem)}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(2.3rem,6vw,4.6rem);line-height:1.15}
+.hero p{margin-top:1rem;color:var(--mute);max-width:34rem;font-size:1.05rem}
+.card{padding-top:clamp(2rem,5vw,3.5rem)}
+.card-h{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:1.6rem}
+.card-h span{font-family:var(--serif);font-weight:900;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2}
+.card-h i{display:none}
+.grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:start}
 @media(max-width:900px){.grid{grid-template-columns:1fr}}
-label{display:block;font-weight:700;margin:.9rem 0 .4rem;color:var(--navy)}
-select,input[type=text],input[type=password],textarea{width:100%;padding:.7rem .9rem;border:2px solid #E2E8F0;border-radius:12px;font-size:1rem;background:#FAFAFA}
-textarea{min-height:130px;resize:vertical}
-.btn{background:var(--navy);color:#fff;border:none;padding:.7rem 1.3rem;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
-.btn:hover{background:var(--navy2)}.btn:disabled{opacity:.5;cursor:wait}
-.btn.gold{background:var(--gold);color:var(--navy)}.btn.gold:hover{background:var(--gold2)}
-.btn.purple{background:var(--purple)}.btn.line{background:none;color:var(--navy);border:2px solid var(--navy)}
-.btn.sm{padding:.3rem .7rem;font-size:.85rem}
-.drop{border:2px dashed var(--purple);border-radius:12px;padding:.8rem;text-align:center;color:var(--mute);cursor:pointer;font-size:.95rem}
-#prevWrap{display:none;margin-top:.6rem;position:relative}
-#prev{max-width:100%;max-height:200px;border-radius:10px;border:1px solid #E2E8F0}
-.out{background:#FBFAFF;border:1px dashed var(--purple);border-radius:12px;padding:1.1rem;min-height:300px;line-height:1.7}
-.sec{margin-bottom:1rem}
-.sec h4{color:var(--navy);font-size:1rem;margin-bottom:.3rem}
-.ans{background:var(--navy);color:#fff;border-radius:12px;padding:.8rem 1rem;font-weight:700;font-size:1.1rem}
-.ans small{color:var(--gold);display:block;font-size:.8rem}
-.opt{border-left:5px solid #CBD5E0;padding:.4rem .7rem;margin:.4rem 0;background:#fff;border-radius:0 8px 8px 0}
-.opt.ok{border-color:#38A169}.opt.no{border-color:#E53E3E}
-.chip{display:inline-block;background:var(--pbg);color:var(--purple);border-radius:12px;padding:.35rem .7rem;margin:3px 3px 3px 0;font-size:.9rem}
-.chip.in{background:#C6F6D5;color:#22543D}
-.hint{font-size:.85rem;color:#744210;margin-top:.3rem}
-.warn{background:#FEFCBF;border-radius:10px;padding:.6rem .9rem;margin-bottom:1rem;color:#744210}
-.err{background:#FED7D7;color:#9B2C2C;border-radius:10px;padding:.8rem 1rem}
-.filters{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
-.chipbtn{padding:.4rem 1rem;border-radius:20px;border:2px solid #E2E8F0;background:#fff;cursor:pointer;font-weight:700;color:var(--mute)}
-.chipbtn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
-.mc{border-left:6px solid var(--navy);background:#fff;border-radius:12px;padding:1rem;margin-bottom:1rem;box-shadow:0 4px 10px rgba(0,0,0,.05)}
-.mc.Quant{border-color:var(--purple)}.mc.RC{border-color:var(--gold)}
-.mc .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
-.st{cursor:pointer;border:none;padding:4px 12px;border-radius:12px;font-weight:700}
-.st.REVIEW{background:#FED7D7;color:#9B2C2C}.st.MASTERED{background:#C6F6D5;color:#22543D}
-details{margin-top:.6rem}summary{cursor:pointer;font-weight:700;color:var(--purple)}
-.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.2rem;margin-top:1rem}
+label{display:block;font-weight:700;margin:1.1rem 0 .4rem;font-size:.95rem}
+select,input[type=text],input[type=password],textarea{width:100%;padding:.75rem .9rem;border:1px solid var(--line);border-radius:10px;font-size:1rem;background:#fff}
+select:focus,input:focus,textarea:focus{border-color:var(--ink);outline:none}
+textarea{min-height:150px;resize:vertical}
+.drop{border:1px dashed #999;border-radius:10px;padding:.8rem;text-align:center;color:var(--mute);cursor:pointer;font-size:.95rem}
+.drop:hover{border-color:var(--pink)}
+#prevWrap{display:none;margin-top:.6rem}#prev{max-width:100%;max-height:200px;border-radius:10px;border:1px solid var(--line)}
+.btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:.7rem 1.5rem;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .2s,color .2s}
+.btn:hover{background:var(--pink);border-color:var(--pink);color:#000}.btn:disabled{opacity:.5;cursor:wait}
+.btn.gold{background:var(--pink);border-color:var(--pink);color:#000}.btn.gold:hover{background:#000;border-color:#000;color:#fff}
+.btn.line{background:none;color:var(--ink)}.btn.line:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.sm{padding:.25rem .8rem;font-size:.85rem}
+.hint{font-size:.85rem;color:#B42318;margin-top:.3rem}
+.warn{background:#FFF8D6;border-radius:10px;padding:.7rem 1rem;margin-bottom:1rem}
+.err{background:#FEE4E2;color:#B42318;border-radius:10px;padding:.8rem 1rem}
+.out{border:1px solid var(--line);border-radius:20px;padding:1.4rem 1.6rem;min-height:420px}
+.empty{color:var(--mute);text-align:center;padding:5rem 1rem}
+.ztabs{display:flex;align-items:center;gap:1.5rem;border-bottom:1px solid var(--line);margin-bottom:1.4rem}
+.zt{background:none;border:none;border-bottom:3px solid transparent;padding:.5rem 0;margin-bottom:-1px;font-size:1.05rem;font-weight:700;color:var(--mute);cursor:pointer}
+.zt.active{color:#000;border-color:var(--pink)}
+.cnt{background:var(--pink);color:#000;border-radius:999px;font-size:.75rem;padding:0 .5rem;margin-left:.4rem}
+.ztabs .btn{margin-left:auto;margin-bottom:.4rem}
+.zone{display:none}.zone.active{display:block}
+.ans{background:var(--tint);border-radius:18px;padding:1.1rem 1.4rem}
+.ans span{font-size:.9rem;font-weight:700;color:#C21F73}
+.av{font-family:var(--serif);font-weight:900;font-size:1.9rem;line-height:1.35;margin-top:.15rem}
+.part{padding:1.4rem 0;border-bottom:1px solid var(--line)}
+.ph{display:flex;align-items:center;gap:.8rem;margin-bottom:.7rem;flex-wrap:wrap}
+.ph b{font-family:var(--serif);font-size:1.15rem;font-weight:900}
+.pa{background:#000;color:#fff;border-radius:999px;padding:.1rem .9rem;font-weight:700}
+.part dl{display:grid;grid-template-columns:7.5rem 1fr;gap:.55rem 1rem}
+.part dt{font-weight:700;color:var(--mute);font-size:.9rem;padding-top:.15rem}
+@media(max-width:600px){.part dl{grid-template-columns:1fr;gap:.1rem}.part dd{margin-bottom:.6rem}}
+dd b,.tr b{background:var(--tint);box-shadow:inset 0 -2px var(--pink)}
+.diag{margin-top:1.2rem;border-left:3px solid var(--pink);padding:.3rem 0 .3rem 1rem}
+.fold{margin-top:1.2rem}.fold summary{cursor:pointer;font-weight:700}.foldb{margin-top:.6rem;color:var(--mute);font-size:.95rem}
+.xs{margin-bottom:2.2rem}.xs h3{font-family:var(--serif);font-weight:900;font-size:1.3rem;margin-bottom:.8rem}
+.tr{line-height:2;white-space:pre-wrap}
+.tw{overflow-x:auto}
+.vt{width:100%;border-collapse:collapse;font-size:.95rem;min-width:600px}
+.vt th{text-align:left;font-size:.85rem;color:var(--mute);font-weight:500;padding:.5rem .6rem;border-bottom:2px solid #000}
+.vt td{padding:.7rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+.vw{font-family:var(--serif);font-size:1.1rem;font-weight:700}
+.vsub{font-size:.85rem;color:var(--mute)}
+.tag{font-size:.75rem;background:#EEE;color:#333;border-radius:10px;padding:1px 8px;margin-left:4px}
+.tag.in{background:var(--tint);color:#C21F73}
+.filters{display:flex;gap:8px;margin-bottom:1.4rem;flex-wrap:wrap}
+.chipbtn{padding:.4rem 1.1rem;border-radius:999px;border:1px solid var(--ink);background:none;cursor:pointer;font-weight:500}
+.chipbtn.active{background:#000;color:#fff}
+.mc{border-top:1px solid var(--ink);padding:1.4rem 0}
+.mc .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.st{cursor:pointer;border:none;padding:.25rem .9rem;border-radius:999px;font-weight:700}
+.st.REVIEW{background:var(--tint);color:#C21F73}.st.MASTERED{background:#000;color:#fff}
+.zh{font-family:var(--serif);font-weight:900;font-size:1.2rem;margin:1.4rem 0 .6rem}
+details summary{cursor:pointer;font-weight:700}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.2rem;margin-top:1.2rem}
 .flip{height:190px;perspective:900px;cursor:pointer}
 .fi{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
 .flip.on .fi{transform:rotateY(180deg)}
-.fr,.bk{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;padding:1rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:2px solid var(--pink2)}
-.fr{background:#fff}.bk{background:var(--navy);color:#fff;transform:rotateY(180deg);border-color:var(--navy);font-size:.9rem;gap:6px}
-.w{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:800;color:var(--navy)}
-.d{color:var(--gold);font-weight:700;font-size:1.1rem}
+.fr,.bk{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;padding:1rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid var(--ink)}
+.fr{background:#fff}.bk{background:#000;color:#fff;transform:rotateY(180deg);font-size:.9rem;gap:6px}
+.w{font-family:var(--serif);font-size:1.7rem;font-weight:900}
+.d{color:var(--pink);font-weight:700;font-size:1.1rem}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;justify-content:center;align-items:center;z-index:1000}
-.modal>div{background:#fff;padding:1.8rem;border-radius:16px;max-width:480px;width:90%}
-footer{text-align:center;padding:1rem;background:var(--navy);color:#fff;font-size:.85rem}
+.modal>div{background:#fff;padding:1.8rem;border-radius:20px;max-width:480px;width:90%}
+footer{background:#000;color:#fff;padding:1.4rem clamp(1rem,4vw,3rem);font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo"><i class="fa-solid fa-graduation-cap"></i>GRE Master Pro</div>
+  <div class="logo">GRE Master Pro</div>
   <nav>
-    <button class="tab active" data-tab="solver"><i class="fa-solid fa-wand-magic-sparkles"></i> 解題</button>
-    <button class="tab" data-tab="notebook"><i class="fa-solid fa-book-bookmark"></i> 錯題本</button>
-    <button class="tab" data-tab="vocab"><i class="fa-solid fa-layer-group"></i> 單字書</button>
-    <button class="gear" id="gear" title="設定 API Key"><i class="fa-solid fa-key"></i></button>
+    <button class="tab active" data-tab="solver">解題</button>
+    <button class="tab" data-tab="notebook">錯題本</button>
+    <button class="tab" data-tab="vocab">單字書</button>
+    <button class="gear" id="gear" title="設定 API Key">API Key</button>
   </nav>
 </header>
 
 <div class="container">
-  <section id="solver" class="pane active"><div class="card">
-    <div class="card-h"><span><i class="fa-solid fa-brain"></i> 貼上題目，取得完整解析</span></div>
+  <section id="solver" class="pane active">
+    <div class="hero"><h1>把不會的題目<br>丟進來就好。</h1><p>貼上文字或截圖，取得中文解析、整題翻譯與單字整理。</p></div>
     <div class="grid">
       <div>
         <label for="model">AI 模型</label>
@@ -103,9 +134,9 @@ footer{text-align:center;padding:1rem;background:var(--navy);color:#fff;font-siz
         <input type="text" id="mine" placeholder="例如：B，因為我覺得空格是負面語氣">
         <div style="margin-top:1.1rem"><button class="btn gold" id="go"><i class="fa-solid fa-bolt"></i> 開始解析</button></div>
       </div>
-      <div id="result" class="out"><p style="color:var(--mute);text-align:center;margin-top:100px">解析結果會顯示在這裡</p></div>
+      <div id="result" class="out"><p class="empty">解題區與補充區會顯示在這裡</p></div>
     </div>
-  </div></section>
+  </section>
 
   <section id="notebook" class="pane"><div class="card">
     <div class="card-h"><span><i class="fa-solid fa-book-open-reader"></i> 我的錯題本</span><button class="btn purple" id="exp"><i class="fa-solid fa-download"></i> 備份</button></div>
@@ -129,7 +160,7 @@ footer{text-align:center;padding:1rem;background:var(--navy);color:#fff;font-siz
   <input type="password" id="keyIn" placeholder="貼上 API Key">
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:1rem"><button class="btn line" id="keyCancel">取消</button><button class="btn gold" id="keySave">儲存</button></div>
 </div></div>
-<footer>GRE Master Pro · 解析由 AI 產生，答案請自行核對</footer>
+<footer><span>GRE Master Pro</span><span>解析由 AI 產生，答案請自行核對</span></footer>
 
 <script>
 /* ===== 設定 ===== */
@@ -149,28 +180,36 @@ const MODELS = [
   { id: 'claude-sonnet-5-5', label: 'Claude Sonnet 5.5', provider: 'claude', vision: true, tier: 'top' },
   { id: 'claude-opus-5-5', label: 'Claude Opus 5.5（最準、最貴）', provider: 'claude', vision: true, tier: 'top' }
 ];
-const SYSTEM = `你是資深 GRE 名師。學生會貼上一道 GRE 題目（可能是文字或截圖），請用繁體中文給出可靠、精確的解析。
-規則：
-- 先在 scratch_work 自行完整推導（Quant 必須列出計算並驗算；填空先找邏輯線索詞與語意方向），再下結論。
-- 若題目資訊不完整（例如閱讀文章被截斷、截圖看不清），在 warnings 說明，不要亂猜答案。
-- Sentence Equivalence 必須給出兩個答案。
-- 若學生提供了「我的答案」，在 diagnosis 指出他錯在哪個思考環節；沒有提供則留空。
-- vocab 列出題目與選項中值得學的 GRE 單字，word 一律用原形，並附 3 個內以同義詞。
-- explanation 要讓考生下次遇到類似題能舉一反三，不要只重述答案。`;
+const SYSTEM = `你是資深 GRE 名師，學生是台灣考生。學生會貼上一道 GRE 題目（可能是文字或截圖）。請全程使用繁體中文（台灣慣用語）撰寫解析，英文原文、單字與片語保留英文。
+推導規則：
+- 先在 scratch_work 完整推導（可以很長，不會直接顯示）：Quant 要列出計算並驗算；填空先找線索詞與語意方向，再逐一檢查選項。
+- 若題目資訊不完整（閱讀文章被截斷、截圖看不清），在 warnings 說明，不要亂猜。
+- Sentence Equivalence 必須給兩個答案，並說明兩者為何同義。
+輸出規則：
+- answer：最終答案。多空格請寫成「空格 1：X；空格 2：Y」。
+- parts：每個空格（或每個小題、每個解題步驟）一筆，包含：
+  - label：「空格 1」「第 2 題」「步驟 1」之類。
+  - answer：該項答案。
+  - clue：線索詞與轉折詞（例如 although、however、not only…but also），保留英文原文，並說明語意方向（正向、反向、因果、對比、遞進）。Quant 則寫考點。
+  - structure：句構分析（主要子句、從屬子句、修飾關係、空格的位置與所需詞性），2 到 3 句。Quant 則寫解法或公式。
+  - reasoning：為什麼選這個答案，並簡短說明主要干擾選項為何不對，100 字內。Quant 則寫計算與驗算。
+  - 引用原文關鍵片語時用 **粗體** 標示。
+- translation：整題（題目加選項）完整的繁體中文翻譯，通順自然。
+- vocab：題目與選項中值得學的單字與片語（最多 10 筆）。word 用原形；pos 寫詞性（adj.、n.、v.、adv.，片語寫「片語」）；meaning_zh 簡潔；synonyms 提供 2 到 4 個 GRE 常見同義字。
+- diagnosis：若學生提供了「我的答案」，用 2 到 3 句指出他錯在哪個思考環節；沒有則留空字串。
+- 不要使用 markdown 標題、表格或條列符號。`;
 const SCHEMA = {
   type: 'object',
   properties: {
-    scratch_work: { type: 'string', description: '推導與計算草稿' },
-    translation: { type: 'string', description: '題目與選項的繁體中文翻譯' },
-    logic_clue: { type: 'string', description: '邏輯線索詞/考點（Quant 則寫考點與解法）' },
+    scratch_work: { type: 'string', description: '完整推導與計算草稿' },
     answer: { type: 'string' },
-    explanation: { type: 'string' },
-    option_review: { type: 'array', items: { type: 'object', properties: { option: { type: 'string' }, verdict: { type: 'string', enum: ['correct', 'wrong'] }, reason: { type: 'string' } }, required: ['option', 'verdict', 'reason'] } },
-    vocab: { type: 'array', items: { type: 'object', properties: { word: { type: 'string' }, meaning_zh: { type: 'string' }, synonyms: { type: 'array', items: { type: 'string' } } }, required: ['word', 'meaning_zh'] } },
+    parts: { type: 'array', items: { type: 'object', properties: { label: { type: 'string' }, answer: { type: 'string' }, clue: { type: 'string' }, structure: { type: 'string' }, reasoning: { type: 'string' } }, required: ['label', 'answer', 'clue', 'structure', 'reasoning'] } },
+    translation: { type: 'string', description: '整題完整繁體中文翻譯' },
+    vocab: { type: 'array', items: { type: 'object', properties: { word: { type: 'string' }, pos: { type: 'string' }, meaning_zh: { type: 'string' }, synonyms: { type: 'array', items: { type: 'string' } } }, required: ['word', 'pos', 'meaning_zh'] } },
     diagnosis: { type: 'string' },
     warnings: { type: 'string' }
   },
-  required: ['scratch_work', 'translation', 'logic_clue', 'answer', 'explanation', 'vocab']
+  required: ['scratch_work', 'answer', 'parts', 'translation', 'vocab']
 };
 
 /* ===== 工具 ===== */
@@ -259,10 +298,9 @@ function normalize(a) {
   const s = v => Array.isArray(v) ? v.map(s).join(', ') : v == null ? '' : typeof v === 'string' ? v : JSON.stringify(v);
   const arr = v => Array.isArray(v) ? v : [];
   return {
-    scratch_work: s(a.scratch_work), translation: s(a.translation), logic_clue: s(a.logic_clue), answer: s(a.answer),
-    explanation: s(a.explanation), diagnosis: s(a.diagnosis), warnings: s(a.warnings),
-    option_review: arr(a.option_review).map(o => ({ option: s(o?.option), verdict: o?.verdict === 'correct' ? 'correct' : 'wrong', reason: s(o?.reason) })),
-    vocab: arr(a.vocab).filter(v => v?.word).map(v => ({ word: s(v.word), meaning_zh: s(v.meaning_zh), synonyms: arr(v.synonyms).map(s) }))
+    scratch_work: s(a.scratch_work), translation: s(a.translation), answer: s(a.answer), diagnosis: s(a.diagnosis), warnings: s(a.warnings),
+    parts: arr(a.parts).map(p => ({ label: s(p?.label), answer: s(p?.answer), clue: s(p?.clue), structure: s(p?.structure), reasoning: s(p?.reasoning) })),
+    vocab: arr(a.vocab).filter(v => v?.word).map(v => ({ word: s(v.word), pos: s(v.pos), meaning_zh: s(v.meaning_zh), synonyms: arr(v.synonyms).map(s) }))
   };
 }
 
@@ -284,7 +322,7 @@ async function callAI(m, qType, text) {
     try { out = JSON.parse(out); } catch { throw new Error('模型回傳格式錯誤，請重試或換一個模型'); }
   }
   if (!out || typeof out !== 'object') throw new Error('模型沒有回傳內容，請重試');
-  out = normalize(out);
+  out = normalize(out); out.qType = qType;
   if (!out.answer) throw new Error('模型沒有給出答案，請重試或換一個更強的模型');
   return out;
 }
@@ -320,35 +358,50 @@ $('go').onclick = async () => {
     if (imgData && !m.vision) throw new Error('這個模型無法讀取圖片，請改選可看圖的模型，或改貼文字題目');
     lastAi = await callAI(m, qType, text);
     lastMeta = { type: qType, question: q || '(截圖題目)', mine };
-    $('result').innerHTML = renderAnalysis(lastAi, true);
+    showResult(lastAi);
   } catch (e) {
     $('result').innerHTML = `<div class="err"><i class="fa-solid fa-triangle-exclamation"></i> ${esc(e.message)}</div>`;
   } finally { $('go').disabled = false; }
 };
 
 /* ===== 渲染解析 ===== */
-function vocabChip(v) {
+function vocabRow(v) {
   const m = dbMap.get(String(v.word).toLowerCase());
   const payload = encodeURIComponent(JSON.stringify({ word: v.word, def: v.meaning_zh, synonyms: v.synonyms || [] })).replace(/'/g, '%27');
   const mine = myVocab.some(x => x.word.toLowerCase() === String(v.word).toLowerCase());
-  const syn = (m?.synonyms || v.synonyms || []).join(', ');
-  return `<div class="chip ${m ? 'in' : ''}"><b>${esc(v.word)}</b> ${esc(v.meaning_zh)}${syn ? ` · ${esc(syn)}` : ''}${m?.root ? ` · 字根 ${esc(m.root)}` : ''}
-    <small>${m ? '（Mason 字庫）' : '（庫外新字）'}</small>
-    ${m || mine ? '' : `<button class="btn sm line" onclick="addVocab('${payload}',this)">加入單字書</button>`}</div>`;
+  const syn = [...new Set([...(m?.synonyms || []), ...(v.synonyms || [])])].join(', ');
+  return `<tr><td><b class="vw">${esc(v.word)}</b><span class="tag ${m ? 'in' : ''}">${m ? 'Mason' : '庫外'}</span>${m?.root ? `<div class="vsub">字根 ${esc(m.root)}</div>` : ''}</td>
+    <td>${esc(v.pos || '')}</td><td>${esc(v.meaning_zh || m?.def || '')}</td><td>${esc(syn)}</td>
+    <td>${m || mine ? '' : `<button class="btn sm line" onclick="addVocab('${payload}',this)">加入</button>`}</td></tr>`;
 }
-function renderAnalysis(a, withSave) {
-  const sec = (t, h) => h ? `<div class="sec"><h4>${t}</h4>${h}</div>` : '';
-  return `${a.warnings ? `<div class="warn"><i class="fa-solid fa-circle-info"></i> ${rich(a.warnings)}</div>` : ''}
-  <div class="ans"><small>答案</small>${esc(a.answer)}</div><br>
-  ${sec('邏輯考點', rich(a.logic_clue))}
-  ${sec('詳解', rich(a.explanation))}
-  ${a.diagnosis ? sec('你的錯誤診斷', rich(a.diagnosis)) : ''}
-  ${a.option_review?.length ? sec('逐選項分析', a.option_review.map(o => `<div class="opt ${o.verdict === 'correct' ? 'ok' : 'no'}"><b>${esc(o.option)}</b> ${o.verdict === 'correct' ? '✔' : '✘'} ${rich(o.reason)}</div>`).join('')) : ''}
-  ${sec('中文翻譯', rich(a.translation))}
-  ${a.vocab?.length ? sec('單字整理', a.vocab.map(vocabChip).join('')) : ''}
-  <details><summary>AI 推導過程</summary>${rich(a.scratch_work)}</details>
-  ${withSave ? `<div style="margin-top:1rem"><button class="btn purple" onclick="addMistake(this)"><i class="fa-solid fa-folder-plus"></i> 加入錯題本</button></div>` : ''}`;
+function renderSolve(a) {
+  const L = a.qType === 'Quant' ? ['考點', '解法', '計算與驗算'] : ['線索詞／轉折詞', '句構分析', '解析'];
+  const parts = a.parts || [];
+  const old = !parts.length && (a.steps?.length || a.explanation) ? `<p style="margin-top:1rem">${(a.steps?.length ? a.steps : [a.explanation]).map(rich).join('<br>')}</p>` : '';
+  const row = (t, x) => x ? `<dt>${t}</dt><dd>${rich(x)}</dd>` : '';
+  return `${a.warnings ? `<div class="warn">${rich(a.warnings)}</div>` : ''}
+  <div class="ans"><span>答案</span><div class="av">${esc(a.answer)}</div></div>
+  ${parts.map(p => `<article class="part"><div class="ph"><b>${esc(p.label)}</b>${p.answer ? `<span class="pa">${esc(p.answer)}</span>` : ''}</div>
+    <dl>${row(L[0], p.clue)}${row(L[1], p.structure)}${row(L[2], p.reasoning)}</dl></article>`).join('')}${old}
+  ${a.diagnosis ? `<div class="diag"><b>你的盲點</b><p>${rich(a.diagnosis)}</p></div>` : ''}
+  ${a.scratch_work ? `<details class="fold"><summary>AI 完整推導過程</summary><div class="foldb">${rich(a.scratch_work)}</div></details>` : ''}`;
 }
+function renderExtra(a) {
+  const rows = (a.vocab || []).map(vocabRow).join('');
+  return `<section class="xs"><h3>整題中文翻譯</h3><p class="tr">${rich(a.translation)}</p></section>
+  <section class="xs"><h3>單字與片語整理</h3>${rows ? `<div class="tw"><table class="vt"><thead><tr><th>單字／片語</th><th>詞性</th><th>中文意思</th><th>同義字</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p class="vsub">這題沒有需要整理的單字。</p>'}</section>`;
+}
+const renderAnalysis = a => `<h3 class="zh">解題區</h3>${renderSolve(a)}<h3 class="zh">補充區</h3>${renderExtra(a)}`;
+function showResult(a) {
+  $('result').innerHTML = `<div class="ztabs"><button class="zt active" data-z="zSolve">解題區</button><button class="zt" data-z="zExtra">補充區<span class="cnt">${(a.vocab || []).length}</span></button>
+    <button class="btn line sm" onclick="addMistake(this)">加入錯題本</button></div>
+    <div id="zSolve" class="zone active">${renderSolve(a)}</div><div id="zExtra" class="zone">${renderExtra(a)}</div>`;
+}
+$('result').addEventListener('click', e => {
+  const b = e.target.closest('.zt'); if (!b) return;
+  $('result').querySelectorAll('.zt').forEach(x => x.classList.toggle('active', x === b));
+  $('result').querySelectorAll('.zone').forEach(z => z.classList.toggle('active', z.id === b.dataset.z));
+});
 function addMistake(btn) {
   mistakes.unshift({ id: Date.now(), ...lastMeta, ai: lastAi, notes: '', status: 'REVIEW' });
   save('GRE_MISTAKES_V2', mistakes); renderMistakes();
@@ -412,4 +465,3 @@ $('cover').onclick = () => { covered = !covered; renderVocab(); };
 </script>
 </body>
 </html>
-   
