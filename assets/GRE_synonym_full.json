@@ -1,0 +1,682 @@
+[
+  {
+    "noun": "anomaly",
+    "adjective": "anomalous",
+    "definition_or_synonym": "異常的 abnormal(adj.)"
+  },
+  {
+    "noun": "deviance"
+  },
+  {
+    "noun": "aberration"
+  },
+  {
+    "noun": "preternature"
+  },
+  {
+    "verb": "assuage",
+    "definition_or_synonym": "安撫"
+  },
+  {
+    "verb": "soothe"
+  },
+  {
+    "verb": "placate"
+  },
+  {
+    "verb": "propiticiate"
+  },
+  {
+    "verb": "appeace"
+  },
+  {
+    "verb": "pacify"
+  },
+  {
+    "verb": "mollify"
+  },
+  {
+    "adjective": "equivocated",
+    "definition_or_synonym": "含糊其辭"
+  },
+  {
+    "adjective": "evasive",
+    "definition_or_synonym": "逃避的"
+  },
+  {
+    "adjective": "ambiguous",
+    "definition_or_synonym": "矛盾的"
+  },
+  {
+    "adjective": "waffling",
+    "definition_or_synonym": "胡扯的"
+  },
+  {
+    "noun": "disinterestedness",
+    "adjective": "disinterested",
+    "definition_or_synonym": "公正,無私"
+  },
+  {
+    "noun": "impartial",
+    "adjective": "impartiality"
+  },
+  {
+    "adjective": "tranquil",
+    "definition_or_synonym": "安靜"
+  },
+  {
+    "adjective": "placid"
+  },
+  {
+    "verb": "disturb",
+    "definition_or_synonym": "弄亂,打亂;打擾,擾亂"
+  },
+  {
+    "verb": "perturb",
+    "definition_or_synonym": "擾亂,使混亂,使心慌"
+  },
+  {
+    "noun": "turmoil",
+    "definition_or_synonym": "騷動,混亂"
+  },
+  {
+    "adjective": "turbid",
+    "definition_or_synonym": "混濁的,泥水的,混亂的,霧重的"
+  },
+  {
+    "verb": "evade",
+    "definition_or_synonym": "逃避"
+  },
+  {
+    "verb": "elude",
+    "definition_or_synonym": "逃避"
+  },
+  {
+    "adjective": "elusive",
+    "definition_or_synonym": "逃避的"
+  },
+  {
+    "verb": "circumvent",
+    "definition_or_synonym": "逃避"
+  },
+  {
+    "adjective": "evasive",
+    "definition_or_synonym": "逃避的"
+  },
+  {
+    "verb": "prevent"
+  },
+  {
+    "verb": "sidestep"
+  },
+  {
+    "adjective": "eschew"
+  },
+  {
+    "adjective": "recalcitrant",
+    "definition_or_synonym": "以叛逆或暴力的方式拒絕被掌控"
+  },
+  {
+    "adjective": "intransigent",
+    "definition_or_synonym": "極端的姿態絲毫不改變意見"
+  },
+  {
+    "adjective": "contumacious",
+    "definition_or_synonym": "傲慢無禮的方式抗拒，輕蔑既有的權威"
+  },
+  {
+    "adjective": "intractable",
+    "definition_or_synonym": "不願被指引的"
+  },
+  {
+    "adjective": "refractory",
+    "definition_or_synonym": "不願被循服的"
+  },
+  {
+    "adjective": "somnolent",
+    "definition_or_synonym": "想睡的 催眠的"
+  },
+  {
+    "adjective": "soporific",
+    "definition_or_synonym": "令人想睡的"
+  },
+  {
+    "adjective": "slumber",
+    "definition_or_synonym": "睡眠、睡"
+  },
+  {
+    "adjective": "lethargic",
+    "definition_or_synonym": "昏昏欲睡"
+  },
+  {
+    "adjective": "sluggish",
+    "definition_or_synonym": "遲緩的"
+  },
+  {
+    "verb": "vindicate",
+    "definition_or_synonym": "聲明無罪(原本無罪)"
+  },
+  {
+    "verb": "exculpation",
+    "definition_or_synonym": "開脫罪嫌(原本有罪)"
+  },
+  {
+    "verb": "denunciate",
+    "definition_or_synonym": "譴責"
+  },
+  {
+    "verb": "denounce",
+    "definition_or_synonym": "指責、譴責"
+  },
+  {
+    "verb": "indict",
+    "definition_or_synonym": "控訴、譴責"
+  },
+  {
+    "adjective": "fungible",
+    "definition_or_synonym": "可取代的"
+  },
+  {
+    "adjective": "interchangeable",
+    "definition_or_synonym": "可交換的"
+  },
+  {
+    "verb": "dispel",
+    "definition_or_synonym": "驅散"
+  },
+  {
+    "verb": "dismiss",
+    "definition_or_synonym": "驅散"
+  },
+  {
+    "verb": "eliminate",
+    "definition_or_synonym": "消除、驅散"
+  },
+  {
+    "verb": "dissipate",
+    "definition_or_synonym": "驅散、區離"
+  },
+  {
+    "verb": "disperse",
+    "definition_or_synonym": "驅散、分散"
+  },
+  {
+    "verb": "perceive",
+    "definition_or_synonym": "觀察"
+  },
+  {
+    "verb": "discern",
+    "definition_or_synonym": "觀察"
+  },
+  {
+    "verb": "recgonize",
+    "definition_or_synonym": "認出"
+  },
+  {
+    "verb": "be aware of",
+    "definition_or_synonym": "註意到"
+  },
+  {
+    "verb": "be conscious of",
+    "definition_or_synonym": "注意到"
+  },
+  {
+    "verb": "acknowledge",
+    "definition_or_synonym": "確認、承認"
+  },
+  {
+    "verb": "admit",
+    "definition_or_synonym": "承認"
+  },
+  {
+    "verb": "concede",
+    "definition_or_synonym": "承認、讓步"
+  },
+  {
+    "verb": "confess",
+    "definition_or_synonym": "承認(罪過)"
+  },
+  {
+    "verb": "confirm"
+  },
+  {
+    "verb": "verify"
+  },
+  {
+    "verb": "affirm"
+  },
+  {
+    "verb": "avow"
+  },
+  {
+    "verb": "mack public"
+  },
+  {
+    "adjective": "compelling",
+    "definition_or_synonym": "引人注目的、強制的"
+  },
+  {
+    "adjective": "attractive",
+    "definition_or_synonym": "吸引人的"
+  },
+  {
+    "adjective": "appealing",
+    "definition_or_synonym": "吸引人的"
+  },
+  {
+    "adjective": "riveting",
+    "definition_or_synonym": "引人入勝的，吸引人的"
+  },
+  {
+    "adjective": "engrossing",
+    "definition_or_synonym": "引人入勝的"
+  },
+  {
+    "adjective": "enthralling",
+    "definition_or_synonym": "著迷的"
+  },
+  {
+    "adjective": "compelling",
+    "definition_or_synonym": "強制的"
+  },
+  {
+    "adjective": "consequential",
+    "definition_or_synonym": "引起的，隨之發生的"
+  },
+  {
+    "adjective": "crucial",
+    "definition_or_synonym": "畢要的"
+  },
+  {
+    "adjective": "necessary",
+    "definition_or_synonym": "必要的"
+  },
+  {
+    "adjective": "vital",
+    "definition_or_synonym": "非常重要的"
+  },
+  {
+    "adjective": "requisite",
+    "definition_or_synonym": "必要條件"
+  },
+  {
+    "adjective": "integral",
+    "definition_or_synonym": "構成整體所必須的"
+  },
+  {
+    "adjective": "essential",
+    "definition_or_synonym": "必須的"
+  },
+  {
+    "adjective": "mandatory",
+    "definition_or_synonym": "強制的；必須履行的；法定的"
+  },
+  {
+    "adjective": "compulsory",
+    "definition_or_synonym": "義務、畢修"
+  },
+  {
+    "adjective": "indispensable",
+    "definition_or_synonym": "不可或缺的"
+  },
+  {
+    "adjective": "instinctively",
+    "definition_or_synonym": "本能的"
+  },
+  {
+    "adjective": "intuitively",
+    "definition_or_synonym": "直觀直覺的"
+  },
+  {
+    "adjective": "naturally",
+    "definition_or_synonym": "自然的"
+  },
+  {
+    "adjective": "innately",
+    "definition_or_synonym": "天生的"
+  },
+  {
+    "adjective": "inbornly",
+    "definition_or_synonym": "先天的"
+  },
+  {
+    "adjective": "inherently",
+    "definition_or_synonym": "固有的"
+  },
+  {
+    "adjective": "sleazy",
+    "definition_or_synonym": "齷齪卑鄙的"
+  },
+  {
+    "adjective": "sordid",
+    "definition_or_synonym": "骯髒汙穢的"
+  },
+  {
+    "adjective": "maverick",
+    "definition_or_synonym": "不同見解者、不守常規者"
+  },
+  {
+    "adjective": "individualist"
+  },
+  {
+    "adjective": "unorthodox person"
+  },
+  {
+    "adjective": "eccentric"
+  },
+  {
+    "adjective": "supersede"
+  },
+  {
+    "adjective": "supplant"
+  },
+  {
+    "adjective": "replace"
+  },
+  {
+    "adjective": "substitute for"
+  },
+  {
+    "adjective": "loath"
+  },
+  {
+    "adjective": "unwilling"
+  },
+  {
+    "adjective": "reluctant"
+  },
+  {
+    "adjective": "disinclined"
+  },
+  {
+    "adjective": "anomalous"
+  },
+  {
+    "adjective": "aberrant"
+  },
+  {
+    "adjective": "deviant"
+  },
+  {
+    "adjective": "heteroclite"
+  },
+  {
+    "adjective": "preternatural"
+  },
+  {
+    "adjective": "noisome"
+  },
+  {
+    "adjective": "injurious"
+  },
+  {
+    "adjective": "offensive"
+  },
+  {
+    "adjective": "disgusting"
+  },
+  {
+    "adjective": "stinking"
+  },
+  {
+    "adjective": "dependent on",
+    "definition_or_synonym": "取決於"
+  },
+  {
+    "adjective": "contingent upon",
+    "definition_or_synonym": "依情況而定"
+  },
+  {
+    "adjective": "wary of",
+    "definition_or_synonym": "警惕"
+  },
+  {
+    "adjective": "suspicious",
+    "definition_or_synonym": "警惕"
+  },
+  {
+    "adjective": "profess"
+  },
+  {
+    "adjective": "claim"
+  },
+  {
+    "adjective": "announce"
+  },
+  {
+    "adjective": "proclaim"
+  },
+  {
+    "adjective": "declare"
+  },
+  {
+    "adjective": "assert"
+  },
+  {
+    "adjective": "rude"
+  },
+  {
+    "adjective": "churlish"
+  },
+  {
+    "adjective": "discourteous"
+  },
+  {
+    "adjective": "unfriendly"
+  },
+  {
+    "adjective": "unpleasant"
+  },
+  {
+    "adjective": "meretricious",
+    "verb": "華而不實的"
+  },
+  {
+    "adjective": "spurious"
+  },
+  {
+    "adjective": "specious"
+  },
+  {
+    "adjective": "manifest",
+    "verb": "明顯的、顯而易見的"
+  },
+  {
+    "adjective": "obvious"
+  },
+  {
+    "adjective": "apparent"
+  },
+  {
+    "adjective": "conspicuous"
+  },
+  {
+    "adjective": "evident"
+  },
+  {
+    "adjective": "self-evident"
+  },
+  {
+    "adjective": "archaic"
+  },
+  {
+    "adjective": "obsolete"
+  },
+  {
+    "adjective": "obsolescent"
+  },
+  {
+    "adjective": "old-fashion"
+  },
+  {
+    "adjective": "antiquated"
+  },
+  {
+    "adjective": "antediluvian"
+  },
+  {
+    "adjective": "tortuous",
+    "verb": "曲折迂迴的"
+  },
+  {
+    "adjective": "circuitous"
+  },
+  {
+    "adjective": "convoluted"
+  },
+  {
+    "adjective": "arrogant",
+    "verb": "傲慢 自大的"
+  },
+  {
+    "adjective": "imperious"
+  },
+  {
+    "adjective": "haughty"
+  },
+  {
+    "adjective": "conceited"
+  },
+  {
+    "adjective": "opinioned"
+  },
+  {
+    "adjective": "hubris"
+  },
+  {
+    "adjective": "imperative",
+    "verb": "必要、緊急的、極重要的"
+  },
+  {
+    "adjective": "consequential"
+  },
+  {
+    "adjective": "crucial"
+  },
+  {
+    "adjective": "necessary"
+  },
+  {
+    "adjective": "key"
+  },
+  {
+    "adjective": "mandatory"
+  },
+  {
+    "adjective": "indispensable"
+  },
+  {
+    "adjective": "compulsory"
+  },
+  {
+    "adjective": "obligatory"
+  },
+  {
+    "adjective": "compelling"
+  },
+  {
+    "adjective": "urgent"
+  },
+  {
+    "adjective": "significant"
+  },
+  {
+    "adjective": "paramount"
+  },
+  {
+    "adjective": "rudimentary",
+    "verb": "初始的"
+  },
+  {
+    "adjective": "embryonic",
+    "verb": "胚胎的"
+  },
+  {
+    "adjective": "incipient",
+    "verb": "初期的"
+  },
+  {
+    "adjective": "revile"
+  },
+  {
+    "adjective": "lambaste"
+  },
+  {
+    "adjective": "thrash"
+  },
+  {
+    "adjective": "castigate"
+  },
+  {
+    "adjective": "chatise"
+  },
+  {
+    "adjective": "censure"
+  },
+  {
+    "adjective": "condemn"
+  },
+  {
+    "adjective": "denounce"
+  },
+  {
+    "adjective": "pervasive"
+  },
+  {
+    "adjective": "prevalent"
+  },
+  {
+    "adjective": "widespread"
+  },
+  {
+    "adjective": "common"
+  },
+  {
+    "adjective": "inescapable"
+  },
+  {
+    "adjective": "universal"
+  },
+  {
+    "adjective": "omnipresent"
+  },
+  {
+    "adjective": "extensive"
+  },
+  {
+    "adjective": "rife"
+  },
+  {
+    "adjective": "ubiquitous"
+  },
+  {
+    "adjective": "barely",
+    "verb": "not"
+  },
+  {
+    "adjective": "scarcely",
+    "verb": "not"
+  },
+  {
+    "adjective": "hardly",
+    "verb": "not"
+  },
+  {
+    "adjective": "mendacious"
+  },
+  {
+    "adjective": "dishonest"
+  },
+  {
+    "adjective": "dissembling"
+  },
+  {
+    "adjective": "insincere"
+  },
+  {
+    "adjective": "disingenuous"
+  },
+  {
+    "adjective": "hypocritical"
+  }
+]
