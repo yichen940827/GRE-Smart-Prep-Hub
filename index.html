@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRE 備考神幫手 - Master Pro</title>
+    <title>GRE Master Pro - Teaching & Prep Companion</title>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -34,7 +34,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
@@ -71,20 +71,22 @@
         }
 
         .logo-title {
-            font-family: 'Fredoka', cursive, 'Noto Sans TC';
+            font-family: 'Fredoka', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
             color: #FFFFFF;
+            letter-spacing: 0.5px;
         }
 
         .logo-subtitle {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             background-color: var(--mustard-yellow);
             color: var(--academic-blue);
-            padding: 2px 8px;
+            padding: 3px 10px;
             border-radius: 12px;
             font-weight: 700;
             margin-left: 6px;
+            text-transform: uppercase;
         }
 
         /* Navigation Tabs */
@@ -416,17 +418,17 @@
     <header>
         <div class="logo-area">
             <i class="fa-solid fa-graduation-cap"></i>
-            <div class="logo-title">GRE Master Pro <span class="logo-subtitle">學生自主備考版</span></div>
+            <div class="logo-title">GRE Master Pro <span class="logo-subtitle">Prep Companion</span></div>
         </div>
         <nav>
             <button class="nav-tab active" onclick="switchTab('inputTab', event)">
-                <i class="fa-solid fa-pen-to-square"></i> 題目與筆記輸入
+                <i class="fa-solid fa-pen-to-square"></i> Entry & Notes
             </button>
             <button class="nav-tab" onclick="switchTab('notebookTab', event)">
-                <i class="fa-solid fa-book-bookmark"></i> 我的錯題本
+                <i class="fa-solid fa-book-bookmark"></i> Mistake Notebook
             </button>
             <button class="nav-tab" onclick="switchTab('vocabTab', event)">
-                <i class="fa-solid fa-layer-group"></i> Mason 單字庫
+                <i class="fa-solid fa-layer-group"></i> Mason Vocabulary Deck
             </button>
         </nav>
     </header>
@@ -434,87 +436,87 @@
     <!-- Main Content Container -->
     <div class="container">
 
-        <!-- TAB 1: 題目與筆記輸入 -->
+        <!-- TAB 1: Question Entry & Notes -->
         <div id="inputTab" class="tab-content active">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <i class="fa-solid fa-folder-plus" style="color:var(--math-purple);"></i> 新增練習題目與個人解題筆記
+                        <i class="fa-solid fa-folder-plus" style="color:var(--math-purple);"></i> Add New Question & Personal Notes
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="questionType"><i class="fa-solid fa-list-check"></i> 選擇考題類型</label>
+                    <label for="questionType"><i class="fa-solid fa-list-check"></i> Select Question Type</label>
                     <select id="questionType">
-                        <option value="TC">填空題 (Text Completion / Sentence Equivalence)</option>
-                        <option value="RC">閱讀理解 (Reading Comprehension)</option>
-                        <option value="Quant">數量推理 (Quantitative Reasoning)</option>
+                        <option value="TC">Text Completion / Sentence Equivalence (TC/SE)</option>
+                        <option value="RC">Reading Comprehension (RC)</option>
+                        <option value="Quant">Quantitative Reasoning (Quant)</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="questionInput"><i class="fa-solid fa-file-lines"></i> 貼上題目內容 (英文)</label>
-                    <textarea id="questionInput" placeholder="例如：The precursor of the modern violin, the viol, was an instrument of remarkable clarity..."></textarea>
+                    <label for="questionInput"><i class="fa-solid fa-file-lines"></i> Question Prompt (English)</label>
+                    <textarea id="questionInput" placeholder="e.g. The precursor of the modern violin, the viol, was an instrument of remarkable clarity..."></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="optionsInput"><i class="fa-solid fa-bars-staggered"></i> 選項內容 (選填)</label>
-                    <input type="text" id="optionsInput" placeholder="例如：A) ubiquitous  B) ephemeral  C) equivocal  D) taciturn">
+                    <label for="optionsInput"><i class="fa-solid fa-bars-staggered"></i> Answer Options (Optional)</label>
+                    <input type="text" id="optionsInput" placeholder="e.g. A) ubiquitous  B) ephemeral  C) equivocal  D) taciturn">
                 </div>
 
                 <div class="form-group">
-                    <label for="userNotesInput"><i class="fa-solid fa-note-sticky"></i> 我的解析 / 錯題筆記 (Personal Notes)</label>
-                    <textarea id="userNotesInput" placeholder="寫下這題的邏輯轉折點、解題關鍵字、正負語意或當初做錯的原因..."></textarea>
+                    <label for="userNotesInput"><i class="fa-solid fa-note-sticky"></i> My Analysis & Notes (我的解析與筆記)</label>
+                    <textarea id="userNotesInput" placeholder="寫下這題的邏輯轉折點、解題關鍵字、正負語意，或是當初做錯的原因..."></textarea>
                 </div>
 
                 <button class="btn btn-yellow" onclick="saveQuestionToMistakes()">
-                    <i class="fa-solid fa-bookmark"></i> 儲存並加入錯題本
+                    <i class="fa-solid fa-bookmark"></i> Save to Mistake Notebook
                 </button>
             </div>
         </div>
 
-        <!-- TAB 2: 個人錯題本 -->
+        <!-- TAB 2: Mistake Notebook -->
         <div id="notebookTab" class="tab-content">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <i class="fa-solid fa-book-open-reader" style="color:var(--math-purple);"></i> 我的個人錯題本 (Mistake Notebook)
+                        <i class="fa-solid fa-book-open-reader" style="color:var(--math-purple);"></i> My Mistake Notebook
                     </div>
                     <button class="btn btn-purple" onclick="exportNotebook()">
-                        <i class="fa-solid fa-download"></i> 備份錯題資料 (.json)
+                        <i class="fa-solid fa-download"></i> Export Data (.json)
                     </button>
                 </div>
 
-                <!-- 篩選標籤 -->
+                <!-- Filter Chips -->
                 <div class="filter-bar">
-                    <div class="filter-chip active" onclick="filterMistakes('ALL', this)">全部題目</div>
-                    <div class="filter-chip" onclick="filterMistakes('TC', this)">填空 (TC)</div>
-                    <div class="filter-chip" onclick="filterMistakes('RC', this)">閱讀 (RC)</div>
-                    <div class="filter-chip" onclick="filterMistakes('Quant', this)">數學 (Quant)</div>
+                    <div class="filter-chip active" onclick="filterMistakes('ALL', this)">All Questions</div>
+                    <div class="filter-chip" onclick="filterMistakes('TC', this)">TC / SE</div>
+                    <div class="filter-chip" onclick="filterMistakes('RC', this)">RC</div>
+                    <div class="filter-chip" onclick="filterMistakes('Quant', this)">Quant</div>
                 </div>
 
-                <!-- 錯題卡片列表 -->
+                <!-- Mistakes Container -->
                 <div id="mistakesContainer"></div>
             </div>
         </div>
 
-        <!-- TAB 3: 個人單字書 -->
+        <!-- TAB 3: Mason Vocabulary Deck -->
         <div id="vocabTab" class="tab-content">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <i class="fa-solid fa-cards-blank" style="color:var(--math-purple);"></i> Mason 核心高頻單字 Deck
+                        <i class="fa-solid fa-cards-blank" style="color:var(--math-purple);"></i> Mason High-Frequency Vocabulary
                     </div>
                     <button class="btn btn-outline" onclick="toggleFlashcardMode()">
-                        <i class="fa-solid fa-eye-slash"></i> 遮蓋測驗模式
+                        <i class="fa-solid fa-eye-slash"></i> Quiz / Cover Mode
                     </button>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <input type="text" id="vocabSearch" placeholder="搜尋英文單字、中文意義或字根..." oninput="searchVocab()">
+                    <input type="text" id="vocabSearch" placeholder="Search word, meaning, or root..." oninput="searchVocab()">
                 </div>
 
-                <!-- 單字卡網格 -->
+                <!-- Vocab Cards Grid -->
                 <div id="vocabGrid" class="vocab-grid"></div>
             </div>
         </div>
@@ -523,32 +525,35 @@
 
     <!-- Footer -->
     <footer>
-        <p>GRE Master Pro &copy; 2026 | 專為 GRE 學員打造的自主備考工具</p>
+        <p>GRE Master Pro &copy; 2026 | Modern Interactive Learning & Teaching Platform</p>
     </footer>
 
     <!-- JavaScript Logic -->
     <script>
         const MISTAKES_KEY = 'GRE_MASTER_SIMPLE_MISTAKES';
 
-        // 預設 Mason 高頻單字庫
-        const defaultMasonData = [
+        // 直接內嵌 Mason 核心高頻單字資料庫（完全解決外部 JSON 讀取失敗問題）
+        const embeddedMasonData = [
             { word: "equivocal", phonetic: "/ɪˈkwɪv.ə.kəl/", def: "模稜兩可的、明確度低的", root: "equi (相同) + voc (聲音)", synonyms: ["ambiguous", "ambivalent"] },
             { word: "ephemeral", phonetic: "/ɪˈfem.ər.əl/", def: "轉瞬即逝的、短暫的", root: "epi (在...上) + hemer (日)", synonyms: ["transitory", "transient"] },
             { word: "taciturn", phonetic: "/ˈtæs.ə.tɜːn/", def: "沉默寡言的", root: "tac (沉默)", synonyms: ["reserved", "laconic", "reticent"] },
             { word: "ubiquitous", phonetic: "/juːˈbɪk.wə.təs/", def: "無所不在的", root: "ubi (地方)", synonyms: ["omnipresent", "pervasive"] },
             { word: "mitigate", phonetic: "/ˈmɪt.ɪ.ɡeɪt/", def: "緩和、減輕", root: "mitis (柔和)", synonyms: ["allay", "assuage", "mollify"] },
             { word: "audacious", phonetic: "/ɔːˈdeɪ.ʃəs/", def: "大膽的、無畏的", root: "aud (敢於)", synonyms: ["bold", "daring"] },
-            { word: "laconic", phonetic: "/ləˈkɒn.ɪk/", def: "簡短的、言簡意賅的", root: "Laconia (拉科尼亞古國)", synonyms: ["terse", "succinct"] }
+            { word: "laconic", phonetic: "/ləˈkɒn.ɪk/", def: "簡短的、言簡意賅的", root: "Laconia (拉科尼亞古國)", synonyms: ["terse", "succinct"] },
+            { word: "anomaly", phonetic: "/əˈnɒm.ə.li/", def: "異常、反常事物", root: "an (無) + homalos (平坦)", synonyms: ["aberration", "irregularity"] },
+            { word: "capricious", phonetic: "/kəˈprɪʃ.əs/", def: "變化無常的、任性的", root: "capra (山羊)", synonyms: ["fickle", "unpredictable", "whimsical"] },
+            { word: "pragmatic", phonetic: "/præɡˈmæt.ɪk/", def: "務實的、重實效的", root: "pragma (行動/事實)", synonyms: ["practical", "utilitarian"] }
         ];
 
         let mistakesData = JSON.parse(localStorage.getItem(MISTAKES_KEY)) || [];
 
         document.addEventListener('DOMContentLoaded', () => {
             renderMistakes('ALL');
-            renderVocabCards(defaultMasonData);
+            renderVocabCards(embeddedMasonData);
         });
 
-        /* 切換 Tab 分頁 */
+        /* Tab Switching */
         function switchTab(tabId, event) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
@@ -556,7 +561,7 @@
             if (event && event.currentTarget) event.currentTarget.classList.add('active');
         }
 
-        /* 新增題目至錯題本 */
+        /* Save Question to Mistakes */
         function saveQuestionToMistakes() {
             const type = document.getElementById('questionType').value;
             const question = document.getElementById('questionInput').value.trim();
@@ -564,7 +569,7 @@
             const notes = document.getElementById('userNotesInput').value.trim();
 
             if (!question) {
-                alert('請先貼上題目內容！');
+                alert('Please enter the question prompt first!');
                 return;
             }
 
@@ -573,35 +578,35 @@
                 type,
                 question,
                 options,
-                notes: notes || '無備註',
-                status: 'REVIEW' // REVIEW 或 MASTERED
+                notes: notes || 'No personal notes provided.',
+                status: 'REVIEW' // REVIEW or MASTERED
             };
 
             mistakesData.unshift(newItem);
             saveMistakesToLocalStorage();
 
-            // 清空輸入欄位
+            // Clear input fields
             document.getElementById('questionInput').value = '';
             document.getElementById('optionsInput').value = '';
             document.getElementById('userNotesInput').value = '';
 
-            alert('成功加入錯題本！');
+            alert('Successfully saved to your Mistake Notebook!');
             renderMistakes();
             
-            // 自動切換至錯題本 Tab 觀看
+            // Auto switch to Mistake Notebook Tab
             switchTab('notebookTab');
             document.querySelectorAll('.nav-tab')[1].classList.add('active');
             document.querySelectorAll('.nav-tab')[0].classList.remove('active');
         }
 
-        /* 渲染錯題本卡片 */
+        /* Render Mistakes Cards */
         function renderMistakes(filterType = 'ALL') {
             const container = document.getElementById('mistakesContainer');
             container.innerHTML = '';
             const filtered = mistakesData.filter(item => filterType === 'ALL' || item.type === filterType);
 
             if (filtered.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding: 2rem;">目前沒有錯題紀錄，快去新增第一道題目吧！</p>`;
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding: 2rem;">No questions recorded yet. Add your first practice item above!</p>`;
                 return;
             }
 
@@ -611,15 +616,15 @@
                 const isMastered = item.status === 'MASTERED';
                 
                 const statusBadge = isMastered ? 
-                    `<span class="status-toggle status-mastered" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-check"></i> 已掌握</span>` :
-                    `<span class="status-toggle status-review" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-exclamation"></i> 需再複習</span>`;
+                    `<span class="status-toggle status-mastered" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-check"></i> Mastered</span>` :
+                    `<span class="status-toggle status-review" onclick="toggleMistakeStatus(${item.id})"><i class="fa-solid fa-circle-exclamation"></i> Needs Review</span>`;
 
                 card.innerHTML = `
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <span class="badge badge-${item.type.toLowerCase()}">${item.type}</span>
                         <div>
                             ${statusBadge}
-                            <button onclick="deleteMistake(${item.id})" style="background:none; border:none; color:#E53E3E; cursor:pointer; margin-left:8px;" title="刪除本題">
+                            <button onclick="deleteMistake(${item.id})" style="background:none; border:none; color:#E53E3E; cursor:pointer; margin-left:8px;" title="Delete item">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
@@ -627,7 +632,7 @@
                     <div style="font-weight: 700; font-size: 1.05rem; color: var(--academic-blue); line-height:1.5;">${item.question}</div>
                     ${item.options ? `<div style="font-size:0.9rem; color:var(--text-muted);">${item.options}</div>` : ''}
                     <div class="form-group" style="margin-top: 8px;">
-                        <label style="font-size: 0.85rem;"><i class="fa-solid fa-note-sticky"></i> 我的筆記 / 錯因解析</label>
+                        <label style="font-size: 0.85rem;"><i class="fa-solid fa-note-sticky"></i> My Notes & Analysis (我的解析)</label>
                         <input type="text" value="${item.notes}" onchange="updateMistakeNote(${item.id}, this.value)">
                     </div>
                 `;
@@ -659,7 +664,7 @@
         }
 
         function deleteMistake(id) {
-            if (confirm('確定要刪除這道題目嗎？')) {
+            if (confirm('Are you sure you want to delete this question?')) {
                 mistakesData = mistakesData.filter(item => item.id !== id);
                 saveMistakesToLocalStorage();
                 renderMistakes();
@@ -678,7 +683,7 @@
             dlAnchorElem.click();
         }
 
-        /* 單字卡片渲染與搜尋 */
+        /* Vocab Deck Functions */
         function renderVocabCards(data) {
             const grid = document.getElementById('vocabGrid');
             grid.innerHTML = '';
@@ -705,7 +710,7 @@
 
         function searchVocab() {
             const query = document.getElementById('vocabSearch').value.toLowerCase();
-            const filtered = defaultMasonData.filter(item => 
+            const filtered = embeddedMasonData.filter(item => 
                 item.word.toLowerCase().includes(query) ||
                 item.def.includes(query) ||
                 (item.root && item.root.toLowerCase().includes(query))
