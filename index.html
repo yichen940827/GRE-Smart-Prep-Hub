@@ -627,31 +627,7 @@
             }
         }
 
-        /* 動態尋找使用者的 API Key 目前支援哪一個可用 Gemini 模型 */
-        async function getAvailableModel(apiKey) {
-            try {
-                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
-                const data = await res.json();
-                if (data.models && data.models.length > 0) {
-                    // 尋找支援 generateContent 的 flash 或 pro 模型
-                    const generateModels = data.models.filter(m => 
-                        m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent')
-                    );
-                    
-                    // 優先選 2.0-flash > 1.5-flash > 1.5-pro > 任何可用模型
-                    const preferred = generateModels.find(m => m.name.includes('gemini-2.0-flash')) ||
-                                      generateModels.find(m => m.name.includes('gemini-1.5-flash')) ||
-                                      generateModels.find(m => m.name.includes('gemini-1.5-pro')) ||
-                                      generateModels[0];
-                    if (preferred) return preferred.name;
-                }
-            } catch (e) {
-                console.warn('無法自動取得模型清單，改用預設路徑：', e);
-            }
-            return 'models/gemini-1.5-flash';
-        }
-
-        /* AI Solver via Gemini API */
+        /* AI Solver via Gemini API (使用 2026 最新官方預設端點 gemini-2.0-flash) */
         async function analyzeQuestionWithAI() {
             const apiKey = localStorage.getItem(GEMINI_API_KEY_STORAGE);
             if (!apiKey) {
@@ -670,7 +646,7 @@
                 return;
             }
 
-            outputArea.innerHTML = `<p style="text-align:center; color:var(--academic-blue);"><i class="fa-solid fa-spinner fa-spin"></i> 正在連線查詢可用 AI 模型並進行深度分析，請稍候...</p>`;
+            outputArea.innerHTML = `<p style="text-align:center; color:var(--academic-blue);"><i class="fa-solid fa-spinner fa-spin"></i> AI 名師正在連線 Gemini 2.0 進行深度分析，請稍候...</p>`;
 
             // 比對本地單字
             const matchedWords = masonDatabase.filter(item => 
@@ -695,27 +671,40 @@
 4. 【GRE 高頻核心單字提示】：列出題目與選項中的重點 GRE 單字及同義詞。
 `;
 
-            try {
-                // 1. 自動偵測可用的模型名稱
-                const modelName = await getAvailableModel(apiKey);
-                
-                // 2. 呼叫 Gemini API
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/${modelName}:generateContent?key=${apiKey}`;
-                
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: promptText }] }]
-                    })
-                });
+            // 採用最新的預設模型 fallback 清單
+            const candidateUrls = [
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`
+            ];
 
-                const data = await response.json();
-                if (data.error) throw new Error(data.error.message || 'API 呼叫失敗');
+            let aiResponseText = null;
+            let lastError = null;
 
-                const aiResponseText = data.candidates[0].content.parts[0].text;
+            for (const url of candidateUrls) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: promptText }] }]
+                        })
+                    });
+                    const data = await response.json();
+                    if (data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
+                        aiResponseText = data.candidates[0].content.parts[0].text;
+                        break;
+                    } else if (data.error) {
+                        lastError = data.error.message;
+                    }
+                } catch (e) {
+                    lastError = e.message;
+                }
+            }
+
+            if (aiResponseText) {
                 const formattedAiText = aiResponseText
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1$2</strong>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                     .replace(/\n/g, '<br>');
 
                 lastAiAnalysisResult = {
@@ -734,9 +723,8 @@
                         <i class="fa-solid fa-folder-plus"></i> 將本題與 AI 解析加入錯題本
                     </button>
                 `;
-
-            } catch (err) {
-                outputArea.innerHTML = `<p style="color:red;"><i class="fa-solid fa-triangle-exclamation"></i> 解析失敗：${err.message}</p>`;
+            } else {
+                outputArea.innerHTML = `<p style="color:red;"><i class="fa-solid fa-triangle-exclamation"></i> 解析失敗：${lastError || '無法連線至 Gemini API，請確認 API Key 權限與網路通暢。'}</p>`;
             }
         }
 
