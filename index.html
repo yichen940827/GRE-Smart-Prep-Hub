@@ -175,8 +175,8 @@ const PROVIDERS = {
 };
 // 模型 ID 會更新，請以各家官方清單為準；tier: top=推理強、low=數學較容易算錯
 const MODELS = [
-  { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash（快、便宜）', provider: 'gemini', vision: true, tier: 'mid' },
-  { id: 'gemini-2.5-pro', label: 'Gemini 2.5 Pro（較準）', provider: 'gemini', vision: true, tier: 'top' },
+  { id: 'gemini-3.8-flash', label: 'Gemini 3.8 Flash（快、便宜）', provider: 'gemini', vision: true, tier: 'mid' },
+  { id: 'gemini-3.1-pro-preview', label: 'Gemini 3.1 Pro（較準）', provider: 'gemini', vision: true, tier: 'top' },
   { id: 'claude-sonnet-5-5', label: 'Claude Sonnet 5.5', provider: 'claude', vision: true, tier: 'top' },
   { id: 'claude-opus-5-5', label: 'Claude Opus 5.5（最準、最貴）', provider: 'claude', vision: true, tier: 'top' }
 ];
@@ -269,7 +269,7 @@ const ADAPTERS = {
     body: (m, qType, text) => ({
       systemInstruction: { parts: [{ text: SYSTEM }] },
       contents: [{ role: 'user', parts: [...(imgData ? [{ inlineData: { mimeType: 'image/jpeg', data: imgData } }] : []), { text }] }],
-      generationConfig: { temperature: 0.2, maxOutputTokens: qType === 'Quant' ? 16000 : 8192, responseMimeType: 'application/json', responseSchema: toGemini(SCHEMA) }
+      generationConfig: { maxOutputTokens: qType === 'Quant' ? 32000 : 16000, responseMimeType: 'application/json', responseSchema: toGemini(SCHEMA) }
     }),
     parse: data => {
       if (data.promptFeedback?.blockReason) throw new Error('題目被安全過濾擋下：' + data.promptFeedback.blockReason);
