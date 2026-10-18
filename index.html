@@ -472,7 +472,7 @@ async function loadDb() {
 function showDbWarn(tried) {
   $('dbwarn').innerHTML = `<div class="warn"><b>Couldn’t load the Mason deck.</b> Showing ${FALLBACK_WORDS.length} sample words instead.
     <ul style="margin:.5rem 0 .5rem 1.2rem">
-      <li>The file must be in your repo at <code>assets/GRE_Mason_Full_Database_2.json</code>. GitHub is case-sensitive, so check every letter.</li>
+      <li>The file must be in your repo at <code>assets/GRE_Mason_Full_Database.json</code>. GitHub is case-sensitive, so check every letter.</li>
       ${location.protocol === 'file:' ? '<li>You opened this page straight from disk, which browsers block. Use GitHub Pages, or run <code>python -m http.server</code> and open <code>localhost:8000</code>.</li>' : ''}
     </ul>
     <details><summary>What was tried</summary>${tried.map(t => `<div class="vsub">${esc(t)}</div>`).join('')}</details>
