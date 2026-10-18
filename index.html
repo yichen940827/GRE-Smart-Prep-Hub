@@ -101,71 +101,114 @@ details summary{cursor:pointer;font-weight:700}
 .modal>div{background:#fff;padding:1.8rem;border:2px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--yellow);max-width:480px;width:90%}
 .modal a{color:var(--ink);font-weight:700}
 footer{border-top:2px solid var(--ink);padding:1.2rem clamp(1rem,4vw,3rem);font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+body{background-image:radial-gradient(#E4E0F3 1.3px,transparent 1.3px);background-size:24px 24px}
+.hero{position:relative;overflow:hidden}
+.hero>*{position:relative;z-index:1}
+.hero::before{content:"";position:absolute;right:-50px;top:-60px;width:220px;height:220px;border-radius:50%;background:var(--pink);border:2px solid var(--ink)}
+.deco{position:absolute!important;z-index:1}
+.sp{right:clamp(1.5rem,9vw,7rem);bottom:1.4rem;width:64px;animation:spin 14s linear infinite}
+.sq{right:clamp(1rem,4vw,3rem);bottom:5.2rem;width:110px;transform:rotate(-8deg)}
+.sticker{display:inline-block;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:.1rem .9rem;font-weight:700;font-size:.9rem;transform:rotate(-3deg);margin-bottom:.9rem}
+.hero h1{max-width:14em}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.zone.active>*{animation:pop .4s both}
+.zone.active>*:nth-child(2){animation-delay:.06s}.zone.active>*:nth-child(3){animation-delay:.12s}.zone.active>*:nth-child(4){animation-delay:.18s}.zone.active>*:nth-child(n+5){animation-delay:.24s}
+.dots{display:flex;gap:10px;justify-content:center;padding-top:4.5rem}
+.dots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--ink);background:var(--pink);animation:bounce .9s infinite}
+.dots i:nth-child(2){background:var(--yellow);animation-delay:.15s}.dots i:nth-child(3){background:#fff;animation-delay:.3s}
+.tab:hover{transform:rotate(-2deg)}
+.ans{position:relative}
+.ans::after{content:"✦";position:absolute;right:18px;top:6px;font-size:1.8rem;color:var(--pink)}
+.part:hover .ph b{background:linear-gradient(transparent 55%,var(--yellow) 55%)}
+.dbs{margin-top:1rem;font-size:.88rem;color:var(--mute)}
+.dbs .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--pink);border:2px solid var(--ink);margin-right:6px}
+.dbs.ok .dot{background:var(--yellow)}
+.dbs details{margin-top:.4rem}
+.seg{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.seg button{background:#fff;border:none;padding:.2rem .9rem;font-weight:700;cursor:pointer;font-size:.9rem}
+.seg button+button{border-left:2px solid var(--ink)}
+.seg .on.r{background:var(--pink)}.seg .on.m{background:var(--yellow)}
+.mc{transition:transform .2s,box-shadow .2s}.mc:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--yellow)}
+.flip:nth-child(3n+2) .bk{background:var(--yellow)}.flip:nth-child(3n) .bk{background:var(--pink-soft)}
+.flip:nth-child(3n+1) .fr{background:var(--yellow-soft)}.flip:nth-child(3n+2) .fr{background:var(--pink-soft)}
+.flip{transition:transform .2s}.flip:hover{transform:rotate(-1.5deg) translateY(-3px)}
+.rm{margin-top:.5rem;background:none;border:1.5px solid var(--ink);border-radius:999px;padding:0 .7rem;font-size:.8rem;cursor:pointer;font-weight:700}
+.rm:hover{background:#fff}
+@media(max-width:700px){.sq{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 <header>
   <div class="logo"><b>GRE</b> Master Pro</div>
   <nav>
-    <button class="tab active" data-tab="solver">Solve</button>
-    <button class="tab" data-tab="notebook">Notebook</button>
-    <button class="tab" data-tab="vocab">Vocabulary</button>
-    <button class="gear" id="gear">API key</button>
+    <button class="tab active" data-tab="solver">解題</button>
+    <button class="tab" data-tab="notebook">錯題本</button>
+    <button class="tab" data-tab="vocab">單字書</button>
+    <button class="gear" id="gear">API Key</button>
   </nav>
 </header>
 
 <div class="container">
   <section id="solver" class="pane active">
-    <div class="hero"><h1>Drop in the question you can’t solve.</h1><p>Paste text or a screenshot. Get a walkthrough in Chinese, a full translation and a vocabulary table.</p></div>
+    <div class="hero">
+      <svg class="deco sp" viewBox="0 0 48 48"><path d="M24 2c2 12 10 20 22 22-12 2-20 10-22 22-2-12-10-20-22-22C14 22 22 14 24 2z" fill="#fff" stroke="#1E1B3A" stroke-width="2.5" stroke-linejoin="round"/></svg>
+      <svg class="deco sq" viewBox="0 0 120 24"><path d="M2 12c10-14 18 14 28 0s18 14 28 0 18 14 28 0 18 14 28 0" fill="none" stroke="#1E1B3A" stroke-width="5" stroke-linecap="round"/></svg>
+      <span class="sticker">GRE 解題助手</span>
+      <h1>不會的題目，丟進來就好。</h1>
+      <p>貼上文字或截圖，立刻取得中文逐空解析、整題翻譯與單字整理。</p>
+    </div>
     <div class="grid">
       <div>
-        <label for="model">AI model</label>
+        <label for="model">AI 模型</label>
         <select id="model"></select><div class="hint" id="hint"></div>
-        <label for="qType">Question type</label>
+        <label for="qType">題型</label>
         <select id="qType">
-          <option value="TC">Text Completion / Sentence Equivalence</option>
-          <option value="RC">Reading Comprehension</option>
-          <option value="Quant">Quantitative Reasoning</option>
+          <option value="TC">填空題（Text Completion / Sentence Equivalence）</option>
+          <option value="RC">閱讀理解（Reading Comprehension）</option>
+          <option value="Quant">數量推理（Quantitative Reasoning）</option>
         </select>
-        <label for="q">Question <span class="sub">text or screenshot</span></label>
-        <textarea id="q" placeholder="Paste the full question. For reading passages, include the passage."></textarea>
-        <div class="drop" id="drop">Click to upload a screenshot, or paste one with Ctrl/⌘+V</div>
+        <label for="q">題目 <span class="sub">貼上文字或上傳截圖</span></label>
+        <textarea id="q" placeholder="貼上完整題目；閱讀題請連同文章一起貼"></textarea>
+        <div class="drop" id="drop">點擊上傳截圖，或直接 Ctrl/⌘+V 貼上</div>
         <input type="file" id="file" accept="image/*" hidden>
-        <div id="prevWrap"><img id="prev" alt="Question screenshot"> <button class="btn line sm" id="rmImg">Remove</button></div>
-        <label for="opts">Answer choices <span class="sub">optional</span></label>
+        <div id="prevWrap"><img id="prev" alt="題目截圖"> <button class="btn line sm" id="rmImg">移除</button></div>
+        <label for="opts">答案選項 <span class="sub">選填</span></label>
         <input type="text" id="opts" placeholder="A) ubiquitous  B) ephemeral  C) equivocal ...">
-        <label for="mine">My answer <span class="sub">optional, the AI will point out where you went wrong</span></label>
-        <input type="text" id="mine" placeholder="e.g. B, because I thought the blank was negative">
-        <div style="margin-top:1.3rem"><button class="btn gold" id="go">Analyze</button></div>
+        <label for="mine">我的答案 <span class="sub">選填，AI 會指出你錯在哪</span></label>
+        <input type="text" id="mine" placeholder="例如：B，因為我覺得空格是負面語氣">
+        <div style="margin-top:1.3rem"><button class="btn gold" id="go">開始解析</button></div>
+        <div class="dbs" id="dbstatus"></div>
       </div>
-      <div id="result" class="out"><p class="empty">Your solution and extras will appear here.</p></div>
+      <div id="result" class="out"><p class="empty">解題區與補充區會顯示在這裡</p></div>
     </div>
   </section>
 
   <section id="notebook" class="pane"><div class="card">
-    <div class="card-h"><span>Mistake notebook</span><button class="btn line" id="exp">Export backup</button></div>
+    <div class="card-h"><span>我的錯題本</span><button class="btn line" id="exp">備份匯出</button></div>
     <div class="filters" id="filters">
-      <button class="chipbtn active" data-f="ALL">All</button><button class="chipbtn" data-f="TC">TC</button><button class="chipbtn" data-f="RC">RC</button><button class="chipbtn" data-f="Quant">Quant</button>
+      <button class="chipbtn" data-f="REVIEW">需再複習 <span id="cntR"></span></button>
+      <button class="chipbtn" data-f="MASTERED">已掌握 <span id="cntM"></span></button>
     </div>
     <div id="mlist"></div>
   </div></section>
 
   <section id="vocab" class="pane"><div class="card">
-    <div class="card-h"><span>Vocabulary deck</span><button class="btn line" id="cover">Flip all cards</button></div>
-    <div id="dbwarn"></div>
-    <input type="text" id="vs" placeholder="Search a word, a Chinese meaning or a root">
+    <div class="card-h"><span>我的單字書</span><button class="btn line" id="cover">全部翻面</button></div>
+    <input type="text" id="vs" placeholder="搜尋單字、中文意思或字根">
     <div class="vgrid" id="vgrid"></div>
   </div></section>
 </div>
 
 <div class="modal" id="modal"><div>
-  <h3 id="mTitle" style="font-family:var(--display);font-size:1.4rem;margin-bottom:.6rem">API key</h3>
-  <p style="font-size:.9rem;color:var(--mute);margin-bottom:.8rem">Your key stays in this browser and goes straight to Google. Don’t use it on a shared computer. <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Get a free key</a></p>
-  <input type="password" id="keyIn" placeholder="Paste your API key">
-  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:1rem"><button class="btn line" id="keyCancel">Cancel</button><button class="btn gold" id="keySave">Save</button></div>
+  <h3 id="mTitle" style="font-family:var(--display);font-size:1.4rem;margin-bottom:.6rem">API Key</h3>
+  <p style="font-size:.9rem;color:var(--mute);margin-bottom:.8rem">Key 只會存在你的瀏覽器，並直接送往 Google。請勿在公用電腦使用。<a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">免費申請 Key</a></p>
+  <input type="password" id="keyIn" placeholder="貼上你的 API Key">
+  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:1rem"><button class="btn line" id="keyCancel">取消</button><button class="btn gold" id="keySave">儲存</button></div>
 </div></div>
-<footer><span>GRE Master Pro</span><span>Analyses are AI-generated. Double-check the answers.</span></footer>
+<footer><span>GRE Master Pro</span><span>解析由 AI 產生，答案請自行核對</span></footer>
 
 <script>
 /* ===== Config ===== */
@@ -175,20 +218,11 @@ const CONFIG = {
   DB_URL: './assets/GRE_Mason_Full_Database_2.json'
 };
 const DB_CANDIDATES = [...new Set([CONFIG.DB_URL, './GRE_Mason_Full_Database_2.json', './assets/GRE_Mason_Full_Database.json', './GRE_Mason_Full_Database.json'])];
-const FALLBACK_WORDS = [
-  { word: 'equivocal', phonetic: '/ɪˈkwɪv.ə.kəl/', def: '模稜兩可的', root: 'equi + voc', synonyms: ['ambiguous', 'ambivalent'] },
-  { word: 'ephemeral', phonetic: '/ɪˈfem.ər.əl/', def: '轉瞬即逝的', root: 'epi + hemer', synonyms: ['transitory', 'transient'] },
-  { word: 'taciturn', phonetic: '/ˈtæs.ə.tɜːn/', def: '沉默寡言的', root: 'tac', synonyms: ['reserved', 'laconic', 'reticent'] },
-  { word: 'ubiquitous', phonetic: '/juːˈbɪk.wə.təs/', def: '無所不在的', root: 'ubi', synonyms: ['omnipresent', 'pervasive'] },
-  { word: 'mitigate', phonetic: '/ˈmɪt.ɪ.ɡeɪt/', def: '緩和、減輕', root: 'mitis', synonyms: ['allay', 'assuage', 'mollify'] },
-  { word: 'audacious', phonetic: '/ɔːˈdeɪ.ʃəs/', def: '大膽的', root: 'aud', synonyms: ['bold', 'daring'] },
-  { word: 'laconic', phonetic: '/ləˈkɒn.ɪk/', def: '言簡意賅的', root: 'Laconia', synonyms: ['terse', 'succinct'] }
-];
 const PROVIDERS = { gemini: { name: 'Google Gemini' } };
 // Model IDs change often; check Google AI Studio for the current list. tier: top = strongest reasoning
 const MODELS = [
-  { id: 'gemini-3.8-flash', label: 'Gemini 3.8 Flash (fast, cheap)', provider: 'gemini', vision: true, tier: 'mid' },
-  { id: 'gemini-3.1-pro-preview', label: 'Gemini 3.1 Pro (more accurate)', provider: 'gemini', vision: true, tier: 'top' }
+  { id: 'gemini-3.8-flash', label: 'Gemini 3.8 Flash（快速、便宜）', provider: 'gemini', vision: true, tier: 'mid' },
+  { id: 'gemini-3.1-pro-preview', label: 'Gemini 3.1 Pro（較準確）', provider: 'gemini', vision: true, tier: 'top' }
 ];
 const SYSTEM = `你是資深 GRE 名師，學生是台灣考生。學生會貼上一道 GRE 題目（可能是文字或截圖）。請全程使用繁體中文（台灣慣用語）撰寫解析，英文原文、單字與片語保留英文。
 推導規則：
@@ -206,6 +240,7 @@ const SYSTEM = `你是資深 GRE 名師，學生是台灣考生。學生會貼�
   - 引用原文關鍵片語時用 **粗體** 標示。
 - translation：整題（題目加選項）完整的繁體中文翻譯，通順自然。
 - vocab：題目與選項中值得學的單字與片語（最多 10 筆）。word 用原形；pos 寫詞性（adj.、n.、v.、adv.，片語寫「片語」）；meaning_zh 簡潔；synonyms 提供 2 到 4 個 GRE 常見同義字。
+- 若使用者訊息附有「Mason 字庫參考資料」，那是補充單字時的參考：題目中出現在其中的字，meaning_zh 與 synonyms 以該資料為準（可再補充更多同義字）；不在其中的字，請自行補充。
 - diagnosis：若學生提供了「我的答案」，用 2 到 3 句指出他錯在哪個思考環節；沒有則留空字串。
 - 不要使用 markdown 標題、表格或條列符號。`;
 const SCHEMA = {
@@ -227,7 +262,7 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
 const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
-const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch { alert('Browser storage is full or disabled'); } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch { alert('瀏覽器儲存空間已滿或被停用'); } };
 let mistakes = load('GRE_MISTAKES_V2', []), myVocab = load('GRE_MYVOCAB', []), mason = [], dbMap = new Map(), lastAi = null, lastMeta = null, imgData = null, filter = 'ALL';
 
 /* ===== 分頁 / 設定 ===== */
@@ -237,7 +272,7 @@ document.querySelectorAll('.tab').forEach(b => b.onclick = () => {
 });
 const openModal = () => {
   const p = curModel().provider;
-  $('mTitle').textContent = PROVIDERS[p].name + ' API key';
+  $('mTitle').textContent = PROVIDERS[p].name + ' API Key';
   $('keyIn').value = localStorage.getItem(keyName(p)) || ''; $('modal').style.display = 'flex';
 };
 $('gear').onclick = openModal;
@@ -282,9 +317,9 @@ const ADAPTERS = {
       generationConfig: { maxOutputTokens: qType === 'Quant' ? 32000 : 16000, responseMimeType: 'application/json', responseSchema: toGemini(SCHEMA) }
     }),
     parse: data => {
-      if (data.promptFeedback?.blockReason) throw new Error('Blocked by the safety filter: ' + data.promptFeedback.blockReason);
+      if (data.promptFeedback?.blockReason) throw new Error('題目被安全過濾擋下：' + data.promptFeedback.blockReason);
       const c = data.candidates?.[0];
-      if (c?.finishReason === 'MAX_TOKENS') throw new Error('The response was cut off (question too long or complex). Shorten it and retry.');
+      if (c?.finishReason === 'MAX_TOKENS') throw new Error('回答被截斷（題目太長或太複雜），請縮短後重試');
       return (c?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');
     }
   }
@@ -306,28 +341,28 @@ async function callAI(m, qType, text) {
   if (CONFIG.PROXY_URL) { url = CONFIG.PROXY_URL; body.provider = m.provider; body.model = m.id; }
   else {
     const key = localStorage.getItem(keyName(m.provider));
-    if (!key) { openModal(); throw new Error(`Set your ${PROVIDERS[m.provider].name} API key first`); }
+    if (!key) { openModal(); throw new Error(`請先設定 ${PROVIDERS[m.provider].name} 的 API Key`); }
     url = A.url(m); Object.assign(headers, A.headers(key));
   }
   const r = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
   const data = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(data.error?.message || (typeof data.error === 'string' ? data.error : `API error (${r.status})`));
+  if (!r.ok) throw new Error(data.error?.message || (typeof data.error === 'string' ? data.error : `API 錯誤 (${r.status})`));
   let out = A.parse(data);
   if (typeof out === 'string') {
     out = out.replace(/^```(?:json)?\s*|\s*```$/g, '').trim();
-    try { out = JSON.parse(out); } catch { throw new Error('The model returned malformed output. Retry or switch model.'); }
+    try { out = JSON.parse(out); } catch { throw new Error('模型回傳格式錯誤，請重試或換一個模型'); }
   }
-  if (!out || typeof out !== 'object') throw new Error('The model returned nothing. Retry.');
+  if (!out || typeof out !== 'object') throw new Error('模型沒有回傳內容，請重試');
   out = normalize(out); out.qType = qType;
-  if (!out.answer) throw new Error('The model gave no answer. Retry or switch to a stronger model.');
+  if (!out.answer) throw new Error('模型沒有給出答案，請重試或換一個更強的模型');
   return out;
 }
 
 /* ===== Model picker / hints ===== */
 function updateHint() {
   const m = curModel(), msgs = [];
-  if ($('qType').value === 'Quant' && m.tier !== 'top') msgs.push('For Quant questions, the Pro model is more reliable.');
-  if (imgData && !m.vision) msgs.push('This model can’t read images.');
+  if ($('qType').value === 'Quant' && m.tier !== 'top') msgs.push('數學題建議改用 Pro 模型，準確度較高。');
+  if (imgData && !$('q').value.trim()) msgs.push('只有截圖時，AI 無法參考 Mason 字庫；若想要字庫補充，請一併貼上題目文字。');
   $('hint').textContent = msgs.join(' ');
 }
 (function initModels() {
@@ -336,21 +371,35 @@ function updateHint() {
   const saved = localStorage.getItem('GRE_MODEL');
   if (saved && list.some(m => m.id === saved)) $('model').value = saved;
   $('model').onchange = () => { localStorage.setItem('GRE_MODEL', $('model').value); updateHint(); };
-  $('qType').onchange = updateHint;
+  $('qType').onchange = updateHint; $('q').oninput = updateHint;
   updateHint();
 })();
 
+/* ===== Mason reference lookup (the deck is reference data for the AI, not shown as flashcards) ===== */
+const variants = t => {
+  const v = new Set([t]);
+  for (const [re, to] of [[/ies$/, 'y'], [/ied$/, 'y'], [/(es|ed)$/, ''], [/[sd]$/, ''], [/ing$/, ''], [/ing$/, 'e'], [/ly$/, ''], [/ally$/, 'al'], [/ness$/, '']]) if (re.test(t)) v.add(t.replace(re, to));
+  return [...v];
+};
+const findMason = w => { for (const x of variants(String(w).toLowerCase().trim())) if (dbMap.has(x)) return dbMap.get(x); return null; };
+function masonRefs(text) {
+  const low = text.toLowerCase(), found = new Map();
+  for (const t of low.match(/[a-z][a-z'-]{3,}/g) || []) { const m = findMason(t); if (m) found.set(m.word.toLowerCase(), m); }
+  for (const p of phrases) if (low.includes(p.word.toLowerCase())) found.set(p.word.toLowerCase(), p);
+  return [...found.values()].slice(0, 60);
+}
+
 $('go').onclick = async () => {
   const qType = $('qType').value, q = $('q').value.trim(), opts = $('opts').value.trim(), mine = $('mine').value.trim();
-  if (!q && !imgData) return alert('Paste a question or upload a screenshot first.');
-  const text = `題型：${qType}\n題目：${q || '(見截圖)'}\n選項：${opts || '無／見截圖'}\n我的答案：${mine || '未提供'}`;
+  if (!q && !imgData) return alert('請先輸入題目或上傳截圖');
+  const refs = masonRefs(q + ' ' + opts);
+  const refText = refs.length ? `\n\nMason 字庫參考資料（共 ${refs.length} 字，僅供單字補充參考）：\n` + refs.map(w => `${w.word} | ${w.def} | 字根：${w.root || '—'} | 同義：${w.synonyms.slice(0, 8).join(', ') || '—'}`).join('\n') : '';
+  const text = `題型：${qType}\n題目：${q || '(見截圖)'}\n選項：${opts || '無／見截圖'}\n我的答案：${mine || '未提供'}${refText}`;
   $('go').disabled = true;
-  $('result').innerHTML = `<p class="empty">${qType === 'Quant' ? 'Working through the math, this can take 30–60 seconds…' : 'Analyzing…'}</p>`;
+  $('result').innerHTML = `<div class="dots"><i></i><i></i><i></i></div><p class="empty" style="padding-top:1rem">${qType === 'Quant' ? '正在推導並驗算，約需 30–60 秒…' : '解析中…'}</p>`;
   try {
-    const m = curModel();
-    if (imgData && !m.vision) throw new Error('This model can’t read images. Pick another model or paste the text.');
-    lastAi = await callAI(m, qType, text);
-    lastMeta = { type: qType, question: q || '(screenshot)', mine };
+    lastAi = await callAI(curModel(), qType, text);
+    lastMeta = { type: qType, question: q || '(截圖題目)', mine };
     showResult(lastAi);
   } catch (e) {
     $('result').innerHTML = `<div class="err">${esc(e.message)}</div>`;
@@ -359,35 +408,35 @@ $('go').onclick = async () => {
 
 /* ===== Render analysis ===== */
 function vocabRow(v) {
-  const m = dbMap.get(String(v.word).toLowerCase());
-  const payload = encodeURIComponent(JSON.stringify({ word: v.word, def: v.meaning_zh, synonyms: v.synonyms || [] })).replace(/'/g, '%27');
-  const mine = myVocab.some(x => x.word.toLowerCase() === String(v.word).toLowerCase());
-  const syn = [...new Set([...(m?.synonyms || []), ...(v.synonyms || [])])].join(', ');
-  return `<tr><td><b class="vw">${esc(v.word)}</b><span class="tag ${m ? 'in' : ''}">${m ? 'Mason' : 'New'}</span>${m?.root ? `<div class="vsub">Root: ${esc(m.root)}</div>` : ''}</td>
-    <td>${esc(v.pos || '')}</td><td>${esc(v.meaning_zh || m?.def || '')}</td><td>${esc(syn)}</td>
-    <td>${m || mine ? '' : `<button class="btn sm line" onclick="addVocab('${payload}',this)">Add</button>`}</td></tr>`;
+  const m = findMason(v.word);
+  const syn = [...new Set([...(m?.synonyms || []), ...(v.synonyms || [])])];
+  const meaning = v.meaning_zh || m?.def || '';
+  const payload = encodeURIComponent(JSON.stringify({ word: v.word, def: meaning, synonyms: syn, pos: v.pos || '', root: m?.root || '' })).replace(/'/g, '%27');
+  const has = myVocab.some(x => x.word.toLowerCase() === String(v.word).toLowerCase());
+  return `<tr><td><b class="vw">${esc(v.word)}</b><span class="tag ${m ? 'in' : ''}">${m ? 'Mason 字庫' : 'AI 補充'}</span>${m?.root ? `<div class="vsub">字根：${esc(m.root)}</div>` : ''}</td>
+    <td>${esc(v.pos || '')}</td><td>${esc(meaning)}</td><td>${esc(syn.join(', '))}</td>
+    <td>${has ? '<span class="vsub">已加入</span>' : `<button class="btn sm line" onclick="addVocab('${payload}',this)">加入單字書</button>`}</td></tr>`;
 }
 function renderSolve(a) {
-  const L = a.qType === 'Quant' ? ['Concept', 'Method', 'Calculation & check'] : ['Clue & contrast words', 'Sentence structure', 'Reasoning'];
+  const L = a.qType === 'Quant' ? ['考點', '解法', '計算與驗算'] : ['線索詞／轉折詞', '句構分析', '解析'];
   const parts = a.parts || [];
   const old = !parts.length && (a.steps?.length || a.explanation) ? `<p style="margin-top:1rem">${(a.steps?.length ? a.steps : [a.explanation]).map(rich).join('<br>')}</p>` : '';
   const row = (t, x) => x ? `<dt>${t}</dt><dd>${rich(x)}</dd>` : '';
   return `${a.warnings ? `<div class="warn">${rich(a.warnings)}</div>` : ''}
-  <div class="ans"><span>Answer</span><div class="av">${esc(a.answer)}</div></div>
+  <div class="ans"><span>答案</span><div class="av">${esc(a.answer)}</div></div>
   ${parts.map(p => `<article class="part"><div class="ph"><b>${esc(p.label)}</b>${p.answer ? `<span class="pa">${esc(p.answer)}</span>` : ''}</div>
     <dl>${row(L[0], p.clue)}${row(L[1], p.structure)}${row(L[2], p.reasoning)}</dl></article>`).join('')}${old}
-  ${a.diagnosis ? `<div class="diag"><b>Where you went wrong</b><p>${rich(a.diagnosis)}</p></div>` : ''}
-  ${a.scratch_work ? `<details class="fold"><summary>Full AI reasoning</summary><div class="foldb">${rich(a.scratch_work)}</div></details>` : ''}`;
+  ${a.diagnosis ? `<div class="diag"><b>你的盲點</b><p>${rich(a.diagnosis)}</p></div>` : ''}
+  ${a.scratch_work ? `<details class="fold"><summary>AI 完整推導過程</summary><div class="foldb">${rich(a.scratch_work)}</div></details>` : ''}`;
 }
 function renderExtra(a) {
   const rows = (a.vocab || []).map(vocabRow).join('');
-  return `<section class="xs"><h3>Full translation</h3><p class="tr">${rich(a.translation)}</p></section>
-  <section class="xs"><h3>Vocabulary & phrases</h3>${rows ? `<div class="tw"><table class="vt"><thead><tr><th>Word / phrase</th><th>POS</th><th>Meaning</th><th>Synonyms</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p class="vsub">Nothing to review in this question.</p>'}</section>`;
+  return `<section class="xs"><h3>整題中文翻譯</h3><p class="tr">${rich(a.translation)}</p></section>
+  <section class="xs"><h3>單字與片語整理</h3>${rows ? `<div class="tw"><table class="vt"><thead><tr><th>單字／片語</th><th>詞性</th><th>中文意思</th><th>同義字</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p class="vsub">這題沒有需要整理的單字。</p>'}</section>`;
 }
-const renderAnalysis = a => `<h3 class="zh">Solution</h3>${renderSolve(a)}<h3 class="zh">Extras</h3>${renderExtra(a)}`;
 function showResult(a) {
-  $('result').innerHTML = `<div class="ztabs"><button class="zt active" data-z="zSolve">Solution</button><button class="zt" data-z="zExtra">Extras<span class="cnt">${(a.vocab || []).length}</span></button>
-    <button class="btn line sm" onclick="addMistake(this)">Add to notebook</button></div>
+  $('result').innerHTML = `<div class="ztabs"><button class="zt active" data-z="zSolve">解題區</button><button class="zt" data-z="zExtra">補充區<span class="cnt">${(a.vocab || []).length}</span></button>
+    <button class="btn line sm" onclick="addMistake(this)">加入錯題本</button></div>
     <div id="zSolve" class="zone active">${renderSolve(a)}</div><div id="zExtra" class="zone">${renderExtra(a)}</div>`;
 }
 $('result').addEventListener('click', e => {
@@ -398,107 +447,123 @@ $('result').addEventListener('click', e => {
 function addMistake(btn) {
   mistakes.unshift({ id: Date.now(), ...lastMeta, ai: lastAi, notes: '', status: 'REVIEW' });
   save('GRE_MISTAKES_V2', mistakes); renderMistakes();
-  btn.disabled = true; btn.textContent = 'Added';
+  btn.disabled = true; btn.textContent = '已加入';
 }
 function addVocab(p, btn) {
   const v = JSON.parse(decodeURIComponent(p));
   if (!myVocab.some(x => x.word.toLowerCase() === v.word.toLowerCase())) { myVocab.unshift(v); save('GRE_MYVOCAB', myVocab); renderVocab(); }
-  btn.remove();
+  btn.disabled = true; btn.textContent = '已加入';
 }
 
 /* ===== 錯題本 ===== */
+const TYPE_ZH = { TC: '填空', RC: '閱讀', Quant: '數學' };
 function renderMistakes() {
-  const list = mistakes.filter(m => filter === 'ALL' || m.type === filter);
+  $('cntR').textContent = `(${mistakes.filter(m => m.status !== 'MASTERED').length})`;
+  $('cntM').textContent = `(${mistakes.filter(m => m.status === 'MASTERED').length})`;
+  document.querySelectorAll('#filters .chipbtn').forEach(b => b.classList.toggle('active', b.dataset.f === filter));
+  const list = mistakes.filter(m => filter === 'ALL' || (filter === 'MASTERED') === (m.status === 'MASTERED'));
   $('mlist').innerHTML = list.length ? list.map(m => `
     <div class="mc ${esc(m.type)}">
-      <div class="top"><b>${esc(m.type)}</b><button class="st ${m.status}" onclick="toggleSt(${m.id})">${m.status === 'MASTERED' ? 'Mastered' : 'Needs review'}</button></div>
+      <div class="top"><b>${esc(TYPE_ZH[m.type] || m.type)}</b>
+        <span class="seg"><button class="r ${m.status !== 'MASTERED' ? 'on' : ''}" onclick="setSt(${m.id},'REVIEW')">需再複習</button><button class="m ${m.status === 'MASTERED' ? 'on' : ''}" onclick="setSt(${m.id},'MASTERED')">已掌握</button></span></div>
       <div style="font-weight:700;white-space:pre-wrap">${esc(m.question.slice(0, 300))}${m.question.length > 300 ? '…' : ''}</div>
-      <div style="margin:.4rem 0"><b>Answer:</b> ${esc(m.ai.answer)}${m.mine ? `　<span style="color:var(--mute)">My answer: ${esc(m.mine)}</span>` : ''}</div>
-      <details><summary>View full analysis</summary>${renderAnalysis(m.ai)}</details>
-      <label>My notes</label><input type="text" value="${esc(m.notes)}" onchange="setNote(${m.id},this.value)" placeholder="Your own notes">
-      <div style="text-align:right;margin-top:.6rem"><button class="btn line sm" onclick="delMistake(${m.id})">Delete</button></div>
-    </div>`).join('') : '<p class="empty">No mistakes saved yet. Solve a question, then hit “Add to notebook”.</p>';
+      <div style="margin:.4rem 0"><b>答案：</b>${esc(m.ai.answer)}${m.mine ? `　<span style="color:var(--mute)">我的答案：${esc(m.mine)}</span>` : ''}</div>
+      <details><summary>查看解析</summary>${renderSolve(m.ai)}</details>
+      <label>我的筆記</label><input type="text" value="${esc(m.notes)}" onchange="setNote(${m.id},this.value)" placeholder="寫下自己的備註">
+      <div style="text-align:right;margin-top:.6rem"><button class="btn line sm" onclick="delMistake(${m.id})">刪除</button></div>
+    </div>`).join('') : `<p class="empty">${mistakes.length ? '這個分類目前沒有題目。' : '還沒有錯題。解題後按「加入錯題本」就會出現在這裡。'}</p>`;
 }
-const toggleSt = id => { const m = mistakes.find(x => x.id === id); m.status = m.status === 'MASTERED' ? 'REVIEW' : 'MASTERED'; save('GRE_MISTAKES_V2', mistakes); renderMistakes(); };
+const setSt = (id, s) => { mistakes.find(x => x.id === id).status = s; save('GRE_MISTAKES_V2', mistakes); renderMistakes(); };
 const setNote = (id, v) => { mistakes.find(x => x.id === id).notes = v; save('GRE_MISTAKES_V2', mistakes); };
-const delMistake = id => { if (confirm('Delete this question?')) { mistakes = mistakes.filter(x => x.id !== id); save('GRE_MISTAKES_V2', mistakes); renderMistakes(); } };
-$('filters').onclick = e => { const b = e.target.closest('.chipbtn'); if (!b) return; document.querySelectorAll('.chipbtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); filter = b.dataset.f; renderMistakes(); };
+const delMistake = id => { if (confirm('確定刪除這題？')) { mistakes = mistakes.filter(x => x.id !== id); save('GRE_MISTAKES_V2', mistakes); renderMistakes(); } };
+$('filters').onclick = e => { const b = e.target.closest('.chipbtn'); if (!b) return; filter = filter === b.dataset.f ? 'ALL' : b.dataset.f; renderMistakes(); };
 $('exp').onclick = () => {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([JSON.stringify({ mistakes, myVocab }, null, 2)], { type: 'application/json' }));
   a.download = 'GRE_backup.json'; a.click();
 };
 
-/* ===== Vocabulary deck ===== */
+/* ===== Personal vocabulary book ===== */
 let covered = false;
 function renderVocab() {
   const qs = $('vs').value.toLowerCase().trim();
-  const all = [...myVocab.map(v => ({ ...v, mine: true })), ...mason];
-  const list = all.filter(v => !qs || v.word.toLowerCase().includes(qs) || (v.def || '').includes(qs) || (v.root || '').toLowerCase().includes(qs)).slice(0, 300);
+  const list = myVocab.map((v, i) => ({ ...v, i })).filter(v => !qs || v.word.toLowerCase().includes(qs) || (v.def || '').includes(qs) || (v.root || '').toLowerCase().includes(qs));
+  $('vgrid').style.display = list.length ? '' : 'none';
   $('vgrid').innerHTML = list.map(v => `<div class="flip ${covered ? 'on' : ''}" onclick="this.classList.toggle('on')"><div class="fi">
-    <div class="fr"><div class="w">${esc(v.word)}</div><div style="color:var(--mute);font-size:.9rem">${esc(v.phonetic || (v.mine ? 'Added by me' : ''))}</div></div>
-    <div class="bk"><div class="d">${esc(v.def)}</div>${v.root ? `<div>Root: ${esc(v.root)}</div>` : ''}<div>Synonyms: ${esc((v.synonyms || []).join(', ') || '—')}</div></div></div></div>`).join('')
-    || '<p class="vsub">No matching words.</p>';
+    <div class="fr"><div class="w">${esc(v.word)}</div><div style="color:var(--mute);font-size:.9rem">${esc(v.pos || '')}</div></div>
+    <div class="bk"><div class="d">${esc(v.def)}</div>${v.root ? `<div>字根：${esc(v.root)}</div>` : ''}<div>同義字：${esc((v.synonyms || []).join(', ') || '—')}</div>
+      <button class="rm" onclick="event.stopPropagation();delVocab(${v.i})">移除</button></div></div></div>`).join('');
+  let e = $('vempty');
+  if (!e) { e = document.createElement('p'); e.id = 'vempty'; e.className = 'empty'; $('vgrid').after(e); }
+  e.textContent = list.length ? '' : (myVocab.length ? '找不到符合的單字。' : '還沒有單字。解題後在「補充區」按「加入單字書」，就會收進這裡。');
 }
+const delVocab = i => { myVocab.splice(i, 1); save('GRE_MYVOCAB', myVocab); renderVocab(); };
 $('vs').oninput = renderVocab;
 $('cover').onclick = () => { covered = !covered; renderVocab(); };
 
-/* ===== Mason deck loading (tries several paths, shows exactly what failed) ===== */
+/* ===== Mason reference deck (fed to the AI as reference; never shown as cards) ===== */
+let phrases = [];
 function normDb(raw) {
   const list = Array.isArray(raw) ? raw : Array.isArray(raw?.words) ? raw.words
     : raw && typeof raw === 'object' ? Object.entries(raw).map(([k, v]) => typeof v === 'object' ? { word: k, ...v } : { word: k, def: String(v) }) : [];
-  return list.map(w => ({
-    word: String(w.word ?? w.Word ?? w.vocab ?? w.term ?? '').trim(),
-    phonetic: String(w.phonetic ?? w.pronunciation ?? ''),
-    def: String(w.def ?? w.meaning ?? w.definition ?? w.zh ?? w.chinese ?? ''),
-    root: String(w.root ?? w.roots ?? w.etymology ?? ''),
-    synonyms: Array.isArray(w.synonyms) ? w.synonyms.map(String) : typeof w.synonyms === 'string' ? w.synonyms.split(/[,;、，]\s*/).filter(Boolean) : []
-  })).filter(w => w.word);
+  const pick = (w, re) => { for (const k of Object.keys(w)) if (re.test(k) && w[k] != null && w[k] !== '') return w[k]; return ''; };
+  const cjk = w => { for (const v of Object.values(w)) if (typeof v === 'string' && /[\u4e00-\u9fff]/.test(v)) return v; return ''; };
+  return list.filter(w => w && typeof w === 'object').map(w => {
+    const syn = w.synonyms ?? pick(w, /syn|同義/i);
+    return {
+      word: String(w.word ?? pick(w, /^(word|vocab|term|headword|單字|英文)/i)).trim(),
+      phonetic: String(pick(w, /pron|phon|ipa|音標/i)),
+      def: String(pick(w, /^(def|mean|zh|chi|中文|釋義)/i) || cjk(w)),
+      root: String(pick(w, /root|etym|字根|字源/i)),
+      synonyms: Array.isArray(syn) ? syn.map(String) : typeof syn === 'string' ? syn.split(/[,;、，；]\s*/).filter(Boolean) : []
+    };
+  }).filter(w => w.word);
 }
-function setDb(db) { mason = db; dbMap = new Map(mason.map(w => [w.word.toLowerCase(), w])); renderVocab(); }
+function setDb(db, note = '') {
+  mason = db; dbMap = new Map(mason.map(w => [w.word.toLowerCase(), w])); phrases = mason.filter(w => /\s/.test(w.word));
+  $('dbstatus').className = 'dbs ok';
+  $('dbstatus').innerHTML = `<span class="dot"></span>Mason 字庫已載入（${db.length} 字），AI 補充單字時會參考它。${note}`;
+}
 async function loadDb() {
   const tried = [];
   for (const u of DB_CANDIDATES) {
     try {
       const r = await fetch(u, { cache: 'no-cache' });
-      if (!r.ok) { tried.push(`${u}: HTTP ${r.status}`); continue; }
+      if (!r.ok) { tried.push(`${u}：HTTP ${r.status}`); continue; }
       const db = normDb(await r.json());
-      if (!db.length) { tried.push(`${u}: loaded, but no entries with a "word" field`); continue; }
+      if (!db.length) { tried.push(`${u}：讀到了，但找不到含 "word" 欄位的資料`); continue; }
       return { db, tried };
-    } catch (e) { tried.push(`${u}: ${e.message || 'blocked'}`); }
+    } catch (e) { tried.push(`${u}：${e.message || '被瀏覽器擋下'}`); }
   }
   return { db: null, tried };
 }
 function showDbWarn(tried) {
-  $('dbwarn').innerHTML = `<div class="warn"><b>Couldn’t load the Mason deck.</b> Showing ${FALLBACK_WORDS.length} sample words instead.
-    <ul style="margin:.5rem 0 .5rem 1.2rem">
-      <li>The file must be in your repo at <code>assets/GRE_Mason_Full_Database.json</code>. GitHub is case-sensitive, so check every letter.</li>
-      ${location.protocol === 'file:' ? '<li>You opened this page straight from disk, which browsers block. Use GitHub Pages, or run <code>python -m http.server</code> and open <code>localhost:8000</code>.</li>' : ''}
-    </ul>
-    <details><summary>What was tried</summary>${tried.map(t => `<div class="vsub">${esc(t)}</div>`).join('')}</details>
-    <div style="margin-top:.7rem"><button class="btn line sm" onclick="$('dbfile').click()">Load the JSON file manually</button><input type="file" id="dbfile" accept=".json,application/json" hidden onchange="importDb(this.files[0])"></div></div>`;
+  $('dbstatus').className = 'dbs';
+  $('dbstatus').innerHTML = `<span class="dot"></span>Mason 字庫未載入。AI 仍可正常解題，只是單字補充不會參考字庫。
+    <div style="margin-top:.4rem"><button class="btn line sm" onclick="$('dbfile').click()">手動載入 JSON</button><input type="file" id="dbfile" accept=".json,application/json" hidden onchange="importDb(this.files[0])"></div>
+    <details><summary>為什麼？</summary>檔案需放在 repo 的 <code>assets/GRE_Mason_Full_Database_2.json</code>（GitHub 區分大小寫）。${location.protocol === 'file:' ? '你目前是直接從硬碟開啟，瀏覽器會擋下讀檔；請改用 GitHub Pages 或 localhost。' : ''}
+    ${tried.map(t => `<div>${esc(t)}</div>`).join('')}</details>`;
 }
 async function importDb(f) {
   if (!f) return;
   try {
     const raw = JSON.parse(await f.text()), db = normDb(raw);
-    if (!db.length) throw new Error('No entries with a "word" field were found.');
-    setDb(db);
-    try { localStorage.setItem('GRE_MASON_IMPORT', JSON.stringify(raw)); } catch { /* too big to cache; fine */ }
-    $('dbwarn').innerHTML = `<div class="warn">Loaded ${db.length} words from ${esc(f.name)}.</div>`;
-  } catch (e) { alert('Could not read that file: ' + e.message); }
+    if (!db.length) throw new Error('找不到含 "word" 欄位的資料');
+    setDb(db, '（手動載入）');
+    try { localStorage.setItem('GRE_MASON_IMPORT', JSON.stringify(raw)); } catch { /* too big to cache */ }
+  } catch (e) { alert('無法讀取這個檔案：' + e.message); }
 }
 
 /* ===== Init ===== */
 (async () => {
+  $('dbstatus').innerHTML = '<span class="dot"></span>Mason 字庫載入中…';
   const { db, tried } = await loadDb();
   if (db) setDb(db);
   else {
     const saved = load('GRE_MASON_IMPORT', null), sdb = saved ? normDb(saved) : [];
-    if (sdb.length) { setDb(sdb); $('dbwarn').innerHTML = `<div class="warn">Using the ${sdb.length}-word deck you imported earlier. The site’s own file couldn’t be loaded.</div>`; }
-    else { setDb(FALLBACK_WORDS); showDbWarn(tried); }
+    if (sdb.length) setDb(sdb, '（使用你之前手動載入的檔案）'); else showDbWarn(tried);
   }
-  renderMistakes();
+  renderVocab(); renderMistakes();
 })();
 </script>
 </body>
