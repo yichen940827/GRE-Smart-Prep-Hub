@@ -1,34 +1,54 @@
-# 🎓 GRE Master Pro (GRE 智慧互動解題與學習平台)
+# GRE Master Pro 🎓
 
-**GRE Master Pro** 是一款專為 GRE 考生設計的單一檔案（Single-file Web App）互動解題與學習系統。本專案結合 **Vibe Coding** 開發理念，採用亮眼清爽的**學院風亮色撞色 (Bright Academic & Pop Contrast)** 設計，整合 Mason 2000 核心單字庫與同義詞資料庫，提供即時翻譯解題、系統化錯題本與翻牌單字卡功能。
-
----
-
-## ✨ 核心特色 (Key Features)
-
-### 1. ⚡ 即時解題與翻譯專區 (Real-time Solver)
-* **多題型支援**：涵蓋填空 (Text Completion / Sentence Equivalence)、閱讀理解 (Reading Comprehension) 與數量推理 (Quantitative Reasoning)。
-* **自動考點比對**：輸入題目後自動搜尋並匹配 Mason 2000 高頻單字，呈現字根拆解與同義詞配對。
-* **一鍵收錄**：支援直接將題目與解析加入個人錯題本。
-
-### 2. 📚 系統化錯題本 (Mistake Notebook)
-* **分類篩選**：可依照「填空」、「閱讀」、「數學」及「全部」進行快速切換。
-* **狀態追蹤**：支援標記「需再複習」與「已掌握」，輕鬆控管複習進度。
-* **個人筆記與備份**：每道錯題皆可自由編輯 Personal Notes，並提供 JSON 格式備份下載。
-
-### 3. 🃏 個人單字書 Deck (Vocabulary Deck)
-* **3D 翻牌卡片**：預設顯示英文單字與音標，點擊卡片翻面查看中文釋義、字根與同義詞。
-* **遮蓋測驗模式**：一鍵轉換為測驗模式（Flashcard Mode），方便自我檢測記憶熟練度。
-* **智慧搜尋**：支援關鍵字、中文釋義或字根快速檢索。
+**GRE Master Pro** 是一款專為 GRE 考生打造的智慧 AI 解題助手與備考工具。透過整合 **Google Gemini API** 與 **Mason GRE 字庫**，提供繁體中文逐空解析、句構剖析、語意轉折分析、數學驗算與智慧錯題本功能。
 
 ---
 
-## 🛠️ 技術架構 (Technical Architecture)
+## 🌟 核心功能
 
-* **前端技術**：HTML5, CSS3 (自訂 Flexbox/Grid 學院風撞色樣式), JavaScript (ES6+)
-* **圖示與字型**：FontAwesome 6.4.0, Google Fonts (Fredoka, Noto Sans TC, Playfair Display)
-* **資料持久化**：使用瀏覽器原生 `window.localStorage` 儲存個人錯題本與自訂單字，重新整理或關閉頁面資料不遺失。
-* **資料庫整合**：透過 Fetch API 自動讀取 `./assets/GRE_Mason_Full_Database_2.json`。
+### 1. 🤖 AI 智慧解題助手 (Solver)
+- **多題型支援**：支援填空題（Text Completion / Sentence Equivalence）、閱讀理解（Reading Comprehension）與數量推理（Quantitative Reasoning）。
+- **圖文雙模態輸入**：可直接貼上題目文字，或上傳/剪貼（Ctrl+V）題目截圖進行辨識與解析。
+- **繁體中文專業解析**：
+  - **填空題**：分析線索詞（Clue）、轉折關係（Direction）、句構分析與排除選項理由。
+  - **數量推理**：進行詳細計算過程推導與邏輯驗算。
+  - **診斷盲點**：若輸入「我的答案」，AI 會精準指出考生的思考誤區。
+- **自動翻譯與單字對照**：提供整題通順中文翻譯，並自動抽取高頻單字/片語。
+
+### 2. 📖 Mason 字庫自動比對
+- 系統內建/自動載入 `GRE_Mason_Full_Database` 字典庫。
+- AI 解題時會自動檢索題目關鍵字，優先套用 Mason 字庫的解釋、字根（Root）與常見同義字（Synonyms）。
+
+### 3. 📝 個人化錯題本 (Mistake Notebook)
+- **一鍵收錄**：解析完成後可直接將題目與 AI 解析歸檔至錯題本。
+- **狀態管理**：提供「需再複習」與「已掌握」篩選標籤，並支援自訂個人筆記。
+- **資料備份**：支援將錯題本與單字庫匯出為 JSON 檔案進行備份。
+
+### 4. 🃏 智慧單字卡 (Vocab Flashcards)
+- **卡片翻轉測試**：支援雙面單字卡（正面顯示單字/詞性，背面顯示中文/字根/同義字）。
+- **一鍵全部翻面**：方便自我測驗。
+- **關鍵字搜尋**：可針對單字、中文釋義或字根進行即時過濾。
+
+---
+
+## 🛠️ 技術架構
+
+- **前端**：純 HTML5 + CSS3 (Neo-brutalism 新粗獷主義視覺風格) + Vanilla JavaScript (無框架依賴)。
+- **AI 介接**：Google Gemini REST API (`gemini-3.8-flash` / `gemini-3.1-pro-preview`)。
+- **資料儲存**：全本地端儲存 (`localStorage`)，無後端資料庫負擔，嚴格保護使用者隱私與 API Key 安全。
+- **結構化輸出**：使用 JSON Schema 強制規範 AI 回傳格式。
+
+---
+
+## 🚀 快速上手
+
+### 1. 本地開啟
+由於本專案為單頁應用程式 (SPA)，您可以選擇以下方式執行：
+1. **直接開啟**：雙擊 `index.html` 即可在瀏覽器中執行（部分瀏覽器因跨域安全性限制，可能無法自動載入本地 Mason 字庫 JSON 檔）。
+2. **使用 Local Server（推薦）**：
+   ```bash
+   # 使用 VS Code Live Server 套件，或用 Python 啟動：
+   python -m http.server 8000
 
 ---
 
