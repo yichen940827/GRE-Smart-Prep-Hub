@@ -40,18 +40,6 @@
 
 ---
 
-## 🚀 快速上手
-
-### 1. 本地開啟
-由於本專案為單頁應用程式 (SPA)，您可以選擇以下方式執行：
-1. **直接開啟**：雙擊 `index.html` 即可在瀏覽器中執行（部分瀏覽器因跨域安全性限制，可能無法自動載入本地 Mason 字庫 JSON 檔）。
-2. **使用 Local Server（推薦）**：
-   ```bash
-   # 使用 VS Code Live Server 套件，或用 Python 啟動：
-   python -m http.server 8000
-
----
-
 ## 📁 檔案結構 (Project Structure)
 
 ```text
